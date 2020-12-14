@@ -1,153 +1,12 @@
 <template>
 
   <base-content>
-    <div class="container q-pa-lg q-col-gutter-md">
-      <div class="row justify-between q-col-gutter-md">
-        <div class="col-xs-12 col-md-3 q-gutter-md">
-          <q-card class="income ">
-            <q-card-section horizontal>
-              <q-card-section class="col">
-                <div class="text-subtitle2 text-white">
-                  Income
-                  <q-icon color="yellow" name="trending_up"/>
-                </div>
-                <div class="text-h6 q-mt-sm q-mb-xs text-white">
-                  <countTo :startVal='906584' :endVal='952765' :duration='1500'/>
-                  ¥
-                </div>
-              </q-card-section>
-              <q-card-section class="col">
-                <div style="height: 100%;max-width: 150px">
-                  <v-chart :options="income"/>
-                </div>
-              </q-card-section>
-            </q-card-section>
-          </q-card>
-          <q-card class="expense ">
-            <q-card-section horizontal>
-              <q-card-section class="col">
-                <div class="text-subtitle2 text-white">
-                  Expense
-                  <q-icon color="green" name="trending_down"/>
-                </div>
-                <div class="text-h6 q-mt-sm q-mb-xs text-white">
-                  <countTo :startVal='400326' :endVal='439956' :duration='1500'/>
-                  ¥
-                </div>
-              </q-card-section>
-              <q-card-section class="col">
-                <div style="height: 100%;width: 150px">
-                  <v-chart :options="expense"/>
-                </div>
-              </q-card-section>
-            </q-card-section>
-          </q-card>
-          <q-card class="total ">
-            <q-card-section horizontal>
-              <q-card-section class="col">
-                <div class="text-subtitle2 text-white">
-                  Total
-                  <q-icon color="yellow" name="trending_up"/>
-                </div>
-                <div class="text-h6 q-mt-sm q-mb-xs text-white">
-                  <countTo :startVal='706198' :endVal='756268' :duration='1500'/>
-                  ¥
-                </div>
-              </q-card-section>
-              <q-card-section class="col">
-                <div style="height: 100%;width: 150px">
-                  <v-chart class="" :options="total"/>
-                </div>
-              </q-card-section>
-            </q-card-section>
-          </q-card>
-        </div>
-        <div class="col-xs-12 col-md-9">
-          <q-card class="cimo-shadow col-11" style="height: 100%;min-height:390px;padding: 3px;">
-            <v-chart class="" :options="charts2Option" autoresize/>
-          </q-card>
-        </div>
-      </div>
-      <div class="row q-col-gutter-md">
-        <div class="col-xs-12 col-md-3">
-          <q-card class="cimo-shadow" style="height: 430px; width: 100%; padding: 3px">
-            <v-chart class="" :options="chartPie" autoresize/>
-          </q-card>
-        </div>
-        <div class="col-xs-12 col-md-3">
-          <q-card class="my-card cimo-shadow">
-            <q-img
-              :src="this.$PUBLIC_PATH + 'data/bird.jpg'"
-            />
-            <q-card-section>
-              <div class="text-overline text-orange-9">Overline</div>
-              <div class="text-h5 q-mt-sm q-mb-xs">Title</div>
-            </q-card-section>
-            <q-card-actions>
-              <q-btn flat color="dark" label="Share"/>
-              <q-btn flat color="primary" label="Book"/>
-
-              <q-space/>
-
-              <q-btn
-                color="grey"
-                round
-                flat
-                dense
-                :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                @click="expanded = !expanded"
-              />
-            </q-card-actions>
-
-            <q-slide-transition>
-              <div v-show="expanded">
-                <q-separator/>
-                <q-card-section class="text-subitle2">
-                  {{ lorem }}
-                </q-card-section>
-              </div>
-            </q-slide-transition>
-          </q-card>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <q-table
-            class="cimo-shadow"
-            :grid="$q.screen.xs"
-            title="Treats"
-            :data="data"
-            :columns="columns"
-            :filter="filter"
-            row-key="name"
-            style="height: 430px;"
-          >
-            <template v-slot:top-right>
-              <q-input dense debounce="300" v-model="filter" placeholder="Search">
-                <template v-slot:append>
-                  <q-icon name="search"/>
-                </template>
-              </q-input>
-            </template>
-            <template v-slot:body="props">
-              <q-tr :props="props">
-                <q-td key="name" :props="props">{{ props.row.name }}</q-td>
-                <q-td key="calories" :props="props">{{ props.row.calories }}</q-td>
-                <q-td key="fat" :props="props">{{ props.row.fat }}</q-td>
-                <q-td key="carbs" :props="props">{{ props.row.carbs }}</q-td>
-                <q-td key="operating" :props="props">
-                  <q-btn class="btn-table text-white" icon="tune" label="详情" @click="handleTableClick(props.row)"/>
-                </q-td>
-              </q-tr>
-            </template>
-          </q-table>
-        </div>
-      </div>
-    </div>
+    home
   </base-content>
 
 </template>
 
 <script>
-import countTo from 'vue-count-to'
 import BaseContent from '../../components/BaseContent/BaseContent'
 import { thumbStyle } from '../../components/BaseContent/thumbStyle'
 import chartPie from '../../assets/js/echarts-1'
@@ -158,8 +17,7 @@ import chartZ from '../../assets/js/echarts-4'
 export default {
   name: 'home',
   components: {
-    BaseContent,
-    countTo
+    BaseContent
   },
   data () {
     return {

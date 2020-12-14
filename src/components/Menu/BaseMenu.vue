@@ -10,10 +10,6 @@
         :duration="150"
         :bg-color-level="1"/>
     </q-list>
-
-    <!-- 底部说明 -->
-    <bottom-link/>
-
    </div>
   </q-scroll-area>
 </template>
@@ -21,10 +17,9 @@
 <script>
 import { thumbStyleOfMenu } from '../BaseContent/thumbStyle'
 import BaseMenuItem from './BaseMenuItem'
-import BottomLink from './BottomLink'
 export default {
   name: 'base-menu',
-  components: { BaseMenuItem, BottomLink },
+  components: { BaseMenuItem },
   data () {
     return {
       menuList: this.$store.getters.getRoutes[0].children,

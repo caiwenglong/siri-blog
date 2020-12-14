@@ -1,13 +1,49 @@
 const timeStamp = new Date().getTime()
+const path = require('path')
+const name = 'siri blog'
+const port = 8086
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/vue-quasar-manage/' : '/',
   devServer: {
-    port: 8868
+    port: port,
+    open: false,
+    proxy: {
+      '/user-api': {
+        target: 'http://localhost:8003',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/user-api': ''
+        }
+      },
+      '/article-api': {
+        target: 'http://localhost:8002',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/article-api': ''
+        }
+      }
+    },
+    overlay: {
+      warnings: false,
+      errors: true
+    }
+  },
+  pwa: {
+    name: name
   },
   pluginOptions: {
     quasar: {
       importStrategy: 'kebab',
       rtlSupport: false
+    },
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: [
+        path.resolve(__dirname, 'src/styles/_variables.scss'),
+        path.resolve(__dirname, 'src/styles/_mixins.scss')
+      ]
     }
   },
   transpileDependencies: [

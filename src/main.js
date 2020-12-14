@@ -20,6 +20,9 @@ import './components/Markdown/Markdown'
 // ECharts
 import './components/ECharts/EChartsConfig'
 
+// 样式
+import './styles/index.scss'
+
 // 前往 public 文件夹的路径
 Vue.prototype.$PUBLIC_PATH = process.env.BASE_URL
 
