@@ -1,19 +1,19 @@
 <template>
-   <div>
-    <lottie-web-cimo style="height: 80vh" path="https://assets6.lottiefiles.com/datafiles/OzG1c5GtuAvq10U/data.json"/>
-     <div class="row justify-center">
-     <q-btn
-       icon="arrow_back"
-       class="bg-logon-card-input"
-       text-color="white"
-       unelevated
-       label=""
-       style="font-size: large;width: 200px"
-       @click="back"
-     >返 回
-     </q-btn>
-     </div>
-   </div>
+  <div>
+    <lottie-web-cimo style="height: 80vh" path="https://assets6.lottiefiles.com/datafiles/OzG1c5GtuAvq10U/data.json" />
+    <div class="row justify-center">
+      <q-btn
+        icon="arrow_back"
+        class="bg-logon-card-input"
+        text-color="white"
+        unelevated
+        label=""
+        style="font-size: large;width: 200px"
+        @click="back"
+      >返 回
+      </q-btn>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   name: 'NoFound404',
   components: { LottieWebCimo },
   methods: {
-    back () {
+    back() {
       window.history.back(-1)
     }
   }

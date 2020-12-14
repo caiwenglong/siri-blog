@@ -1,16 +1,17 @@
 <template>
   <q-scroll-area :visible="false" class="fit" :thumb-style="thumbStyleOfMenu">
-   <div>
-    <!-- 动态菜单 -->
-    <q-list>
-      <base-menu-item
-        :my-router="menuList"
-        :init-level="0"
-        :bg-color="bgColor"
-        :duration="150"
-        :bg-color-level="1"/>
-    </q-list>
-   </div>
+    <div>
+      <!-- 动态菜单 -->
+      <q-list>
+        <base-menu-item
+          :my-router="menuList"
+          :init-level="0"
+          :bg-color="bgColor"
+          :duration="150"
+          :bg-color-level="1"
+        />
+      </q-list>
+    </div>
   </q-scroll-area>
 </template>
 
@@ -18,9 +19,9 @@
 import { thumbStyleOfMenu } from '../BaseContent/thumbStyle'
 import BaseMenuItem from './BaseMenuItem'
 export default {
-  name: 'base-menu',
+  name: 'BaseMenu',
   components: { BaseMenuItem },
-  data () {
+  data() {
     return {
       menuList: this.$store.getters.getRoutes[0].children,
       bgColor: 'bg-grey',

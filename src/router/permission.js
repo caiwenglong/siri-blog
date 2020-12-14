@@ -51,7 +51,7 @@ export default router
  * 处理 tagView 和 面包屑
  * @param to
  */
-function handleTagViewAndBreadcrumbsAndKeepAlive (to) {
+function handleTagViewAndBreadcrumbsAndKeepAlive(to) {
   if (to.name != null) {
     document.title = to.meta.title + _Vue.prototype.$title
     LoadingBar.start()
@@ -79,7 +79,7 @@ function handleTagViewAndBreadcrumbsAndKeepAlive (to) {
  * 处理多余的 layout : router-view，让当前组件保持在第一层 index : router-view 之下
  * @param to
  */
-function handleKeepAlive (to) {
+function handleKeepAlive(to) {
   if (to.matched && to.matched.length > 2) {
     for (let i = 0; i < to.matched.length; i++) {
       const element = to.matched[i]

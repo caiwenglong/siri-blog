@@ -4,7 +4,7 @@ import _this from '../../main'
 import { getFirst } from '../../utils/clone-utils'
 
 // 构造 tag-view 的元信息，如果符合条件( 不是公共路由 )就提交到 store，生成 tagView 元素
-export function addTagView (to) {
+export function addTagView(to) {
   // 构造临时 tagView 对象
   const t = {
     fullPath: to.fullPath,
@@ -21,12 +21,12 @@ export function addTagView (to) {
   }
 }
 
-export function setTagView (tagView) {
+export function setTagView(tagView) {
   store.commit('SET_TAG_VIEW', tagView)
 }
 
 // 只移除一个 tagView
-export function removeATagView (state, payload) {
+export function removeATagView(state, payload) {
   // 记录被移除的路由
   const removedTagView = state.tagView[payload].fullPath
   state.tagView.splice(payload, 1)
@@ -52,7 +52,7 @@ export function removeATagView (state, payload) {
 }
 
 // 移除某一侧 tagView
-export function removeOneSide (state, payload) {
+export function removeOneSide(state, payload) {
   switch (payload.side) {
     case 'right':
       state.tagView = state.tagView.slice(0, payload.index + 1)

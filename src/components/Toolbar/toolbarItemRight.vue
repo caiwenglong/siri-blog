@@ -1,24 +1,30 @@
 <template>
   <div class="q-gutter-sm row items-center no-wrap">
-    <q-input  dense outlined v-model="search" style="min-width: 60px" input-class="text-right" class="q-ml-md">
+    <q-input v-model="search" dense outlined style="min-width: 60px" input-class="text-right" class="q-ml-md">
       <template v-slot:append>
-        <q-icon  v-if="search === ''" name="search" />
-        <q-icon  v-else name="clear" class="cursor-pointer" @click="search = ''" />
+        <q-icon v-if="search === ''" name="search" />
+        <q-icon v-else name="clear" class="cursor-pointer" @click="search = ''" />
       </template>
     </q-input>
-    <q-btn round dense flat color="grey-8"
-           :icon="this.$q.fullscreen.isActive?'fullscreen_exit':'fullscreen'"
-           v-if="$q.screen.gt.sm" @click="fullScreen">
+    <q-btn
+      v-if="$q.screen.gt.sm"
+      round
+      dense
+      flat
+      color="grey-8"
+      :icon="this.$q.fullscreen.isActive?'fullscreen_exit':'fullscreen'"
+      @click="fullScreen"
+    >
       <q-tooltip v-if="!this.$q.fullscreen.isActive">全屏</q-tooltip>
       <q-tooltip v-if="this.$q.fullscreen.isActive">退出全屏</q-tooltip>
     </q-btn>
-    <q-btn round dense flat color="grey-8" icon="video_call" v-if="$q.screen.gt.sm">
+    <q-btn v-if="$q.screen.gt.sm" round dense flat color="grey-8" icon="video_call">
       <q-tooltip>创建</q-tooltip>
     </q-btn>
-    <q-btn round dense flat color="grey-8" icon="apps" v-if="$q.screen.gt.sm">
+    <q-btn v-if="$q.screen.gt.sm" round dense flat color="grey-8" icon="apps">
       <q-tooltip>应用</q-tooltip>
     </q-btn>
-    <q-btn round dense flat color="grey-8" icon="message" v-if="$q.screen.gt.sm">
+    <q-btn v-if="$q.screen.gt.sm" round dense flat color="grey-8" icon="message">
       <q-tooltip>消息</q-tooltip>
     </q-btn>
     <q-btn round dense flat color="grey-8" icon="notifications">
@@ -39,10 +45,10 @@
             <div class="text-subtitle1 q-mt-md q-mb-xs">Hi！ CIMO</div>
 
             <q-btn
+              v-close-popup
               color="primary"
               label="Logout"
               size="sm"
-              v-close-popup
               @click="logout"
             />
           </div>
@@ -58,8 +64,8 @@
 
 <script>
 export default {
-  name: 'toolbarItemRight',
-  data () {
+  name: 'ToolbarItemRight',
+  data() {
     return {
       search: '',
       mobileData: false,
@@ -67,7 +73,7 @@ export default {
     }
   },
   methods: {
-    fullScreen () {
+    fullScreen() {
       if (this.$q.fullscreen.isActive) {
         // 退出全屏模式：
         this.$q.fullscreen.exit()
@@ -90,7 +96,7 @@ export default {
           })
       }
     },
-    logout () {
+    logout() {
       this.$store.commit('LOGOUT')
       this.$router.push('/')
       window.sessionStorage.clear()

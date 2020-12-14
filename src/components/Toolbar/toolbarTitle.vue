@@ -1,15 +1,15 @@
 <template>
-  <q-btn flat no-caps no-wrap class="q-ml-xs" v-if="$q.screen.gt.xs">
+  <q-btn v-if="$q.screen.gt.xs" flat no-caps no-wrap class="q-ml-xs">
     <q-toolbar-title shrink class="text-weight-bold">
-      {{title}}
+      {{ title }}
     </q-toolbar-title>
   </q-btn>
 </template>
 
 <script>
 export default {
-  name: 'toolbarTitle',
-  data () {
+  name: 'ToolbarTitle',
+  data() {
     return {
       title: 'CIMO'
     }

@@ -6,13 +6,13 @@ Vue.use(VueRouter)
 
 // 解决路由守卫重定向时报错
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location, onResolve, onReject) {
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
   return originalPush.call(this, location).catch(err => err)
 }
 
 // 重置路由方法
-export function resetRouter () {
+export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher
 }

@@ -6,7 +6,7 @@ import store from '../store'
  * @param t 暂存变量
  * @returns {*} 过滤后的路由
  */
-function constructionRouters (router, t) {
+function constructionRouters(router, t) {
   t = router.filter(item => { return item.meta.roles.indexOf(store.getters.getRole) !== -1 })
   for (const i in t) {
     if (t[i].children) {

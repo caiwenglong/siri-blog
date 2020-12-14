@@ -1,5 +1,5 @@
 <template>
-  <div ref="lottieBox"></div>
+  <div ref="lottieBox" />
 </template>
 
 <script>
@@ -8,36 +8,48 @@ import lottie from 'lottie-web'
 import { throttle } from 'quasar'
 
 export default {
-  name: 'lottie-web-cimo',
-  data () {
+  name: 'LottieWebCimo',
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['animationData', 'path', 'loop', 'animationSpeed'],
+  data() {
     return {
       lottie: {}
     }
   },
-  props: ['animationData', 'path', 'loop', 'animationSpeed'],
+  watch: {
+    animationSpeed: function(n, o) {
+      this.onSpeedChange()
+    }
+  },
+  created() {
+    this.initLottie = throttle(this.initLottie, 1000)
+  },
+  mounted() {
+    this.initLottie()
+  },
   methods: {
 
-    stop: function () {
+    stop: function() {
       this.lottie.stop()
     },
 
-    play: function () {
+    play: function() {
       this.lottie.play()
     },
 
-    pause: function () {
+    pause: function() {
       this.lottie.pause()
     },
 
-    onSpeedChange: function () {
+    onSpeedChange: function() {
       this.lottie.setSpeed(this.animationSpeed)
     },
 
-    isLottieFinish: function (e) {
+    isLottieFinish: function(e) {
       this.$emit('isLottieFinish', e)
     },
 
-    initLottie: function () {
+    initLottie: function() {
       this.lottie = lottie.loadAnimation({
         container: this.$refs.lottieBox,
         renderer: 'svg',
@@ -49,17 +61,6 @@ export default {
       this.lottie.addEventListener('data_ready', () => { this.isLottieFinish(true) })
     }
 
-  },
-  created () {
-    this.initLottie = throttle(this.initLottie, 1000)
-  },
-  mounted () {
-    this.initLottie()
-  },
-  watch: {
-    animationSpeed: function (n, o) {
-      this.onSpeedChange()
-    }
   }
 }
 </script>

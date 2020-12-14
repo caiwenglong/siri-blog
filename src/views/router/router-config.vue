@@ -1,7 +1,7 @@
 <template>
   <base-content>
     <div class="base-markdown-content">
-      <v-md-editor :value="content" mode="preview"></v-md-editor>
+      <v-md-editor :value="content" mode="preview" />
     </div>
   </base-content>
 </template>
@@ -10,15 +10,18 @@
 import BaseContent from '../../components/BaseContent/BaseContent'
 
 export default {
-  name: 'router-config',
+  name: 'RouterConfig',
   components: { BaseContent },
-  data () {
+  data() {
     return {
       content: ''
     }
   },
+  mounted() {
+    this.getMsg()
+  },
   methods: {
-    getMsg () {
+    getMsg() {
       const query = {
         url: './data/routerData.md',
         method: 'get',
@@ -30,9 +33,6 @@ export default {
         console.log(error)
       })
     }
-  },
-  mounted () {
-    this.getMsg()
   }
 }
 </script>

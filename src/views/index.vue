@@ -2,35 +2,47 @@
   <q-layout :view="viewStyle" class="bg-grey-1 full-height">
 
     <!-- 头部 -->
-    <q-header class="q-py-xs bg-white text-grey-8" height-hint="48"
-              style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;">
+    <q-header
+      class="q-py-xs bg-white text-grey-8"
+      height-hint="48"
+      style="box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;"
+    >
 
       <!-- 状态栏 -->
       <q-toolbar style="margin-top: -5px;">
-        <q-btn flat dense round color="grey-8" aria-label="Menu" :icon="leftDrawerOpen === true?'menu_open':'menu'"
-               @click="leftDrawerOpen = !leftDrawerOpen"/>
+        <q-btn
+          flat
+          dense
+          round
+          color="grey-8"
+          aria-label="Menu"
+          :icon="leftDrawerOpen === true?'menu_open':'menu'"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
         <!-- toolbar - title -->
-        <toolbar-title/>
+        <toolbar-title />
         <!-- 面包屑 -->
-        <breadcrumbs v-if="$q.screen.gt.xs"/>
-        <q-space/>
+        <breadcrumbs v-if="$q.screen.gt.xs" />
+        <q-space />
         <!-- 右侧元素 -->
-        <toolbar-item-right/>
+        <toolbar-item-right />
       </q-toolbar>
 
-      <q-separator color="grey-3"/>
+      <q-separator color="grey-3" />
 
       <!-- TAGVIEW -->
-      <tag-view/>
+      <tag-view />
 
     </q-header>
 
     <!-- 侧滑菜单 -->
-    <q-drawer v-model="leftDrawerOpen"
-              show-if-above
-              content-class="bg-grey-1"
-              :width="240">
-      <base-menu/>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      content-class="bg-grey-1"
+      :width="240"
+    >
+      <base-menu />
     </q-drawer>
 
     <!-- 内容路由 -->
@@ -38,7 +50,7 @@
 
       <transition name="fade-transform" mode="out-in">
         <keep-alive :max="Max_keepAlive" :include="keepAliveList">
-          <router-view :key="$route.fullPath"/>
+          <router-view :key="$route.fullPath" />
         </keep-alive>
       </transition>
 
@@ -55,7 +67,7 @@ import ToolbarTitle from '../components/Toolbar/toolbarTitle'
 import ToolbarItemRight from '../components/Toolbar/toolbarItemRight'
 
 export default {
-  name: 'index',
+  name: 'Index',
   components: {
     ToolbarItemRight,
     ToolbarTitle,
@@ -63,7 +75,7 @@ export default {
     TagView,
     BaseMenu
   },
-  data () {
+  data() {
     return {
       viewStyle: this.$SildeBar,
       leftDrawerOpen: false,
@@ -73,15 +85,15 @@ export default {
   },
   computed: {
     // 获取缓存列表
-    getKeepAliveList () {
+    getKeepAliveList() {
       return this.$store.getters.getKeepAliveList
     },
-    key () {
+    key() {
       return this.$route.fullPath
     }
   },
   watch: {
-    getKeepAliveList (n, o) {
+    getKeepAliveList(n, o) {
       this.keepAliveList = n
     }
   }

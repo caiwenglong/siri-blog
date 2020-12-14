@@ -3,37 +3,40 @@
   <div class="flex justify-center items-center" style="height: 100vh">
 
     <div class="row base-card-shadow" style="width: 60vw;min-width: 300px">
-      <div class="col-6 flex justify-center items-center " v-show="$q.screen.gt.sm">
-        <q-skeleton type="text" height="70%" width="50%" v-if="!isLottieF"/>
-        <lottie-web-cimo align="right" style="height: 70%" :path="defaultOptions.path" @isLottieFinish="handleFinish"/>
+      <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
+        <q-skeleton v-if="!isLottieF" type="text" height="70%" width="50%" />
+        <lottie-web-cimo align="right" style="height: 70%" :path="defaultOptions.path" @isLottieFinish="handleFinish" />
       </div>
-      <q-separator vertical inset v-if="$q.screen.gt.sm"/>
+      <q-separator v-if="$q.screen.gt.sm" vertical inset />
       <div class="col flex justify-center items-center">
         <q-card square style="min-width: 290px;height: 100%; width: 60%;" class="no-shadow">
           <q-card-section align="center">
             <h3 class="text-uppercase">cimo</h3>
             <!-- 用户名 -->
-            <q-input class="logon-input"
-               clearable
-               standout="bg-cyan text-white"
-               bottom-slots
-               v-model="username"
-               label="账号"
+            <q-input
+              v-model="username"
+              class="logon-input"
+              clearable
+              standout="bg-cyan text-white"
+              bottom-slots
+              label="账号"
             >
               <template v-slot:prepend>
-                <q-icon name="account_circle"/>
+                <q-icon name="account_circle" />
               </template>
             </q-input>
             <!-- 密码 -->
-            <q-input class="logon-input"
-               standout="bg-cyan text-white"
-               bottom-slots
-               v-model="password"
-               label="密码"
-               :type="isPwd ? 'password' : 'text'" hint=""
+            <q-input
+              v-model="password"
+              class="logon-input"
+              standout="bg-cyan text-white"
+              bottom-slots
+              label="密码"
+              :type="isPwd ? 'password' : 'text'"
+              hint=""
             >
               <template v-slot:prepend>
-                <q-icon name="vpn_key"/>
+                <q-icon name="vpn_key" />
               </template>
               <template v-slot:append>
                 <q-icon
@@ -56,8 +59,8 @@
             >登 录 系 统
             </q-btn>
             <div class="row justify-between" style="margin-bottom: 20px;">
-              <q-btn flat label="忘记密码"/>
-              <q-btn outline label="我要注册"/>
+              <q-btn flat label="忘记密码" />
+              <q-btn outline label="我要注册" />
             </div>
             <p class="text-grey" align="left">账号2 ：test &nbsp;&nbsp;&nbsp;&nbsp;密码均为空</p>
           </q-card-section>
@@ -72,8 +75,9 @@
 import LottieWebCimo from '../../components/LottieWebCimo/lottie-web-cimo'
 
 export default {
-  name: 'logon',
-  data () {
+  name: 'Logon',
+  components: { LottieWebCimo },
+  data() {
     return {
       isPwd: true,
       username: 'admin',
@@ -87,9 +91,8 @@ export default {
       isLottieF: false
     }
   },
-  components: { LottieWebCimo },
   methods: {
-    logon () {
+    logon() {
       this.loading = !this.loading
       if (this.username === 'admin' || this.username === 'test') {
         sessionStorage.setItem('access_token', 972784674)
@@ -116,7 +119,7 @@ export default {
         })
       }
     },
-    handleFinish (e) {
+    handleFinish(e) {
       this.isLottieF = e
     }
   }

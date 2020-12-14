@@ -15,11 +15,11 @@ import { income, expense, total } from '../../assets/js/echarts-3'
 import chartZ from '../../assets/js/echarts-4'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     BaseContent
   },
-  data () {
+  data() {
     return {
       expanded: false,
       chartPie,
@@ -132,7 +132,7 @@ export default {
     }
   },
   methods: {
-    handleTableClick (e) {
+    handleTableClick(e) {
       this.$router.push({
         path: `tableDetail/${e.name}`
       })

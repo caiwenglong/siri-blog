@@ -3,7 +3,7 @@
  * @param obj
  * @returns {[]|{}}
  */
-function deepClone (obj) {
+function deepClone(obj) {
   if (obj === null) {
     return
   }
@@ -19,7 +19,7 @@ function deepClone (obj) {
 }
 
 // 获取对象的第一个元素
-export function getFirst (obj) {
+export function getFirst(obj) {
   for (const key in obj) {
     return obj[key]
   }
