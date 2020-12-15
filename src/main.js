@@ -7,9 +7,6 @@ import router from './router/permission'
 // 系统全局配置
 import './config'
 
-// 全局 axios 工具类 fetchData
-import './axios/fetchData'
-
 // 第三方组件
 import animated from 'animate.css'
 import jsonView from 'vue-json-views'

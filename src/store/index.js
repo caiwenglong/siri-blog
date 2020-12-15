@@ -3,11 +3,17 @@ import Vuex from 'vuex'
 import state from './state'
 import getters from './getters'
 import mutations from './mutations'
+import article from './modules/article'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state,
   getters,
-  mutations
+  mutations,
+  modules: {
+    user,
+    article
+  }
 })

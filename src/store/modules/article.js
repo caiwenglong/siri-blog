@@ -1,0 +1,59 @@
+import { apiGetArticles, apiAddArticle } from '@/api/article'
+const articleDefaultState = () => {
+  return {
+    id: '',
+    title: '',
+    category: '',
+    content: '',
+    author: '',
+    gmtCreate: '',
+    gmtModified: ''
+  }
+}
+
+const state = {
+  entityArticle: articleDefaultState,
+  entityArticleList: []
+}
+
+const mutations = {
+  SET_ENTITY_ARTICLE: (state, article) => {
+    state.entityArticle = article
+  },
+  SET_ENTITY_ARTICLE_LIST: (state, articleList) => {
+    state.entityArticleList = articleList
+  }
+}
+
+const actions = {
+  /* 获取文章列表 */
+  getAllArticles({ commit }) {
+    return new Promise((resolve, reject) => {
+      apiGetArticles().then(res => {
+        console.log(res)
+        commit('SET_ENTITY_ARTICLE', res.article)
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  // eslint-disable-next-line no-unused-vars
+  addArticle({ commit }, articleData) {
+    return new Promise((resolve, reject) => {
+      apiAddArticle(articleData).then(res => {
+        console.log(res)
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  }
+}
+
+export default {
+  namespace: true,
+  state,
+  mutations,
+  actions
+}

@@ -15,6 +15,28 @@ const asyncRoutesChildren = [
     component: () => import('../views/home/home.vue')
   },
   {
+    path: '/article',
+    name: 'article',
+    meta: {
+      roles: ['admin', 'test'],
+      title: 'article',
+      icon: 'description'
+    },
+    component: () => import('@/components/Layout/layout.vue'),
+    children: [
+      {
+        path: 'article-writing',
+        meta: {
+          roles: ['admin', 'test'],
+          title: 'article',
+          icon: 'history_edu',
+          keepAlive: true
+        },
+        component: () => import('@/views/articles/article-writing/index.vue')
+      }
+    ]
+  },
+  {
     path: '*', // 此处需置于最底部
     redirect: '/NoFound404',
     meta: {

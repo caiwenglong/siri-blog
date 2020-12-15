@@ -16,11 +16,8 @@ import { thumbStyle } from './thumbStyle'
 
 export default {
   name: 'BaseContent',
-  props: [{
-    position: {
-      type: String
-    }
-  }],
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['position'],
   data() {
     return {
       thumbStyle,
