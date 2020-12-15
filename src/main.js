@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import './quasar'
 import router from './router/permission'
+import i18n from './i18n'
 
 // 系统全局配置
 import './config'
@@ -22,6 +23,7 @@ import './styles/index.scss'
 
 // 前往 public 文件夹的路径
 Vue.prototype.$PUBLIC_PATH = process.env.BASE_URL
+Vue.prototype._i18n = i18n
 
 Vue.config.productionTip = false
 Vue.use(animated)
@@ -30,6 +32,7 @@ Vue.use(jsonView)
 const vue = new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
 

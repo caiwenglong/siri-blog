@@ -59,6 +59,15 @@
       </q-avatar>
       <q-tooltip>账号</q-tooltip>
     </q-btn>
+    <q-btn flat round color="primary" icon="card_giftcard">
+      <q-menu>
+        <q-list>
+          <q-item v-for="item in availableLanguages" :key="item.value" v-close-popup clickable @click="handleLanguageChange(item.value)">
+            <q-item-section>{{ item.text }}</q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-btn>
   </div>
 </template>
 
@@ -70,6 +79,21 @@ export default {
       search: '',
       mobileData: false,
       bluetooth: true
+    }
+  },
+  computed: {
+    availableLanguages() {
+      const messages = this._i18n.messages
+      console.log(messages)
+
+      const a = Object.keys(messages).map((lang) => {
+        return {
+          text: messages[lang].language,
+          value: lang
+        }
+      })
+      console.log(a)
+      return a
     }
   },
   methods: {
@@ -100,6 +124,11 @@ export default {
       this.$store.commit('LOGOUT')
       this.$router.push('/')
       window.sessionStorage.clear()
+    },
+
+    // 切换语言
+    handleLanguageChange(a) {
+      this._i18n.locale = a
     }
   }
 }

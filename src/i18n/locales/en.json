@@ -1,0 +1,34 @@
+{
+  "language": "English",
+  "app_drawer": {
+    "title": "Application",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "about": "About",
+    "articleWriting": "article writing"
+  },
+  "app_toolbar": {
+    "logout": "Logout"
+  },
+  "app_settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "app_footer": {
+    "title": "Footer"
+  },
+  "article": {
+    "title": "Please enter the title of the article",
+    "tagsTip": "Pick your tags",
+    "tags": "article tags",
+    "public": "public",
+    "cancel": "cancel"
+  },
+  "error": {
+    "articleTitleRequire": "Please enter the title of the article!",
+    "articleTitleMaxLength": "title must be at most 10 characters long!"
+  }
+}

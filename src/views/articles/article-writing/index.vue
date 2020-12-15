@@ -1,5 +1,6 @@
 <template>
   <div class="unit-article-writing">
+    {{ $t('language') }}
     <v-md-editor v-model="content" height="400px" />
   </div>
 </template>
