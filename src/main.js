@@ -21,6 +21,8 @@ import './components/ECharts/EChartsConfig'
 // 样式
 import './styles/index.scss'
 
+import '@/icons' // icon
+
 // 前往 public 文件夹的路径
 Vue.prototype.$PUBLIC_PATH = process.env.BASE_URL
 Vue.prototype._i18n = i18n

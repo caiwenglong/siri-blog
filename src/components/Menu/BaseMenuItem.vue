@@ -70,6 +70,7 @@
 <script>
 export default {
   name: 'BaseMenuItem',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['myRouter', 'initLevel', 'bgColor', 'bgColorLevel', 'duration', 'basePath'],
   methods: {
 

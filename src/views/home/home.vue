@@ -2,6 +2,9 @@
 
   <base-content>
     <div @click="handleClick">home</div>
+    <span class="svg-container">
+      <svg-icon icon-class="eye" />
+    </span>
   </base-content>
 
 </template>
