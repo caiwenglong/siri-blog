@@ -33,6 +33,15 @@
       </q-badge>
       <q-tooltip>通知</q-tooltip>
     </q-btn>
+    <q-btn flat round icon="keyboard">
+      <q-menu>
+        <q-list>
+          <q-item v-for="item in availableLanguages" :key="item.value" v-close-popup clickable @click="handleLanguageChange(item.value)">
+            <q-item-section>{{ item.text }}</q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-btn>
     <q-btn round flat>
       <q-menu>
         <div class="row no-wrap q-pa-md">
@@ -58,15 +67,6 @@
         <img :src="this.$PUBLIC_PATH + 'data/avatar.jpg'">
       </q-avatar>
       <q-tooltip>账号</q-tooltip>
-    </q-btn>
-    <q-btn flat round color="primary" icon="card_giftcard">
-      <q-menu>
-        <q-list>
-          <q-item v-for="item in availableLanguages" :key="item.value" v-close-popup clickable @click="handleLanguageChange(item.value)">
-            <q-item-section>{{ item.text }}</q-item-section>
-          </q-item>
-        </q-list>
-      </q-menu>
     </q-btn>
   </div>
 </template>
