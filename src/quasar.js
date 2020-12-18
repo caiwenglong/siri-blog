@@ -23,6 +23,17 @@ import {
   AppFullscreen
 } from 'quasar'
 
+/*
+*   设置默认值
+* */
+Notify.setDefaults({
+  position: 'top',
+  timeout: 2500,
+  textColor: 'white',
+  progress: true,
+  actions: [{ icon: 'close', color: 'white' }]
+})
+
 Vue.use(Quasar,
   {
     config: {},

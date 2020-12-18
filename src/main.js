@@ -7,10 +7,14 @@ import i18n from './i18n'
 
 // 系统全局配置
 import './config'
+import constantModules from './share/constant'
+import commonHandle from './share/handle'
 
 // 第三方组件
 import animated from 'animate.css'
 import jsonView from 'vue-json-views'
+import Vuelidate from 'vuelidate'
+import * as _ from 'lodash'
 
 // markdown
 import './components/Markdown/Markdown'
@@ -26,10 +30,14 @@ import '@/icons' // icon
 // 前往 public 文件夹的路径
 Vue.prototype.$PUBLIC_PATH = process.env.BASE_URL
 Vue.prototype._i18n = i18n
+Vue.prototype._lodash = _
+Vue.prototype._constant = constantModules
+Vue.prototype._commonHandle = commonHandle
 
 Vue.config.productionTip = false
 Vue.use(animated)
 Vue.use(jsonView)
+Vue.use(Vuelidate)
 
 const vue = new Vue({
   router,

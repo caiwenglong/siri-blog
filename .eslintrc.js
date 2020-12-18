@@ -62,10 +62,11 @@ module.exports = {
       'beforeColon': false,
       'afterColon': true
     }],
-    'keyword-spacing': [2, {
-      'before': true,
-      'after': true
-    }],
+    'keyword-spacing': [2, {"overrides": {
+        "if": {"after": false},
+        "for": {"after": false},
+        "while": {"after": false}
+    }}],
     'new-cap': [2, {
       'newIsCap': true,
       'capIsNew': false

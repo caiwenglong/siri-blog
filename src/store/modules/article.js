@@ -38,11 +38,10 @@ const actions = {
       })
     })
   },
-  // eslint-disable-next-line no-unused-vars
+
   addArticle({ commit }, articleData) {
     return new Promise((resolve, reject) => {
       apiAddArticle(articleData).then(res => {
-        console.log(res)
         resolve(res)
       }).catch(err => {
         reject(err)

@@ -46,15 +46,17 @@
     </q-drawer>
 
     <!-- 内容路由 -->
-    <q-page-container class="app-main full-height">
+    <q-scroll-area :visible="false" class="fit" :thumb-style="thumbStyleOfMenu">
+      <q-page-container class="app-main full-height">
 
-      <transition name="fade-transform" mode="out-in">
-        <keep-alive :max="Max_keepAlive" :include="keepAliveList">
-          <router-view :key="$route.fullPath" />
-        </keep-alive>
-      </transition>
+        <transition name="fade-transform" mode="out-in">
+          <keep-alive :max="Max_keepAlive" :include="keepAliveList">
+            <router-view :key="$route.fullPath" />
+          </keep-alive>
+        </transition>
 
-    </q-page-container>
+      </q-page-container>
+    </q-scroll-area>
 
   </q-layout>
 </template>
@@ -65,6 +67,7 @@ import TagView from '../components/TagView/tagView'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import ToolbarTitle from '../components/Toolbar/toolbarTitle'
 import ToolbarItemRight from '../components/Toolbar/toolbarItemRight'
+import { thumbStyleOfMenu } from '@/components/BaseContent/thumbStyle'
 
 export default {
   name: 'Index',
@@ -80,6 +83,7 @@ export default {
       viewStyle: this.$SildeBar,
       leftDrawerOpen: false,
       Max_keepAlive: this.$Max_KeepAlive,
+      thumbStyleOfMenu,
       keepAliveList: this.$store.getters.getKeepAliveList
     }
   },

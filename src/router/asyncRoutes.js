@@ -8,6 +8,7 @@ const asyncRoutesChildren = [
     name: 'home',
     meta: {
       roles: ['admin', 'editor', 'test'],
+      t_title: 'route.home',
       title: '主页',
       icon: 'home',
       keepAlive: true
@@ -19,6 +20,7 @@ const asyncRoutesChildren = [
     name: 'article',
     meta: {
       roles: ['admin', 'test'],
+      t_title: 'route.article',
       title: 'article',
       icon: 'description'
     },
@@ -28,6 +30,7 @@ const asyncRoutesChildren = [
         path: 'article-writing',
         meta: {
           roles: ['admin', 'test'],
+          t_title: 'route.article',
           title: 'article',
           icon: 'history_edu',
           keepAlive: true

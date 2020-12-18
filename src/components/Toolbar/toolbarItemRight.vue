@@ -84,21 +84,18 @@ export default {
   computed: {
     availableLanguages() {
       const messages = this._i18n.messages
-      console.log(messages)
 
-      const a = Object.keys(messages).map((lang) => {
+      return Object.keys(messages).map((lang) => {
         return {
           text: messages[lang].language,
           value: lang
         }
       })
-      console.log(a)
-      return a
     }
   },
   methods: {
     fullScreen() {
-      if (this.$q.fullscreen.isActive) {
+      if(this.$q.fullscreen.isActive) {
         // 退出全屏模式：
         this.$q.fullscreen.exit()
           .then(() => { // v1.5.0+
