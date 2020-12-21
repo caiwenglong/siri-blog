@@ -1,6 +1,6 @@
-import { Notify } from 'quasar'
+import { Notify, Loading, QSpinnerBars } from 'quasar'
 import i18n from '@/i18n'
-export default function(customOptions) {
+export function handleNotify(customOptions) {
   /*
   *   设置默认值
   * */
@@ -20,4 +20,20 @@ export default function(customOptions) {
     type: options.type,
     message: options.transform ? i18n.t(options.message) : options.message
   })
+}
+
+export function handleShowLoading() {
+  const defaultOptions = {
+    spinner: QSpinnerBars,
+    spinnerSize: 60,
+    message: '登录中....',
+    messageColor: 'primary',
+    customClass: 'customClass'
+  }
+  const options = Object.assign({}, defaultOptions, defaultOptions)
+  Loading.show(options)
+}
+
+export function handleHideLoading() {
+  Loading.hide()
 }

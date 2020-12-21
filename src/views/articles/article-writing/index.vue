@@ -1,5 +1,5 @@
 <template>
-  <div class="unit-article-writing">
+  <div class="unit unit-article-writing">
     <div class="q-pa-md">
       <q-form ref="articleForm" v-model="articleFormValid" class="q-gutter-md" @submit="onSubmit">
         <div class="row q-col-gutter-md">

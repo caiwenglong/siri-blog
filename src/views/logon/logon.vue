@@ -11,53 +11,64 @@
       <div class="col flex justify-center items-center">
         <q-card square style="min-width: 290px;height: 100%; width: 60%;" class="no-shadow">
           <q-card-section align="center">
-            <h3 class="text-uppercase">cimo</h3>
-            <!-- 用户名 -->
-            <q-input
-              v-model="username"
-              class="logon-input"
-              clearable
-              standout="bg-cyan text-white"
-              bottom-slots
-              label="账号"
-            >
-              <template v-slot:prepend>
-                <q-icon name="account_circle" />
-              </template>
-            </q-input>
-            <!-- 密码 -->
-            <q-input
-              v-model="password"
-              class="logon-input"
-              standout="bg-cyan text-white"
-              bottom-slots
-              label="密码"
-              :type="isPwd ? 'password' : 'text'"
-              hint=""
-            >
-              <template v-slot:prepend>
-                <q-icon name="vpn_key" />
-              </template>
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
+            <q-form ref="logonForm" v-model="logonFormValid">
+              <h3 class="text-uppercase">SIRI</h3>
+              <!-- 用户名 -->
+              <q-input
+                v-model="logonForm.username"
+                class="logon-input"
+                clearable
+                standout="bg-cyan text-white"
+                bottom-slots
+                :label="$t('login.username')"
+                :error="$v.logonForm.username.$dirty && $v.logonForm.username.$invalid"
+                :error-message="$t('error.login.usernameRequire')"
+                @input="$v.logonForm.username.$touch()"
+                @blur="$v.logonForm.username.$touch()"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="account_circle" />
+                </template>
+              </q-input>
+              <!-- 密码 -->
+              <q-input
+                v-model="logonForm.password"
+                class="logon-input"
+                standout="bg-cyan text-white"
+                bottom-slots
+                counter
+                :maxlength="passwordMaxLength"
+                :type="isPwd ? 'password' : 'text'"
+                :label="$t('login.password')"
+                :error="$v.logonForm.password.$dirty && $v.logonForm.password.$invalid"
+                :error-message="passwordErrors"
+                @input="$v.logonForm.password.$touch()"
+                @blur="$v.logonForm.password.$touch()"
+              >
+                <template v-slot:prepend>
+                  <q-icon name="vpn_key" />
+                </template>
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
 
-            <!-- 登录按钮 -->
-            <q-btn
-              :loading="loading"
-              class="logon-btn bg-logon-card-input"
-              text-color="white"
-              unelevated
-              label=""
-              style="font-size: large;"
-              @click="logon"
-            >登 录 系 统
-            </q-btn>
+              <!-- 登录按钮 -->
+              <q-btn
+                :loading="loading"
+                class="logon-btn bg-logon-card-input"
+                text-color="white"
+                unelevated
+                label=""
+                style="font-size: large;"
+                @click="logon"
+              >登 录 系 统
+              </q-btn>
+            </q-form>
             <div class="row justify-between" style="margin-bottom: 20px;">
               <q-btn flat label="忘记密码" />
               <q-btn outline label="我要注册" />
@@ -73,15 +84,19 @@
 
 <script>
 import LottieWebCimo from '../../components/LottieWebCimo/lottie-web-cimo'
-
+import { required, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'Logon',
   components: { LottieWebCimo },
   data() {
     return {
       isPwd: true,
-      username: 'admin',
-      password: '',
+      logonFormValid: false,
+      logonForm: {
+        username: '',
+        password: ''
+      },
+      passwordMaxLength: 18,
       defaultOptions: {
         path: 'https://assets9.lottiefiles.com/packages/lf20_vo0a1yca.json',
         loop: true
@@ -91,32 +106,55 @@ export default {
       isLottieF: false
     }
   },
+
+  validations: {
+    logonForm: {
+      username: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+      }
+    }
+  },
+
+  computed: {
+    passwordErrors() {
+      if(!this.$v.logonForm.password.$dirty) return ''
+      if(!this.$v.logonForm.password.required) {
+        return this._i18n.t('error.login.passwordRequire')
+      }
+      if(!this.$v.logonForm.password.maxLength) {
+        return this._i18n.t('error.login.passwordMinLength')
+      }
+      return ''
+    }
+  },
+
   methods: {
     logon() {
-      this.loading = !this.loading
-      if (this.username === 'admin' || this.username === 'test') {
-        sessionStorage.setItem('access_token', 972784674)
-        sessionStorage.setItem('user_role', this.username)
-        setTimeout(() => {
-          this.$router.push('/')
-          this.loading = !this.loading
-          this.$q.notify({
-            icon: 'insert_emoticon',
-            message: 'hi，cimo 欢迎回来',
-            color: 'green',
-            position: 'top',
-            timeout: 1500
+      this._commonHandle.handleShowLoading()
+      this.$v.$touch()
+      if(!this.$v.logonForm.$invalid) {
+        this.$store.dispatch('user/login', this.logonForm).then(res => {
+          if(res.code === this._constant.srCode.SUCCESS) {
+            this._commonHandle.handleHideLoading()
+            this._commonHandle.handleNotify({
+              type: this._constant.notify.notifyType.POSITIVE,
+              message: this._i18n.t('login.logonSuccess')
+            })
+            this.$router.push('/')
+          }
+        }).catch(error => {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.NEGATIVE,
+            message: this._i18n.t('error.login.logonFailed')
           })
-        }, Math.random() * 3000 + 1000)
-      } else {
-        this.loading = !this.loading
-        this.$q.notify({
-          icon: 'announcement',
-          message: '账号错误',
-          color: 'red',
-          position: 'top',
-          timeout: 1500
+          console.error(error)
         })
+      } else {
+        console.log('failed')
       }
     },
     handleFinish(e) {

@@ -1,11 +1,12 @@
-import { login } from '../../api/user'
-import { getToken, setToken } from '../../utils/auth'
+import { apiLogin } from '../../api/user'
+import { setToken, setRole } from '../../utils/auth'
 
 const getDefaultState = () => {
   return {
-    token: getToken(),
+    token: '',
     name: '',
-    avatar: ''
+    avatar: '',
+    role: ''
   }
 }
 
@@ -23,18 +24,24 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ROLE: (state, role) => {
+    state.role = role
   }
 }
 
 const actions = {
+  // 登录
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      apiLogin({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_ROLE', data.userInfos.role)
         setToken(data.token)
-        resolve()
+        setRole(data.userInfos.role)
+        resolve(response)
       }).catch(error => {
         reject(error)
       })

@@ -1,6 +1,6 @@
 const srCode = {
-  SUCCESS: 'OW20000',
-  FAILED: 'OW20001',
+  SUCCESS: 'SR20000',
+  FAILED: 'SR20001',
   CODE500: '500'
 }
 

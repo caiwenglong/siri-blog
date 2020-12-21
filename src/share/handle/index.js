@@ -1,7 +1,13 @@
-import handleNotify from './handleNotify'
 
+import {
+  handleNotify,
+  handleShowLoading,
+  handleHideLoading
+} from './handleQuasar'
 const commonHandle = {
-  handleNotify
+  handleNotify,
+  handleShowLoading,
+  handleHideLoading
 }
 
 export default commonHandle

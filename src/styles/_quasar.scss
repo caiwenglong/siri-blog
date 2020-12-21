@@ -4,3 +4,8 @@
     background-color: #fff;
   }
 }
+.q-field--standout.q-field--focused {
+  .q-field__control {
+    background: rgba(219, 55, 55,.8);
+  }
+}

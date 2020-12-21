@@ -5,25 +5,26 @@ import store from '../store/index'
 import constantRoutes from './constantRoutes'
 import { addTagView, setTagView } from '../components/TagView/tagViewUtils'
 import { setBreadcrumbs } from '../components/Breadcrumbs/breadcrumbsUtils'
+import { getRole, getToken } from '../utils/auth'
 
 router.beforeEach((to, from, next) => {
   // 成功登录后处理
   handleTagViewAndBreadcrumbsAndKeepAlive(to)
   // 模拟获取 token
-  const token = sessionStorage.getItem('access_token')
-  const userRole = sessionStorage.getItem('user_role')
+  const token = getToken()
+  const userRole = getRole()
   // 存在 token 说明已经登录
-  if (token) {
+  if(token) {
     // 登录过就不能访问登录界面
-    if (to.path === '/login') {
+    if(to.path === '/logon') {
       next({ path: '/' })
     }
     // 存在用户权限，并且路由不为空则放行
-    if (userRole && store.getters.getRoutes.length) {
+    if(userRole && store.getters.getRoutes.length) {
       next()
     } else {
       // 模拟不存在用户权限时，获取用户权限
-      const userRole = sessionStorage.getItem('user_role')
+      const userRole = getRole()
       // 并根据权限设置对应的路由
       store.commit('SET_ROLES_AND_ROUTES', userRole)
       router.addRoutes(store.getters.getRoutes)
@@ -31,7 +32,7 @@ router.beforeEach((to, from, next) => {
       next({ ...to, replace: true })
     }
   } else {
-    if (to.path !== '/logon') {
+    if(to.path !== '/logon') {
       next({ path: '/logon' })
     } else {
       next()
@@ -52,19 +53,19 @@ export default router
  * @param to
  */
 function handleTagViewAndBreadcrumbsAndKeepAlive(to) {
-  if (to.name != null) {
+  if(to.name != null) {
     document.title = to.meta.title + _Vue.prototype.$title
     LoadingBar.start()
     // 判断要添加的 to 是否是公共路由
-    for (let i = 0; i < constantRoutes.length; i++) {
-      if (constantRoutes[i].path === to.path) {
+    for(let i = 0; i < constantRoutes.length; i++) {
+      if(constantRoutes[i].path === to.path) {
         return
       }
     }
     // 判断是否为刷新操作，如果是刷新操作则从 sessionStorage 获取保存的 tagView 信息
     let tagViewOnSS = []
     JSON.parse(window.sessionStorage.getItem('tagView')) === null ? window.sessionStorage.setItem('tagView', '[]') : tagViewOnSS = JSON.parse(window.sessionStorage.getItem('tagView'))
-    if (store.getters.getTagView.length === 0 && tagViewOnSS.length !== 0) {
+    if(store.getters.getTagView.length === 0 && tagViewOnSS.length !== 0) {
       setTagView(tagViewOnSS)
       store.dispatch('setKeepAliveList', tagViewOnSS).then()
     } else {
@@ -80,10 +81,10 @@ function handleTagViewAndBreadcrumbsAndKeepAlive(to) {
  * @param to
  */
 function handleKeepAlive(to) {
-  if (to.matched && to.matched.length > 2) {
-    for (let i = 0; i < to.matched.length; i++) {
+  if(to.matched && to.matched.length > 2) {
+    for(let i = 0; i < to.matched.length; i++) {
       const element = to.matched[i]
-      if (element.components.default.name === 'layout') {
+      if(element.components.default.name === 'layout') {
         to.matched.splice(i, 1)
         handleKeepAlive(to)
       }

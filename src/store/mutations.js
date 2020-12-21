@@ -3,6 +3,7 @@ import constructionRouters from '../router/permissionUtils'
 import deepClone from '../utils/clone-utils'
 import router, { resetRouter } from '../router'
 import { removeATagView, removeOneSide } from '../components/TagView/tagViewUtils'
+import { setToken, setRole } from '../utils/auth'
 // import { path404 } from '../components/404/error404'
 
 const mutations = {
@@ -18,11 +19,12 @@ const mutations = {
 
   // 退出登录
   LOGOUT: (state, payload) => {
-    state.role = 'admin'
+    state.user = {}
+    state.role = ''
     state.routes = []
     state.tagView = []
-    sessionStorage.removeItem('access_token')
-    sessionStorage.removeItem('user_role')
+    setToken('')
+    setRole('')
     resetRouter()
   },
 
@@ -30,16 +32,16 @@ const mutations = {
   ADD_TAG_VIEW: (state, payload) => {
     const size = state.tagView.length
     // 首次进入或刷新页面时，当前路由不是根路由
-    if (!size && payload.fullPath !== '/') {
+    if(!size && payload.fullPath !== '/') {
       state.tagView.push(payload)
     }
     // 为了避免 tagView 重复添加。 构建一个以 fullPath 为标识的数组 t[]
     const t = []
-    for (let i = 0; i < size; i++) {
+    for(let i = 0; i < size; i++) {
       t.push(state.tagView[i].fullPath)
     }
     // 如果 t[] 中没有当前路由，则添加
-    if (t.indexOf(payload.fullPath) < 0 && size) {
+    if(t.indexOf(payload.fullPath) < 0 && size) {
       state.tagView.push(payload)
     }
   },
@@ -85,8 +87,8 @@ const mutations = {
    */
   SET_KEEPALIVELIST: (state, payload) => {
     state.keepAliveList = []
-    for (let i = 0; i < payload.length; i++) {
-      if (payload[i].keepAlive) {
+    for(let i = 0; i < payload.length; i++) {
+      if(payload[i].keepAlive) {
         state.keepAliveList.push(payload[i].name)
       }
     }
