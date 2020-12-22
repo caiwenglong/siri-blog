@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
   config.headers['Access-Control-Allow-Origin'] = '*'
   config.headers['Content-Type'] = 'application/json'
-  if (getToken()) {
+  if(getToken()) {
     config.headers['Authorization'] = getToken()
   }
   return config
@@ -25,7 +25,7 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use((response) => {
   const res = response.data
-  if (res.code !== 'SR20000') {
+  if(res.code !== 'SR20000') {
     return Promise.reject(new Error(res.message || 'Error'))
   } else {
     return response.data

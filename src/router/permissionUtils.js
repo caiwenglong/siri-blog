@@ -8,8 +8,8 @@ import store from '../store'
  */
 function constructionRouters(router, t) {
   t = router.filter(item => { return item.meta.roles.indexOf(store.getters.getRole) !== -1 })
-  for (const i in t) {
-    if (t[i].children) {
+  for(const i in t) {
+    if(t[i].children) {
       t[i].children = constructionRouters(t[i].children)
     }
   }

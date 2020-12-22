@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function apiGetArticles() {
+export function apiGetArticles(params) {
   return request({
-    url: '/article-api/siri-article/getAll',
+    url: `/article-api/siri-article/getAll/${params.userId}/${params.pageNum}/${params.pageSize}`,
     method: 'get'
   })
 }

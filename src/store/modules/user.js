@@ -3,6 +3,7 @@ import { setToken, setRole } from '../../utils/auth'
 
 const getDefaultState = () => {
   return {
+    id: '',
     token: '',
     name: '',
     avatar: '',
@@ -13,6 +14,9 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const mutations = {
+  SET_ID: (state, id) => {
+    state.id = id
+  },
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
@@ -38,6 +42,7 @@ const actions = {
       apiLogin({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
+        commit('SET_ID', data.userInfos.id)
         commit('SET_ROLE', data.userInfos.role)
         setToken(data.token)
         setRole(data.userInfos.role)

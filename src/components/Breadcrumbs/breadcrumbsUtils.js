@@ -6,7 +6,7 @@ import store from '../../store/index'
  */
 export function setBreadcrumbs(matched) {
   const temp = []
-  for (let i = 0; i < matched.length; i++) {
+  for(let i = 0; i < matched.length; i++) {
     temp.push(matched[i].meta)
   }
   store.commit('SET_BREADCRUMBS', temp)

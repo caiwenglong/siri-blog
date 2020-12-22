@@ -64,13 +64,13 @@ module.exports = {
   // Webpack 函数式配置
   configureWebpack: config => {
     // 体积分析
-    if (process.env.use_analyzer) {
+    if(process.env.use_analyzer) {
       const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
       config.plugins.push(new BundleAnalyzerPlugin())
     }
 
     // 生产环境配置
-    if (process.env.NODE_ENV === 'production') {
+    if(process.env.NODE_ENV === 'production') {
       // 消除 console 输出信息
       config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
 
@@ -94,6 +94,8 @@ module.exports = {
     }
   },
   css: {
+    requireModuleExtension: true,
+    sourceMap: true,
     // 打包后css文件名称添加时间戳
     extract: {
       filename: `css/[name].${timeStamp}.css`,

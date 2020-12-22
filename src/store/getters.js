@@ -4,7 +4,8 @@ const getters = {
   getBreadcrumbs: (state) => { return state.breadcrumbs },
   getKeepAliveList: (state) => { return state.keepAliveList },
   getRole: (state) => { return state.role },
-  getToken: (state) => { return state.token }
+  getToken: (state) => { return state.token },
+  userId: state => state.user.id
 }
 
 export default getters

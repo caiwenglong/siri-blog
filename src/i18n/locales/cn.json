@@ -34,11 +34,15 @@
     "publicFailed": "文章发布失败！",
     "public": "发布",
     "reset": "重置",
-    "cancel": "取消"
+    "cancel": "取消",
+    "createTime": "创建时间：",
+    "modifiedTime": "修改时间："
   },
   "route": {
     "home": "主页",
-    "article": "文章文集"
+    "article": "文章文集",
+    "articleWriting": "文章写作",
+    "articleList": "文章列表"
   },
   "error": {
     "login": {

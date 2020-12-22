@@ -27,7 +27,7 @@ export default {
 
   mounted() {
     const t = window.sessionStorage.getItem(this.$route.path)
-    if (t) {
+    if(t) {
       const toPosition = JSON.parse(t)
       this.ScrollToPosition(toPosition.listScrollTop)
     }
@@ -42,7 +42,7 @@ export default {
     this.pathTemp = this.$route.path
     // 将 token 和当前 path 做成 key，记录滚动位置
     const t = window.sessionStorage.getItem(this.$route.path)
-    if (t) {
+    if(t) {
       const toPosition = JSON.parse(t)
       this.ScrollToPosition(toPosition.listScrollTop)
     }

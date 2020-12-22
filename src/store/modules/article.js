@@ -27,10 +27,9 @@ const mutations = {
 
 const actions = {
   /* 获取文章列表 */
-  getAllArticles({ commit }) {
+  getAllArticles({ commit }, params) {
     return new Promise((resolve, reject) => {
-      apiGetArticles().then(res => {
-        console.log(res)
+      apiGetArticles(params).then(res => {
         commit('SET_ENTITY_ARTICLE', res.article)
         resolve(res)
       }).catch(err => {

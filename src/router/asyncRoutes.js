@@ -22,7 +22,7 @@ const asyncRoutesChildren = [
       roles: ['admin', 'test'],
       t_title: 'route.article',
       title: 'article',
-      icon: 'description'
+      icon: 'blur_linear'
     },
     component: () => import('@/components/Layout/layout.vue'),
     children: [
@@ -30,12 +30,23 @@ const asyncRoutesChildren = [
         path: 'article-writing',
         meta: {
           roles: ['admin', 'test'],
-          t_title: 'route.article',
+          t_title: 'route.articleWriting',
           title: 'article',
-          icon: 'history_edu',
+          icon: 'edit_road',
           keepAlive: true
         },
         component: () => import('@/views/articles/article-writing/index.vue')
+      },
+      {
+        path: 'article-list',
+        meta: {
+          roles: ['admin', 'test'],
+          t_title: 'route.articleList',
+          title: 'article',
+          icon: 'description',
+          keepAlive: true
+        },
+        component: () => import('@/views/articles/article-list/index.vue')
       }
     ]
   },
