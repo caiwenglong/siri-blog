@@ -5,7 +5,7 @@ const getters = {
   getKeepAliveList: (state) => { return state.keepAliveList },
   getRole: (state) => { return state.role },
   getToken: (state) => { return state.token },
-  userId: state => state.user.id
+  userId: (state) => { return state.user.id }
 }
 
 export default getters

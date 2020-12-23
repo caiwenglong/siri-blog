@@ -5,42 +5,44 @@
         <div class="q-pa-md col-12">
           <q-list>
             <q-item
-              v-for="i in 5"
-              :key="i"
+              v-for="article in articleList"
+              :key="article.id"
               class="article__item"
               transition-show="jump-down"
               transition-hide="jump-up"
               @mouseenter.native="handleMouseEnter"
               @mouseleave.native="handleMouseLeave"
-              @click.native="handleClickItem"
+              @click.native="handleClickItem(article.id)"
             >
               <q-item-section>
                 <q-item-label class="item__title">
                   <strong>
-                    文章标题{{ i }}
+                    {{ article.title }}
                   </strong>
                 </q-item-label>
-                <q-item-label class="q-chip-wrapper">
-                  <q-chip square color="primary" text-color="white">vue</q-chip>
-                  <q-chip square color="info" text-color="white">quasar</q-chip>
-                  <q-chip square color="warning" text-color="white">html</q-chip>
+                <q-item-label v-if="article.tags.length" class="q-chip-wrapper">
+                  <template v-for="(tag, i) in article.tags">
+                    <q-chip :key="tag" square :color="tagColors[i]" text-color="white">{{ tag }}</q-chip>
+                  </template>
                 </q-item-label>
-                <q-item-label class="item__body" caption lines="2">段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。</q-item-label>
+                <q-item-label class="item__body" caption lines="2">
+                  <v-md-editor :value="article.content" mode="preview" />
+                </q-item-label>
                 <q-item-label>
-                  <q-chip dense size="md" color="primary" text-color="white">
+                  <q-chip v-if="article.author" dense size="md" color="primary" text-color="white">
                     <q-avatar>
                       <img src="https://cdn.quasar.dev/img/boy-avatar.png">
                     </q-avatar>
-                    <span class="author">SIRI</span>
+                    <span class="author">{{ article.author }}</span>
                   </q-chip>
                   <span class="item-time float-right">
                     <span class="create-time">
                       <span class="">{{ $t('article.createTime') }}</span>
-                      <span class="">2020-12-22</span>
+                      <span class="">{{ article.gmtCreate | dateFormat }}</span>
                     </span>
                     <span class="modified-time">
                       <span class="">{{ $t('article.modifiedTime') }}</span>
-                      <span class="">2020-12-22</span>
+                      <span class="">{{ article.gmtModified | dateFormat }}</span>
                     </span>
                   </span>
                 </q-item-label>
@@ -54,12 +56,18 @@
 </template>
 
 <script>
+import { getUserId } from '@/utils/auth'
+
 export default {
   name: 'ArticleList',
 
   data() {
     return {
-      hoverClass: 'inset-shadow'
+      articleList: [],
+      hoverClass: 'inset-shadow',
+      tagColors: ['primary', 'teal', 'orange', 'info', 'warning'],
+      pageNum: 1,
+      pageSize: 10
     }
   },
 
@@ -69,14 +77,27 @@ export default {
 
   methods: {
     getArticleList() {
-      this.$store.dispatch('getAllArticles').then(res => {
-        console.log(res)
+      this._commonHandle.handleShowLoading()
+      this.$store.dispatch('getAllArticles', { userId: getUserId(), pageNum: 1, pageSize: 10 }).then(res => {
+        this._commonHandle.handleHideLoading()
+        if(res.code === this._constant.srCode.SUCCESS && res.data.result.articleList.length) {
+          this.articleList = this._lodash.map(res.data.result.articleList, article => {
+            if(article.tags) {
+              article.tags = this._lodash.split(article.tags, ',')
+            } else {
+              article.tags = []
+            }
+            return article
+          })
+          console.log(this.articleList)
+        }
+      }).catch(err => {
+        console.error(err)
       })
     },
 
-    handleClickItem() {
-      console.log(1)
-      this.$router.push('article-details/' + '123')
+    handleClickItem(artId) {
+      this.$router.push('article-details/' + artId)
     },
 
     handleMouseEnter(evt) {
@@ -111,6 +132,7 @@ export default {
     color: $itemBodyColor;
     line-height: 1.5 !important;
     margin: 12px 0 20px 0;
+    max-height: 160px;
   }
   .q-chip-wrapper {
     font-size: 12px;

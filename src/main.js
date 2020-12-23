@@ -9,6 +9,7 @@ import i18n from './i18n'
 import './config'
 import constantModules from './share/constant'
 import commonHandle from './share/handle'
+import * as filters from './share/filters'
 
 // 第三方组件
 import animated from 'animate.css'
@@ -38,6 +39,10 @@ Vue.config.productionTip = false
 Vue.use(animated)
 Vue.use(jsonView)
 Vue.use(Vuelidate)
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 const vue = new Vue({
   router,

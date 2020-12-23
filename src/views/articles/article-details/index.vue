@@ -8,11 +8,11 @@
       <span class="infos__time">
         <span class="time--create">
           <label>创建时间：</label>
-          <span>{{ article.gmtCreate }}</span>
+          <span>{{ article.gmtCreate | dateFormat }}</span>
         </span>
         <span class="time--modified">
           <label>更新时间：</label>
-          <span>{{ article.gmtModified }}</span>
+          <span>{{ article.gmtModified | dateFormat }}</span>
         </span>
       </span>
     </div>

@@ -1,5 +1,5 @@
 import { apiLogin } from '../../api/user'
-import { setToken, setRole } from '../../utils/auth'
+import { setToken, setRole, setUserId } from '../../utils/auth'
 
 const getDefaultState = () => {
   return {
@@ -46,6 +46,7 @@ const actions = {
         commit('SET_ROLE', data.userInfos.role)
         setToken(data.token)
         setRole(data.userInfos.role)
+        setUserId(data.userInfos.id)
         resolve(response)
       }).catch(error => {
         reject(error)
