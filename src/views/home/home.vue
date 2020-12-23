@@ -5,7 +5,6 @@
     <span class="svg-container">
       <svg-icon icon-class="eye" />
     </span>
-    <v-md-editor :value="content" mode="preview" />
   </div>
 
 </template>
@@ -22,13 +21,16 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userId'
+      'userId',
+      'userId1'
     ])
   },
 
   methods: {
     handleClick() {
       this._commonHandle.handleShowLoading()
+      console.log(this.userId)
+      console.log(this.userId1)
       this.$store.dispatch('getAllArticles', { userId: this.userId, pageNum: 1, pageSize: 10 }).then(res => {
         this._commonHandle.handleHideLoading()
         console.log(res)

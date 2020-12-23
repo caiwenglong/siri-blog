@@ -1,4 +1,4 @@
-import { apiGetArticles, apiAddArticle } from '@/api/article'
+import { apiGetAllArticles, apiAddArticle, apiGetArticle } from '@/api/article'
 const articleDefaultState = () => {
   return {
     id: '',
@@ -29,7 +29,18 @@ const actions = {
   /* 获取文章列表 */
   getAllArticles({ commit }, params) {
     return new Promise((resolve, reject) => {
-      apiGetArticles(params).then(res => {
+      apiGetAllArticles(params).then(res => {
+        commit('SET_ENTITY_ARTICLE_LIST', res.article)
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getArticle({ commit }, artId) {
+    return new Promise((resolve, reject) => {
+      apiGetArticle(artId).then(res => {
         commit('SET_ENTITY_ARTICLE', res.article)
         resolve(res)
       }).catch(err => {

@@ -42,7 +42,8 @@
     "home": "主页",
     "article": "文章文集",
     "articleWriting": "文章写作",
-    "articleList": "文章列表"
+    "articleList": "文章列表",
+    "articleDetails": "文章详情"
   },
   "error": {
     "login": {
