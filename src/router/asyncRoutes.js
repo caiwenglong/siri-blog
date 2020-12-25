@@ -1,4 +1,4 @@
-
+import * as _ from 'lodash'
 /**
  * 需要授权访问的路由
  */
@@ -33,7 +33,8 @@ const asyncRoutesChildren = [
           t_title: 'route.articleWriting',
           title: 'article',
           icon: 'edit_road',
-          keepAlive: true
+          keepAlive: true,
+          component: () => import('@/components/Layout/layout.vue')
         },
         component: () => import('@/views/articles/article-writing/index.vue')
       },
@@ -50,6 +51,7 @@ const asyncRoutesChildren = [
       },
       {
         path: 'article-details/:artId',
+        name: 'articleDetails',
         meta: {
           roles: ['admin', 'editor', 'test'],
           t_title: 'route.articleDetails',
@@ -61,16 +63,63 @@ const asyncRoutesChildren = [
         component: () => import('@/views/articles/article-details/index.vue')
       }
     ]
-  },
-  {
-    path: '*', // 此处需置于最底部
-    redirect: '/NoFound404',
-    meta: {
-      roles: ['admin', 'test'],
-      isHidden: true
-    }
   }
 ]
+
+export function generateAsyncRouters(menus) {
+  const generateRouters = []
+  _.forEach(menus, menu => {
+    if(menu.parentId === '0') {
+      const route = {
+        path: `/${menu.path}`,
+        name: menu.id,
+        url: menu.id,
+        meta: {
+          title: menu.name,
+          icon: menu.icon,
+          id: menu.id,
+          roles: ['admin', 'editor', 'test'],
+          isHidden: false
+        },
+        component: () => import('@/components/Layout/layout.vue'),
+        children: getChildrenRouters(menus, menu.id)
+      }
+      generateRouters.push(route)
+    }
+  })
+  return generateRouters
+}
+
+function getChildrenRouters(menus, parentId) {
+  const childrenRoutes = []
+  const children = _.filter(menus, function(item) {
+    if(item.parentId === parentId) {
+      const route = {
+        path: `${item.path}`,
+        name: item.id,
+        url: item.id,
+        component: () => import('@/views/articles/article-list/index.vue'),
+        props: { categoryId: item.id },
+        meta: {
+          title: item.name,
+          icon: item.icon,
+          id: item.id,
+          roles: ['admin', 'editor', 'test'],
+          isHidden: false
+        },
+        children: getChildrenRouters(menus, item.id)
+      }
+      childrenRoutes.push(route)
+    }
+    return item.parentId === parentId
+  })
+  if(children.length) {
+    _.forEach(children, item => {
+      getChildrenRouters(menus, item.id)
+    })
+  }
+  return childrenRoutes
+}
 
 const asyncRoutes = [
   {

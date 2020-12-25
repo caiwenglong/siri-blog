@@ -5,7 +5,8 @@ const getters = {
   getKeepAliveList: (state) => { return state.keepAliveList },
   getRole: (state) => { return state.role },
   getToken: (state) => { return state.token },
-  userId: (state) => { return state.user.id }
+  userId: (state) => { return state.user.id },
+  dynamicRouters: state => state.routers.dynamicRouters
 }
 
 export default getters

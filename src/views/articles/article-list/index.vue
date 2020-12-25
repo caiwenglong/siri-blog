@@ -61,6 +61,9 @@ import { getUserId } from '@/utils/auth'
 export default {
   name: 'ArticleList',
 
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['categoryId'],
+
   data() {
     return {
       articleList: [],
@@ -89,7 +92,6 @@ export default {
             }
             return article
           })
-          console.log(this.articleList)
         }
       }).catch(err => {
         console.error(err)
@@ -97,7 +99,7 @@ export default {
     },
 
     handleClickItem(artId) {
-      this.$router.push('article-details/' + artId)
+      this.$router.push({ name: 'articleDetails', params: { artId: artId }})
     },
 
     handleMouseEnter(evt) {

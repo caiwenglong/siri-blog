@@ -5,6 +5,7 @@ import getters from './getters'
 import mutations from './mutations'
 import article from './modules/article'
 import user from './modules/user'
+import routers from './modules/routers'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   mutations,
   modules: {
     user,
-    article
+    article,
+    routers
   }
 })

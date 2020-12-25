@@ -24,12 +24,14 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // 模拟不存在用户权限时，获取用户权限
-      const userRole = getRole()
       // 并根据权限设置对应的路由
-      store.commit('SET_ROLES_AND_ROUTES', userRole)
-      router.addRoutes(store.getters.getRoutes)
-      // 如果 addRoutes 并未完成，路由守卫会再执行一次
-      next({ ...to, replace: true })
+      store.dispatch('routers/generateRoutes').then(res => {
+        store.commit('SET_ROLES_AND_ROUTES', store.getters.dynamicRouters)
+        console.log(store.getters.getRoutes)
+        router.addRoutes(store.getters.getRoutes)
+        // 如果 addRoutes 并未完成，路由守卫会再执行一次
+        next({ ...to, replace: true })
+      })
     }
   } else {
     if(to.path !== '/logon') {
@@ -67,7 +69,7 @@ function handleTagViewAndBreadcrumbsAndKeepAlive(to) {
     JSON.parse(window.sessionStorage.getItem('tagView')) === null ? window.sessionStorage.setItem('tagView', '[]') : tagViewOnSS = JSON.parse(window.sessionStorage.getItem('tagView'))
     if(store.getters.getTagView.length === 0 && tagViewOnSS.length !== 0) {
       setTagView(tagViewOnSS)
-      store.dispatch('setKeepAliveList', tagViewOnSS).then()
+      store.commit('SET_KEEPALIVELIST', tagViewOnSS)
     } else {
       addTagView(to)
     }

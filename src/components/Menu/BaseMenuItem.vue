@@ -22,7 +22,7 @@
 
         <!-- 没有孩子 -->
         <q-item
-          v-if="!item.children"
+          v-if="!item.children || !item.children.length"
           :key="index"
           v-ripple
           exact
@@ -30,12 +30,11 @@
           :inset-level="initLevel"
           :to="handleLink(basePath, item.path)"
           clickable
-          @click="externalLink(basePath, item.path)"
         >
           <q-item-section avatar>
             <q-icon :name="item.meta.icon" />
           </q-item-section>
-          <q-item-section>{{ $t(item.meta.t_title) }}</q-item-section>
+          <q-item-section>{{ item.meta.title }}</q-item-section>
         </q-item>
 
         <!-- 有孩子 -->
@@ -47,7 +46,7 @@
           :default-opened="item.meta.isOpen"
           :header-inset-level="initLevel"
           :icon="item.meta.icon"
-          :label="$t(item.meta.t_title)"
+          :label="item.meta.title"
           tag="div"
         >
 
@@ -85,26 +84,7 @@ export default {
         return '#'
       }
       return link
-    },
-
-    /**
-     * 处理外部链接
-     * @param basePath
-     * @param itemPath
-     * @returns {boolean}
-     */
-    externalLink(basePath, itemPath) {
-      const link = basePath === undefined ? itemPath : basePath + '/' + itemPath
-      const i = link.indexOf('http')
-      if(i !== -1) {
-        const a = document.createElement('a')
-        a.setAttribute('href', link.slice(i))
-        a.setAttribute('target', '_blank')
-        a.click()
-        return false
-      }
     }
-
   }
 }
 </script>

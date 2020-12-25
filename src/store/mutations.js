@@ -9,10 +9,11 @@ import { setToken, setRole } from '../utils/auth'
 const mutations = {
 
   // 设置用户类型，并根据权限获取授权路由
-  SET_ROLES_AND_ROUTES: (state, payload) => {
-    state.role = payload
+  SET_ROLES_AND_ROUTES: (state, params) => {
+    state.role = 'admin'
     // 深拷贝
     const accessRoutes = deepClone(asyncRoutes)
+    accessRoutes[0].children.push(params[0])
     accessRoutes[0].children = constructionRouters(accessRoutes[0].children)
     state.routes = accessRoutes
   },

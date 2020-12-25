@@ -21,3 +21,10 @@ export function apiAddArticle(articleForm) {
     data: articleForm
   })
 }
+
+export function apiGetArticleCategories(params) {
+  return request({
+    url: `/article-api/siri-article/category/getAllCategories/${params}`,
+    method: 'get'
+  })
+}
