@@ -1,4 +1,5 @@
 import * as _ from 'lodash'
+import pool from '@/share/constant/files/pool'
 /**
  * 需要授权访问的路由
  */
@@ -7,62 +8,13 @@ const asyncRoutesChildren = [
     path: '/',
     name: 'home',
     meta: {
-      roles: ['admin', 'editor', 'test'],
+      roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.home',
       title: '主页',
       icon: 'home',
       keepAlive: true
     },
     component: () => import('../views/home/home.vue')
-  },
-  {
-    path: '/article',
-    name: 'article',
-    meta: {
-      roles: ['admin', 'editor', 'test'],
-      t_title: 'route.article',
-      title: 'article',
-      icon: 'blur_linear'
-    },
-    component: () => import('@/components/Layout/layout.vue'),
-    children: [
-      {
-        path: 'article-writing',
-        meta: {
-          roles: ['admin', 'editor'],
-          t_title: 'route.articleWriting',
-          title: 'article',
-          icon: 'edit_road',
-          keepAlive: true,
-          component: () => import('@/components/Layout/layout.vue')
-        },
-        component: () => import('@/views/articles/article-writing/index.vue')
-      },
-      {
-        path: 'article-list',
-        meta: {
-          roles: ['admin', 'editor', 'test'],
-          t_title: 'route.articleList',
-          title: 'article',
-          icon: 'description',
-          keepAlive: true
-        },
-        component: () => import('@/views/articles/article-list/index.vue')
-      },
-      {
-        path: 'article-details/:artId',
-        name: 'articleDetails',
-        meta: {
-          roles: ['admin', 'editor', 'test'],
-          t_title: 'route.articleDetails',
-          title: 'article',
-          icon: 'description',
-          isHidden: true,
-          keepAlive: true
-        },
-        component: () => import('@/views/articles/article-details/index.vue')
-      }
-    ]
   }
 ]
 
@@ -79,10 +31,11 @@ export function generateAsyncRouters(menus) {
           icon: menu.icon,
           id: menu.id,
           idParent: '0',
-          roles: ['admin', 'editor', 'test'],
+          roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
         },
-        component: () => import('@/components/Layout/layout.vue'),
+        component: () => import('@/views/articles/article-list/index.vue'),
+        props: { categoryId: menu.id },
         children: getChildrenRouters(menus, menu.id)
       }
       generateRouters.push(route)
@@ -106,7 +59,7 @@ function getChildrenRouters(menus, idParent) {
           icon: item.icon,
           id: item.id,
           idParent: item.idParent,
-          roles: ['admin', 'editor', 'test'],
+          roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
         },
         children: getChildrenRouters(menus, item.id)
@@ -131,7 +84,7 @@ const asyncRoutes = [
     component: () => import('../views/index'),
     meta: {
       // index 应该是所有的用户都可以访问
-      roles: ['admin', 'editor', 'test']
+      roles: pool.accessible.ROLE_ADMIN
     },
     children: asyncRoutesChildren
   }

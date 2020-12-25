@@ -12,7 +12,7 @@ const mutations = {
 }
 
 const actions = {
-  async generateRoutes({ commit }) {
+  generateRoutes({ commit }) {
     return new Promise(resolve => {
       let routes = []
       apiGetArticleCategories('1327139287671386114').then(res => {

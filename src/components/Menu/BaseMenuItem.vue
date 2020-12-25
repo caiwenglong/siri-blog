@@ -196,9 +196,16 @@ export default {
       return false
     },
 
+    /**
+     * 提交表单
+     */
     handleSubmitForm() {
       this.categoryForm.idUser = this.userId
-      this.categoryForm.idParent = this.menuItemSelect.meta.id
+      if(this.menuItemSelect.path === '/') {
+        this.categoryForm.idParent = '0'
+      } else {
+        this.categoryForm.idParent = this.menuItemSelect.meta.id
+      }
       this.categoryForm.path = uuId(8, 16)
       this.$v.$touch()
       if(!this.$v.categoryForm.$invalid) {

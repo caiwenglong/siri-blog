@@ -4,16 +4,16 @@ import deepClone from '../utils/common'
 import router, { resetRouter } from '../router'
 import { removeATagView, removeOneSide } from '../components/TagView/tagViewUtils'
 import { setToken, setRole } from '../utils/auth'
-// import { path404 } from '../components/404/error404'
-
+import { forEach } from 'lodash'
 const mutations = {
 
   // 设置用户类型，并根据权限获取授权路由
   SET_ROLES_AND_ROUTES: (state, params) => {
-    state.role = 'admin'
     // 深拷贝
     const accessRoutes = deepClone(asyncRoutes)
-    accessRoutes[0].children.push(params[0])
+    forEach(params, item => {
+      accessRoutes[0].children.push(item)
+    })
     accessRoutes[0].children = constructionRouters(accessRoutes[0].children)
     state.routes = accessRoutes
   },
