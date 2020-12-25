@@ -14,7 +14,7 @@ service.interceptors.request.use((config) => {
   config.headers['Access-Control-Allow-Origin'] = '*'
   config.headers['Content-Type'] = 'application/json'
   if(getToken()) {
-    config.headers['Authorization'] = getToken()
+    config.headers['X-Token'] = getToken()
   }
   return config
 }, (error) => {

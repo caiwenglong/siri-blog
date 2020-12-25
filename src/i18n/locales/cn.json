@@ -38,6 +38,13 @@
     "createTime": "创建时间：",
     "modifiedTime": "修改时间："
   },
+  "category": {
+    "name": "分类名称",
+    "icon": "图标类名",
+    "error": {
+      "name": "分类名称为必填项！"
+    }
+  },
   "route": {
     "home": "主页",
     "article": "文章文集",
@@ -58,5 +65,8 @@
     "form": "表单填写错误，请检查修改后再重新提交",
     "code500": "Request failed with status code 500"
   },
-  "close": "关闭"
+  "close": "关闭",
+  "submit": "提交",
+  "reset": "重置",
+  "cancel": "取消"
 }

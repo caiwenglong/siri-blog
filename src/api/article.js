@@ -28,3 +28,11 @@ export function apiGetArticleCategories(params) {
     method: 'get'
   })
 }
+
+export function apiAddArticleCategory(params) {
+  return request({
+    url: `/article-api/siri-article/category/AddArticleCategory`,
+    method: 'post',
+    data: params
+  })
+}

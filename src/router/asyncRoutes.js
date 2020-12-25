@@ -69,7 +69,7 @@ const asyncRoutesChildren = [
 export function generateAsyncRouters(menus) {
   const generateRouters = []
   _.forEach(menus, menu => {
-    if(menu.parentId === '0') {
+    if(menu.idParent === '0') {
       const route = {
         path: `/${menu.path}`,
         name: menu.id,
@@ -78,6 +78,7 @@ export function generateAsyncRouters(menus) {
           title: menu.name,
           icon: menu.icon,
           id: menu.id,
+          idParent: '0',
           roles: ['admin', 'editor', 'test'],
           isHidden: false
         },
@@ -90,10 +91,10 @@ export function generateAsyncRouters(menus) {
   return generateRouters
 }
 
-function getChildrenRouters(menus, parentId) {
+function getChildrenRouters(menus, idParent) {
   const childrenRoutes = []
   const children = _.filter(menus, function(item) {
-    if(item.parentId === parentId) {
+    if(item.idParent === idParent) {
       const route = {
         path: `${item.path}`,
         name: item.id,
@@ -104,6 +105,7 @@ function getChildrenRouters(menus, parentId) {
           title: item.name,
           icon: item.icon,
           id: item.id,
+          idParent: item.idParent,
           roles: ['admin', 'editor', 'test'],
           isHidden: false
         },
@@ -111,7 +113,7 @@ function getChildrenRouters(menus, parentId) {
       }
       childrenRoutes.push(route)
     }
-    return item.parentId === parentId
+    return item.idParent === idParent
   })
   if(children.length) {
     _.forEach(children, item => {

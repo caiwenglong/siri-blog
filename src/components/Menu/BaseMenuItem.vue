@@ -30,6 +30,7 @@
           :inset-level="initLevel"
           :to="handleLink(basePath, item.path)"
           clickable
+          @contextmenu.prevent="onContextmenu(item)"
         >
           <q-item-section avatar>
             <q-icon :name="item.meta.icon" />
@@ -48,6 +49,7 @@
           :icon="item.meta.icon"
           :label="item.meta.title"
           tag="div"
+          @contextmenu.prevent="onContextmenu(item)"
         >
 
           <!-- 菜单项缩进 + 0.3 ; 背景色深度 + 1 ; 如果上级菜单路径存在，则拼接上级菜单路径 -->
@@ -62,15 +64,95 @@
         </q-expansion-item>
       </template>
     </template>
+    <q-dialog v-model="prompt" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">Your address</div>
+        </q-card-section>
 
+        <q-card-section class="q-pt-none">
+          <q-form ref="categoryForm" v-model="categoryFormValid">
+            <div class="row">
+              <div class="col-12">
+                <q-input
+                  v-model="categoryForm.name"
+                  dense
+                  counter
+                  :maxlength="categoryNameMaxLength"
+                  :label="$t('category.name')"
+                  :error="$v.categoryForm.name.$dirty && $v.categoryForm.name.$invalid"
+                  :error-message="$t('category.error.name')"
+                  @input="$v.categoryForm.name.$touch()"
+                  @blur="$v.categoryForm.name.$touch()"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <q-input v-model="categoryForm.icon" dense :label="$t('category.icon')" @keyup.enter="prompt = false" />
+              </div>
+            </div>
+          </q-form>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn v-close-popup flat :label="$t('cancel')" />
+          <q-btn v-close-popup flat :label="$t('submit')" @click="handleSubmitForm" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
+import { uuId } from '@/utils/common'
+
 export default {
   name: 'BaseMenuItem',
   // eslint-disable-next-line vue/require-prop-types
   props: ['myRouter', 'initLevel', 'bgColor', 'bgColorLevel', 'duration', 'basePath'],
+  data() {
+    return {
+      menuItemSelect: '',
+      categoryNameMaxLength: 12,
+      categoryFormValid: false,
+      prompt: false,
+      categoryForm: {
+        name: '',
+        icon: '',
+        idUser: '',
+        idParent: '',
+        path: '',
+        isDisable: 0
+      }
+    }
+  },
+
+  validations: {
+    categoryForm: {
+      name: {
+        required
+      },
+      idUser: {
+        required
+      },
+      idParent: {
+        required
+      },
+      path: {
+        required
+      }
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
+  },
+
   methods: {
 
     /**
@@ -84,6 +166,48 @@ export default {
         return '#'
       }
       return link
+    },
+
+    /**
+     * 右击菜单
+     * @param item: 获得菜单项的信息
+     * @returns {boolean}
+     */
+    onContextmenu(item) {
+      this.$contextmenu({
+        items: [
+          {
+            label: '添加分类',
+            icon: 'eye',
+            onClick: () => {
+              this.prompt = true
+              this.menuItemSelect = item
+            }
+          },
+          { label: '编辑' },
+          { label: '删除分类' }
+        ],
+        x: event.clientX,
+        y: event.clientY,
+        customClass: 'menu-context',
+        zIndex: 3000,
+        minWidth: 230
+      })
+      return false
+    },
+
+    handleSubmitForm() {
+      this.categoryForm.idUser = this.userId
+      this.categoryForm.idParent = this.menuItemSelect.meta.id
+      this.categoryForm.path = uuId(8, 16)
+      this.$v.$touch()
+      if(!this.$v.categoryForm.$invalid) {
+        this.$store.dispatch('addCategory', this.categoryForm).then(res => {
+          if(res.code === this._constant.srCode.SUCCESS) {
+            location.reload()
+          }
+        })
+      }
     }
   }
 }

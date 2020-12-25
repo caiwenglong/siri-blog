@@ -8,9 +8,9 @@ export function apiLogin(data) {
   })
 }
 
-export function apiGetInfo(token) {
+export function apiGetUserInfo(token) {
   return request({
-    url: '/user-api/user-center/user/info',
+    url: '/user-api/user-center/user/getUserInfos',
     method: 'get',
     params: { token }
   })

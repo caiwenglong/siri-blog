@@ -1,4 +1,10 @@
-import { apiGetAllArticles, apiAddArticle, apiGetArticle } from '@/api/article'
+import {
+  apiGetAllArticles,
+  apiAddArticle,
+  apiGetArticle,
+  apiGetArticleCategories,
+  apiAddArticleCategory
+} from '@/api/article'
 const articleDefaultState = () => {
   return {
     id: '',
@@ -26,7 +32,12 @@ const mutations = {
 }
 
 const actions = {
-  /* 获取文章列表 */
+  /**
+   * 获取全部文章
+   * @param commit
+   * @param params：{ userId： 用户ID, pageNum: 第几页, pageSize: 每页条数}
+   * @returns {Promise<unknown>}
+   */
   getAllArticles({ commit }, params) {
     return new Promise((resolve, reject) => {
       apiGetAllArticles(params).then(res => {
@@ -38,6 +49,12 @@ const actions = {
     })
   },
 
+  /**
+   * 通过文章ID获取单个文章
+   * @param commit
+   * @param artId：文章ID
+   * @returns {Promise<unknown>}
+   */
   getArticle({ commit }, artId) {
     return new Promise((resolve, reject) => {
       apiGetArticle(artId).then(res => {
@@ -49,9 +66,47 @@ const actions = {
     })
   },
 
+  /**
+   * 添加文章
+   * @param commit
+   * @param articleData：文章表单
+   * @returns {Promise<unknown>}
+   */
   addArticle({ commit }, articleData) {
     return new Promise((resolve, reject) => {
       apiAddArticle(articleData).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 通过用户ID获取分类
+   * @param commit
+   * @param userId
+   * @returns {Promise<unknown>}
+   */
+  getAllCategory({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      apiGetArticleCategories(userId).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 添加文章分类
+   * @param commit
+   * @param categoryForm：分类表单
+   * @returns {Promise<unknown>}
+   */
+  addCategory({ commit }, categoryForm) {
+    return new Promise((resolve, reject) => {
+      apiAddArticleCategory(categoryForm).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

@@ -16,6 +16,7 @@ import animated from 'animate.css'
 import jsonView from 'vue-json-views'
 import Vuelidate from 'vuelidate'
 import * as _ from 'lodash'
+import Contextmenu from 'vue-contextmenujs'
 
 // markdown
 import './components/Markdown/Markdown'
@@ -39,6 +40,7 @@ Vue.config.productionTip = false
 Vue.use(animated)
 Vue.use(jsonView)
 Vue.use(Vuelidate)
+Vue.use(Contextmenu)
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

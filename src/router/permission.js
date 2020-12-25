@@ -25,12 +25,13 @@ router.beforeEach((to, from, next) => {
     } else {
       // 模拟不存在用户权限时，获取用户权限
       // 并根据权限设置对应的路由
-      store.dispatch('routers/generateRoutes').then(res => {
-        store.commit('SET_ROLES_AND_ROUTES', store.getters.dynamicRouters)
-        console.log(store.getters.getRoutes)
-        router.addRoutes(store.getters.getRoutes)
-        // 如果 addRoutes 并未完成，路由守卫会再执行一次
-        next({ ...to, replace: true })
+      store.dispatch('user/getUserInfos', token).then(() => {
+        store.dispatch('routers/generateRoutes').then(() => {
+          store.commit('SET_ROLES_AND_ROUTES', store.getters.dynamicRouters)
+          router.addRoutes(store.getters.getRoutes)
+          // 如果 addRoutes 并未完成，路由守卫会再执行一次
+          next({ ...to, replace: true })
+        })
       })
     }
   } else {
