@@ -17,6 +17,31 @@ const asyncRoutesChildren = [
     component: () => import('../views/home/home.vue')
   },
   {
+    path: 'component',
+    name: 'component',
+    component: () => import('@/components/Layout/layout.vue'),
+    meta: {
+      roles: ['admin', 'test'],
+      title: '组件说明',
+      icon: 'apps',
+      isOpen: true,
+      isHidden: false
+    },
+    children: [
+      {
+        path: 'icon',
+        name: 'icon',
+        meta: {
+          roles: ['admin', 'editor'],
+          title: 'icon 集合',
+          icon: 'api',
+          keepAlive: false
+        },
+        component: () => import('@/views/components/icon')
+      }
+    ]
+  },
+  {
     path: 'article-writing',
     name: 'articleWriting',
     meta: {

@@ -31,8 +31,15 @@ export function apiGetArticleCategories(params) {
 
 export function apiAddArticleCategory(params) {
   return request({
-    url: `/article-api/siri-article/category/AddArticleCategory`,
+    url: `/article-api/siri-article/category/addArticleCategory`,
     method: 'post',
     data: params
+  })
+}
+
+export function apiDeleteArticleCategory(params) {
+  return request({
+    url: `/article-api/siri-article/category/deleteArticleCategory/${params}`,
+    method: 'delete'
   })
 }

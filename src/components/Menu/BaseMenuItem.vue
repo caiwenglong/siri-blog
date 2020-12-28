@@ -101,6 +101,20 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="confirm" persistent>
+      <q-card style="width: 600px">
+        <q-card-section class="row items-center">
+          <q-avatar icon="priority_high" color="red" text-color="white" />
+          <span class="q-ml-sm">删除{{ deleteCategoryName }}分类后，{{ deleteCategoryName }}分类底下的所有文章也将被删除，是否继续删除？</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn v-close-popup flat color="primary" :label="$t('cancel')" />
+          <q-btn v-close-popup flat color="primary" :label="$t('confirm')" @click="handleDeleteMenuItem" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -115,10 +129,11 @@ export default {
   props: ['myRouter', 'initLevel', 'bgColor', 'bgColorLevel', 'duration', 'basePath'],
   data() {
     return {
-      menuItemSelect: '',
+      menuItem: '',
       categoryNameMaxLength: 12,
       categoryFormValid: false,
       prompt: false,
+      confirm: false,
       categoryForm: {
         name: '',
         icon: '',
@@ -126,7 +141,8 @@ export default {
         idParent: '',
         path: '',
         isDisable: 0
-      }
+      },
+      deleteCategoryName: ''
     }
   },
 
@@ -173,7 +189,6 @@ export default {
      * @param name: 路由名称
      */
     handleRedirect(name, categoryId) {
-      debugger
       this.$router.push({ name: name, params: { categoryId: categoryId }})
     },
 
@@ -190,11 +205,22 @@ export default {
             icon: 'eye',
             onClick: () => {
               this.prompt = true
-              this.menuItemSelect = item
+              this.getMenuItem(item)
             }
           },
-          { label: '编辑' },
-          { label: '删除分类' }
+          {
+            label: '编辑',
+            onClick: () => {
+              this.getMenuItem(item)
+            }
+          },
+          {
+            label: '删除分类',
+            onClick: () => {
+              this.confirm = true
+              this.getMenuItem(item)
+            }
+          }
         ],
         x: event.clientX,
         y: event.clientY,
@@ -210,10 +236,10 @@ export default {
      */
     handleSubmitForm() {
       this.categoryForm.idUser = this.userId
-      if(this.menuItemSelect.path === '/') {
+      if(this.menuItem.path === '/') {
         this.categoryForm.idParent = '0'
       } else {
-        this.categoryForm.idParent = this.menuItemSelect.meta.id
+        this.categoryForm.idParent = this.menuItem.meta.id
       }
       this.categoryForm.path = uuId(8, 16)
       this.$v.$touch()
@@ -224,6 +250,36 @@ export default {
           }
         })
       }
+    },
+
+    /**
+     *  item: 菜单项信息
+     */
+    handleDeleteMenuItem() {
+      this._commonHandle.handleShowLoading()
+      this.confirm = true
+      this.$store.dispatch('deleteCategory', this.menuItem.meta.id).then(res => {
+        this._commonHandle.handleHideLoading()
+        if(res.code === this._constant.srCode.SUCCESS) {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.POSITIVE,
+            message: this._i18n.t('menu.successDelete')
+          })
+        }
+      })
+    },
+
+    handleEditMenuItem(item) {
+      console.log(item)
+    },
+
+    /**
+     * 得到正在操作的菜单项
+     * @param menuItem
+     */
+    getMenuItem(menuItem) {
+      this.menuItem = menuItem
+      this.deleteCategoryName = menuItem.meta.title
     }
   }
 }

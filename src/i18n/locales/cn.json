@@ -45,6 +45,14 @@
       "name": "分类名称为必填项！"
     }
   },
+  "menu": {
+    "successAdd": "菜单添加成功",
+    "failedAdd": "菜单添加失败",
+    "successDelete": "菜单删除成功",
+    "failedDelete": "菜单删除失败",
+    "successEdit": "菜单修改成功",
+    "failedEdit": "菜单修改失败"
+  },
   "route": {
     "home": "主页",
     "article": "文章文集",
@@ -68,5 +76,6 @@
   "close": "关闭",
   "submit": "提交",
   "reset": "重置",
-  "cancel": "取消"
+  "cancel": "取消",
+  "confirm": "确定"
 }

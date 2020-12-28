@@ -3,7 +3,8 @@ import {
   apiAddArticle,
   apiGetArticle,
   apiGetArticleCategories,
-  apiAddArticleCategory
+  apiAddArticleCategory,
+  apiDeleteArticleCategory
 } from '@/api/article'
 const articleDefaultState = () => {
   return {
@@ -107,6 +108,16 @@ const actions = {
   addCategory({ commit }, categoryForm) {
     return new Promise((resolve, reject) => {
       apiAddArticleCategory(categoryForm).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  deleteCategory({ commit }, categoryId) {
+    return new Promise((resolve, reject) => {
+      apiDeleteArticleCategory(categoryId).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

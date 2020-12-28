@@ -33,7 +33,7 @@
       </q-badge>
       <q-tooltip>通知</q-tooltip>
     </q-btn>
-    <q-btn flat round icon="keyboard">
+    <q-btn flat round icon="translate">
       <q-menu>
         <q-list>
           <q-item v-for="item in availableLanguages" :key="item.value" v-close-popup clickable @click="handleLanguageChange(item.value)">
