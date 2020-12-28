@@ -28,8 +28,8 @@
           exact
           :class="bgColor + '-' + bgColorLevel"
           :inset-level="initLevel"
-          :to="handleLink(basePath, item.path)"
           clickable
+          @click="handleRedirect(item.name, item.meta.id)"
           @contextmenu.prevent="onContextmenu(item)"
         >
           <q-item-section avatar>
@@ -166,6 +166,15 @@ export default {
         return '#'
       }
       return link
+    },
+
+    /**
+     * 跳转到该路由
+     * @param name: 路由名称
+     */
+    handleRedirect(name, categoryId) {
+      debugger
+      this.$router.push({ name: name, params: { categoryId: categoryId }})
     },
 
     /**

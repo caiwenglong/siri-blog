@@ -15,6 +15,32 @@ const asyncRoutesChildren = [
       keepAlive: true
     },
     component: () => import('../views/home/home.vue')
+  },
+  {
+    path: 'article-writing',
+    name: 'articleWriting',
+    meta: {
+      roles: ['admin', 'editor'],
+      t_title: 'route.articleWriting',
+      title: '文章写作',
+      icon: 'edit_road',
+      keepAlive: true,
+      component: () => import('@/components/Layout/layout.vue')
+    },
+    component: () => import('@/views/articles/article-writing/index.vue')
+  },
+  {
+    path: 'article-details/:artId',
+    name: 'articleDetails',
+    meta: {
+      roles: ['admin', 'editor', 'test'],
+      t_title: 'route.articleDetails',
+      title: 'article',
+      icon: 'description',
+      isHidden: true,
+      keepAlive: true
+    },
+    component: () => import('@/views/articles/article-details/index.vue')
   }
 ]
 
@@ -35,7 +61,6 @@ export function generateAsyncRouters(menus) {
           isHidden: false
         },
         component: () => import('@/views/articles/article-list/index.vue'),
-        props: { categoryId: menu.id },
         children: getChildrenRouters(menus, menu.id)
       }
       generateRouters.push(route)
@@ -53,7 +78,6 @@ function getChildrenRouters(menus, idParent) {
         name: item.id,
         url: item.id,
         component: () => import('@/views/articles/article-list/index.vue'),
-        props: { categoryId: item.id },
         meta: {
           title: item.name,
           icon: item.icon,

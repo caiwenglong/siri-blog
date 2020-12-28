@@ -96,10 +96,19 @@ module.exports = {
   css: {
     requireModuleExtension: true,
     sourceMap: true,
-    // 打包后css文件名称添加时间戳
-    extract: {
-      filename: `css/[name].${timeStamp}.css`,
-      chunkFilename: `css/[name].${timeStamp}.css`
+    loaderOptions: {
+      scss: {
+        additionalData(content, loaderContext) {
+          const { resourcePath, rootContext } = loaderContext
+          const relativePath = path.relative(rootContext, resourcePath)
+          if(
+            relativePath.replace(/\\/g, '/') !== 'src/styles/variables.scss'
+          ) {
+            return '@import "~@/styles/variables.scss";' + content
+          }
+          return content
+        }
+      }
     }
   },
   chainWebpack(config) {

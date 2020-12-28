@@ -61,11 +61,9 @@ import { getUserId } from '@/utils/auth'
 export default {
   name: 'ArticleList',
 
-  // eslint-disable-next-line vue/require-prop-types
-  props: ['categoryId'],
-
   data() {
     return {
+      categoryId: '',
       articleList: [],
       hoverClass: 'inset-shadow',
       tagColors: ['primary', 'teal', 'orange', 'info', 'warning'],
@@ -75,13 +73,15 @@ export default {
   },
 
   created() {
+    this.categoryId = this.$route.params.categoryId
+    console.log(this.categoryId)
     this.getArticleList()
   },
 
   methods: {
     getArticleList() {
       this._commonHandle.handleShowLoading()
-      this.$store.dispatch('getAllArticles', { userId: getUserId(), pageNum: 1, pageSize: 10 }).then(res => {
+      this.$store.dispatch('getAllArticles', { userId: getUserId(), category: this.categoryId, pageNum: 1, pageSize: 10 }).then(res => {
         this._commonHandle.handleHideLoading()
         if(res.code === this._constant.srCode.SUCCESS && res.data.result.articleList.length) {
           this.articleList = this._lodash.map(res.data.result.articleList, article => {
@@ -120,12 +120,12 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     &.inset-shadow {
-      box-shadow: $inset-shadow
+      box-shadow: 0 7px 90px -50px rgba(0,0,0,0.5) inset
     }
   }
   .item__title {
     strong {
-      font-size: $itemTitleFont;
+      font-size: 24px;
       color: $grey-8;
     }
   }

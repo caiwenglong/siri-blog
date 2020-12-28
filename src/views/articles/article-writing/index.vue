@@ -23,7 +23,7 @@
             <q-select
               v-model="articleForm.category"
               color="secondary"
-              :options="optionsCategory"
+              :options="categories"
               :label="$t('article.category')"
             >
               <template v-slot:no-option>
@@ -65,6 +65,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import { mapGetters } from 'vuex'
 export default {
   name: 'ArticleWriting',
   data() {
@@ -79,39 +80,7 @@ export default {
       articleFormValid: false,
       articleTitleMaxLength: 12,
       modelCategory: null,
-      optionsCategory: [
-        {
-          label: 'Google',
-          value: 'goog',
-          description: 'Search engine',
-          icon: 'mail'
-        },
-        {
-          label: 'Facebook',
-          value: 'fb',
-          description: 'Social media',
-          icon: 'bluetooth'
-        },
-        {
-          label: 'Twitter',
-          value: 'twt',
-          description: 'Quick updates',
-          icon: 'map'
-        },
-        {
-          label: 'Apple',
-          value: 'app',
-          description: 'iStuff',
-          icon: 'golf_course'
-        },
-        {
-          label: 'Oracle',
-          value: 'ora',
-          disable: true,
-          description: 'Databases',
-          icon: 'casino'
-        }
-      ],
+      categories: [],
       optionsTags: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ]
@@ -126,20 +95,55 @@ export default {
       content: {
         required
       },
-      tags: {},
-      category: {}
+      idAuthor: {
+        required
+      },
+      category: {
+        required
+      }
     }
+  },
+
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
   },
 
   created() {
     this.$v.$reset()
+    this.handleGetCategories()
   },
 
   methods: {
 
-    /*
-    * 创建标签
-    * */
+    /**
+     * 创建标签
+     */
+    handleGetCategories() {
+      this.$store.dispatch('getAllCategory', this.userId).then(res => {
+        if(res.code === this._constant.srCode.SUCCESS) {
+          this._lodash.forEach(res.data.categories, item => {
+            const category = {
+              label: '',
+              value: '',
+              icon: '',
+              idAuthor: ''
+            }
+            category.value = item.id
+            category.label = item.name
+            category.icon = item.icon
+            this.categories.push(category)
+          })
+        }
+      })
+    },
+
+    /**
+     * 创建标签
+     * @param val：标签值
+     * @param done
+     */
     createTagValue(val, done) {
       if(val.length > 0) {
         if(!this.optionsTags.includes(val)) {
@@ -149,9 +153,11 @@ export default {
       }
     },
 
-    /*
-    *   过滤标签
-    * */
+    /**
+     * 过滤标签
+     * @param val
+     * @param update
+     */
     filterFn(val, update) {
       update(() => {
         if(val !== '') {
@@ -163,20 +169,24 @@ export default {
       })
     },
 
-    /*
-    *   发布文章
-    * */
+    /**
+     * 提交表单
+     */
     onSubmit() {
+      this._commonHandle.handleShowLoading()
       this.$v.$touch()
       this.articleForm.tags = this._lodash.toString(this.tags)
       this.articleForm.category = this.articleForm.category.value
+      this.articleForm.idAuthor = this.userId
       if(!this.$v.articleForm.$invalid) {
         this.$store.dispatch('addArticle', this.articleForm).then(res => {
+          this._commonHandle.handleHideLoading()
           if(res.code === this._constant.srCode.SUCCESS) {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.POSITIVE,
               message: this._i18n.t('article.publicSuccess')
             })
+            this.$router.push({ name: this.articleForm.category, params: { categoryId: this.articleForm.category }})
           } else {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.NEGATIVE,
@@ -184,6 +194,7 @@ export default {
             })
           }
         }).catch(error => {
+          this._commonHandle.handleHideLoading()
           console.error(error.message)
           const errorMsg = error.message
           this._commonHandle.handleNotify({
@@ -193,6 +204,7 @@ export default {
           })
         })
       } else {
+        this._commonHandle.handleHideLoading()
         this._commonHandle.handleNotify({
           type: this._constant.notify.notifyType.NEGATIVE,
           message: this._i18n.t('error.form')
@@ -200,24 +212,24 @@ export default {
       }
     },
 
-    /*
-    *   重置表单
-    * */
+    /**
+     * 重置表单
+     */
     handleReset() {
       this.$v.$reset()
       this.handleResetForm()
     },
 
-    /*
-    *   取消发布
-    * */
+    /**
+     * 取消提交
+     */
     handleCancel() {
       this._commonHandle.handleNotify({ type: 'positive', message: 'error.form' })
     },
 
-    /*
-    *   重置表单
-    * */
+    /**
+     * 重置表单
+     */
     handleResetForm() {
       this.articleForm.title = ''
       this.articleForm.content = ''

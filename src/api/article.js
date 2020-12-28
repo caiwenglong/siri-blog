@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function apiGetAllArticles(params) {
   return request({
-    url: `/article-api/siri-article/getAll/${params.userId}/${params.pageNum}/${params.pageSize}`,
+    url: `/article-api/siri-article/getAll/${params.userId}/${params.category}/${params.pageNum}/${params.pageSize}`,
     method: 'get'
   })
 }

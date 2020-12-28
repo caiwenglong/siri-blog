@@ -46,6 +46,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "image-webpack-loader": "^7.0.1",
     "js-cookie": "^2.2.1",
     "lottie-web": "^5.7.3",
     "name-styles": "^2.0.2",
