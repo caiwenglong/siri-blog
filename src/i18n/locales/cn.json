@@ -46,12 +46,16 @@
     }
   },
   "menu": {
+    "menuAdd": "添加菜单",
     "successAdd": "菜单添加成功",
     "failedAdd": "菜单添加失败",
+    "menuDelete": "删除菜单",
+    "menuDeleteTip": "删除{categoryName}分类后，{categoryName}分类底下的所有文章也将被删除，是否继续删除？",
     "successDelete": "菜单删除成功",
     "failedDelete": "菜单删除失败",
-    "successEdit": "菜单修改成功",
-    "failedEdit": "菜单修改失败"
+    "menuModify": "修改菜单",
+    "successModify": "菜单修改成功",
+    "failedModify": "菜单修改失败"
   },
   "route": {
     "home": "主页",

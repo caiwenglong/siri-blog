@@ -67,7 +67,7 @@
     <q-dialog v-model="prompt" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
-          <div class="text-h6">Your address</div>
+          <div class="text-h6">{{ isEdit ? $t('menu.menuModify') : $t('menu.menuAdd') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -97,7 +97,8 @@
 
         <q-card-actions align="right" class="text-primary">
           <q-btn v-close-popup flat :label="$t('cancel')" />
-          <q-btn v-close-popup flat :label="$t('submit')" @click="handleSubmitForm" />
+          <q-btn v-if="isEdit" v-close-popup flat :label="$t('confirm')" @click="handleModifyMenuItem" />
+          <q-btn v-else v-close-popup flat :label="$t('submit')" @click="handleSubmitForm" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -106,7 +107,7 @@
       <q-card style="width: 600px">
         <q-card-section class="row items-center">
           <q-avatar icon="priority_high" color="red" text-color="white" />
-          <span class="q-ml-sm infos-content">删除{{ deleteCategoryName }}分类后，{{ deleteCategoryName }}分类底下的所有文章也将被删除，是否继续删除？</span>
+          <span class="q-ml-sm infos-content">{{ $t('menu.menuDeleteTip', { categoryName: menuItem ? menuItem.meta.title : '' }) }}</span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -135,14 +136,14 @@ export default {
       prompt: false,
       confirm: false,
       categoryForm: {
+        id: '',
         name: '',
         icon: '',
         idUser: '',
         idParent: '',
-        path: '',
-        isDisable: 0
+        path: ''
       },
-      deleteCategoryName: ''
+      isEdit: false
     }
   },
 
@@ -186,7 +187,7 @@ export default {
 
     /**
      * 跳转到该路由
-     * @param name: 路由名称
+     * @param item: 菜单项
      */
     handleRedirect(item) {
       this.$router.push({ name: item.name, params: { categoryId: item.meta.id }})
@@ -205,13 +206,17 @@ export default {
             icon: 'eye',
             onClick: () => {
               this.prompt = true
+              this.isEdit = false
               this.getMenuItem(item)
             }
           },
           {
             label: '编辑',
             onClick: () => {
+              this.isEdit = true
+              this.prompt = true
               this.getMenuItem(item)
+              this.getCategoryForm(item)
             }
           },
           {
@@ -246,6 +251,10 @@ export default {
       if(!this.$v.categoryForm.$invalid) {
         this.$store.dispatch('addCategory', this.categoryForm).then(res => {
           if(res.code === this._constant.srCode.SUCCESS) {
+            this._commonHandle.handleNotify({
+              type: this._constant.notify.notifyType.POSITIVE,
+              message: this._i18n.t('menu.successAdd')
+            })
             location.reload()
           }
         })
@@ -265,12 +274,34 @@ export default {
             type: this._constant.notify.notifyType.POSITIVE,
             message: this._i18n.t('menu.successDelete')
           })
+        } else {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.NEGATIVE,
+            message: this._i18n.t('menu.failedDelete')
+          })
         }
       })
     },
 
-    handleEditMenuItem(item) {
-      console.log(item)
+    /**
+     * 修改菜单
+     */
+    handleModifyMenuItem() {
+      this._commonHandle.handleShowLoading()
+      this.$store.dispatch('modifyCategory', this.categoryForm).then(res => {
+        this._commonHandle.handleHideLoading()
+        if(res.code === this._constant.srCode.SUCCESS) {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.POSITIVE,
+            message: this._i18n.t('menu.successModify')
+          })
+        } else {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.NEGATIVE,
+            message: this._i18n.t('menu.failedModify')
+          })
+        }
+      })
     },
 
     /**
@@ -279,7 +310,16 @@ export default {
      */
     getMenuItem(menuItem) {
       this.menuItem = menuItem
-      this.deleteCategoryName = menuItem.meta.title
+    },
+
+    /**
+     * 给categoryForm 赋值
+     */
+    getCategoryForm() {
+      this.categoryForm.idUser = this.userId
+      this.categoryForm.id = this.menuItem.meta.id
+      this.categoryForm.name = this.menuItem.meta.title
+      this.categoryForm.icon = this.menuItem.meta.icon
     }
   }
 }
@@ -287,6 +327,6 @@ export default {
 
 <style scoped lang="scss">
   .infos-content {
-    max-width: 400px;
+    max-width: 460px;
   }
 </style>

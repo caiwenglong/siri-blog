@@ -37,6 +37,14 @@ export function apiAddArticleCategory(params) {
   })
 }
 
+export function apiModifyArticleCategory(params) {
+  return request({
+    url: `/article-api/siri-article/category/modifyArticleCategory`,
+    method: 'post',
+    data: params
+  })
+}
+
 export function apiDeleteArticleCategory(params) {
   return request({
     url: `/article-api/siri-article/category/deleteArticleCategory/${params}`,

@@ -4,7 +4,8 @@ import {
   apiGetArticle,
   apiGetArticleCategories,
   apiAddArticleCategory,
-  apiDeleteArticleCategory
+  apiDeleteArticleCategory,
+  apiModifyArticleCategory
 } from '@/api/article'
 const articleDefaultState = () => {
   return {
@@ -109,6 +110,22 @@ const actions = {
   addCategory({ commit }, categoryForm) {
     return new Promise((resolve, reject) => {
       apiAddArticleCategory(categoryForm).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 修改分类
+   * @param commit
+   * @param categoryForm
+   * @returns {Promise<unknown>}
+   */
+  modifyCategory({ commit }, categoryForm) {
+    return new Promise((resolve, reject) => {
+      apiModifyArticleCategory(categoryForm).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
