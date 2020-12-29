@@ -1,5 +1,4 @@
 const getters = {
-  getRoutes: (state) => { return state.routes },
   getTagView: (state) => { return state.tagView },
   getBreadcrumbs: (state) => { return state.breadcrumbs },
   getKeepAliveList: (state) => { return state.keepAliveList },
@@ -7,6 +6,7 @@ const getters = {
   getToken: (state) => { return state.token },
   userId: (state) => { return state.user.id },
   dynamicRouters: state => state.routers.dynamicRouters,
+  getRoutes: (state) => { return state.routers.routes },
   storeCategories: state => state.routers.categories
 }
 

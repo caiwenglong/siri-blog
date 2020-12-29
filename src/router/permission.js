@@ -19,6 +19,7 @@ router.beforeEach((to, from, next) => {
     if(to.path === '/logon') {
       next({ path: '/' })
     }
+    debugger
     // 存在用户权限，并且路由不为空则放行
     if(userRole && store.getters.getRoutes.length) {
       next()
@@ -28,8 +29,6 @@ router.beforeEach((to, from, next) => {
       store.dispatch('user/getUserInfos', token).then(() => {
         const userId = getUserId()
         store.dispatch('routers/generateRoutes', userId).then(() => {
-          store.commit('SET_ROLES_AND_ROUTES', store.getters.dynamicRouters)
-          router.addRoutes(store.getters.getRoutes)
           // 如果 addRoutes 并未完成，路由守卫会再执行一次
           next({ ...to, replace: true })
         })
