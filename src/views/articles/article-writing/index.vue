@@ -106,7 +106,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userId'
+      'userId',
+      'storeCategories'
     ])
   },
 
@@ -121,21 +122,17 @@ export default {
      * 创建标签
      */
     handleGetCategories() {
-      this.$store.dispatch('getAllCategory', this.userId).then(res => {
-        if(res.code === this._constant.srCode.SUCCESS) {
-          this._lodash.forEach(res.data.categories, item => {
-            const category = {
-              label: '',
-              value: '',
-              icon: '',
-              idAuthor: ''
-            }
-            category.value = item.id
-            category.label = item.name
-            category.icon = item.icon
-            this.categories.push(category)
-          })
+      this._lodash.forEach(this.storeCategories, item => {
+        const category = {
+          label: '',
+          value: '',
+          icon: '',
+          idAuthor: ''
         }
+        category.value = item.id
+        category.label = item.name
+        category.icon = item.icon
+        this.categories.push(category)
       })
     },
 

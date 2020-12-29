@@ -5,7 +5,7 @@ import store from '../store/index'
 import constantRoutes from './constantRoutes'
 import { addTagView, setTagView } from '../components/TagView/tagViewUtils'
 import { setBreadcrumbs } from '../components/Breadcrumbs/breadcrumbsUtils'
-import { getRole, getToken } from '../utils/auth'
+import { getRole, getToken, getUserId } from '../utils/auth'
 
 router.beforeEach((to, from, next) => {
   // 成功登录后处理
@@ -26,7 +26,8 @@ router.beforeEach((to, from, next) => {
       // 模拟不存在用户权限时，获取用户权限
       // 并根据权限设置对应的路由
       store.dispatch('user/getUserInfos', token).then(() => {
-        store.dispatch('routers/generateRoutes').then(() => {
+        const userId = getUserId()
+        store.dispatch('routers/generateRoutes', userId).then(() => {
           store.commit('SET_ROLES_AND_ROUTES', store.getters.dynamicRouters)
           router.addRoutes(store.getters.getRoutes)
           // 如果 addRoutes 并未完成，路由守卫会再执行一次

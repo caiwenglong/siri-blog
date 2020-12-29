@@ -2,24 +2,30 @@ import { apiGetArticleCategories } from '../../api/article'
 import { generateAsyncRouters } from '../../router/asyncRoutes'
 
 const state = {
-  dynamicRouters: null
+  dynamicRouters: null,
+  categories: []
 }
 
 const mutations = {
   SET_ROUTERS: (state, dynamicRouters) => {
     state.dynamicRouters = dynamicRouters
+  },
+
+  SET_CATEGORIES: (state, categories) => {
+    state.categories = categories
   }
 }
 
 const actions = {
-  generateRoutes({ commit }) {
+  generateRoutes({ commit }, userId) {
     return new Promise(resolve => {
       let routes = []
-      apiGetArticleCategories('1327139287671386114').then(res => {
+      apiGetArticleCategories(userId).then(res => {
         const menus = res.data.categories
         if(menus.length) {
           routes = generateAsyncRouters(menus)
         }
+        commit('SET_CATEGORIES', menus)
         commit('SET_ROUTERS', routes)
         resolve(routes)
       })

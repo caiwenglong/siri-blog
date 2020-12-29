@@ -73,8 +73,7 @@ export default {
   },
 
   created() {
-    this.categoryId = this.$route.params.categoryId
-    console.log(this.categoryId)
+    this.categoryId = this.$route.meta.id
     this.getArticleList()
   },
 

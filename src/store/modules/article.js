@@ -20,7 +20,8 @@ const articleDefaultState = () => {
 
 const state = {
   entityArticle: articleDefaultState,
-  entityArticleList: []
+  entityArticleList: [],
+  categories: []
 }
 
 const mutations = {

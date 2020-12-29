@@ -6,7 +6,8 @@ const getters = {
   getRole: (state) => { return state.user.role },
   getToken: (state) => { return state.token },
   userId: (state) => { return state.user.id },
-  dynamicRouters: state => state.routers.dynamicRouters
+  dynamicRouters: state => state.routers.dynamicRouters,
+  storeCategories: state => state.routers.categories
 }
 
 export default getters

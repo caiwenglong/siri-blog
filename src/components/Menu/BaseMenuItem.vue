@@ -29,7 +29,7 @@
           :class="bgColor + '-' + bgColorLevel"
           :inset-level="initLevel"
           clickable
-          @click="handleRedirect(item.name, item.meta.id)"
+          @click="handleRedirect(item)"
           @contextmenu.prevent="onContextmenu(item)"
         >
           <q-item-section avatar>
@@ -106,7 +106,7 @@
       <q-card style="width: 600px">
         <q-card-section class="row items-center">
           <q-avatar icon="priority_high" color="red" text-color="white" />
-          <span class="q-ml-sm">删除{{ deleteCategoryName }}分类后，{{ deleteCategoryName }}分类底下的所有文章也将被删除，是否继续删除？</span>
+          <span class="q-ml-sm infos-content">删除{{ deleteCategoryName }}分类后，{{ deleteCategoryName }}分类底下的所有文章也将被删除，是否继续删除？</span>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -188,8 +188,8 @@ export default {
      * 跳转到该路由
      * @param name: 路由名称
      */
-    handleRedirect(name, categoryId) {
-      this.$router.push({ name: name, params: { categoryId: categoryId }})
+    handleRedirect(item) {
+      this.$router.push({ name: item.name, params: { categoryId: item.meta.id }})
     },
 
     /**
@@ -284,3 +284,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .infos-content {
+    max-width: 400px;
+  }
+</style>
