@@ -19,6 +19,21 @@
                   <strong>
                     {{ article.title }}
                   </strong>
+                  <span class="action-group float-right">
+                    <q-btn-group>
+
+                      <q-btn color="accent" icon="create">
+                        <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+                          修改文章
+                        </q-tooltip>
+                      </q-btn>
+                      <q-btn color="accent" icon="close" @click.stop="handleDeleteArticle(article.id)">
+                        <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+                          删除文章
+                        </q-tooltip>
+                      </q-btn>
+                    </q-btn-group>
+                  </span>
                 </q-item-label>
                 <q-item-label v-if="article.tags.length" class="q-chip-wrapper">
                   <template v-for="(tag, i) in article.tags">
@@ -60,7 +75,7 @@ import { getUserId } from '@/utils/auth'
 
 export default {
   name: 'ArticleList',
-
+  inject: ['reload'],
   data() {
     return {
       categoryId: '',
@@ -95,6 +110,20 @@ export default {
       }).catch(err => {
         console.error(err)
       })
+    },
+
+    async handleDeleteArticle(idArticle) {
+
+      this._commonHandle.handleShowLoading()
+      const deleteArticleResult = await this.$store.dispatch('deleteArticleById', idArticle)
+      console.log(deleteArticleResult)
+      this._commonHandle.handleHideLoading()
+      if(deleteArticleResult.code === this._constant.srCode.SUCCESS) {
+        this._commonHandle.handleNotify({
+          message: '文章删除成功'
+        })
+        this.reload()
+      }
     },
 
     handleClickItem(artId) {

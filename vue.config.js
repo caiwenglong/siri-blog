@@ -6,8 +6,9 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/vue-quasar-manage/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/siri-blog/' : '/',
   devServer: {
+    hot: true,
     port: port,
     open: false,
     proxy: {

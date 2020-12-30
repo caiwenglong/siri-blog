@@ -69,6 +69,15 @@ const asyncRoutesChildren = [
   }
 ]
 
+const notFound = {
+  path: '*', // 此处需置于最底部
+  redirect: '/NoFound404',
+  meta: {
+    roles: ['admin', 'test'],
+    isHidden: true
+  }
+}
+
 export function generateAsyncRouters(menus) {
   const generateRouters = []
   _.forEach(menus, menu => {
@@ -91,6 +100,7 @@ export function generateAsyncRouters(menus) {
       generateRouters.push(route)
     }
   })
+  generateRouters.push(notFound)
   return generateRouters
 }
 
