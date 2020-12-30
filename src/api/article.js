@@ -22,6 +22,20 @@ export function apiAddArticle(articleForm) {
   })
 }
 
+export function apiDeleteArticleById(params) {
+  return request({
+    url: `/article-api/siri-article/deleteArticleById/${params}`,
+    method: 'delete'
+  })
+}
+
+export function apiDeleteArticleByCategoryId(params) {
+  return request({
+    url: `/article-api/siri-article/deleteArticleByCategoryId/${params}`,
+    method: 'delete'
+  })
+}
+
 export function apiGetArticleCategories(params) {
   return request({
     url: `/article-api/siri-article/category/getAllCategories/${params}`,

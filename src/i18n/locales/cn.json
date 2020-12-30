@@ -32,6 +32,8 @@
     "categoryTip": "请输入文章分类",
     "publicSuccess": "文章发布成功",
     "publicFailed": "文章发布失败！",
+    "successDeleteArticle": "文章删除成功",
+    "failedDeleteArticle": "文章删除失败",
     "public": "发布",
     "reset": "重置",
     "cancel": "取消",
@@ -47,15 +49,15 @@
   },
   "menu": {
     "menuAdd": "添加菜单",
-    "successAdd": "菜单添加成功",
-    "failedAdd": "菜单添加失败",
-    "menuDelete": "删除菜单",
+    "successAddMenu": "菜单添加成功",
+    "failedAddMenu": "菜单添加失败",
+    "menuDeleteMenu": "删除菜单",
     "menuDeleteTip": "删除{categoryName}分类后，{categoryName}分类底下的所有文章也将被删除，是否继续删除？",
-    "successDelete": "菜单删除成功",
-    "failedDelete": "菜单删除失败",
+    "successDeleteMenu": "菜单删除成功",
+    "failedDeleteMenu": "菜单删除失败",
     "menuModify": "修改菜单",
-    "successModify": "菜单修改成功",
-    "failedModify": "菜单修改失败"
+    "successModifyMenu": "菜单修改成功",
+    "failedModifyMenu": "菜单修改失败"
   },
   "route": {
     "home": "主页",

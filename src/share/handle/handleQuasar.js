@@ -20,6 +20,7 @@ export function handleNotify(customOptions) {
     type: options.type,
     message: options.transform ? i18n.t(options.message) : options.message
   })
+  handleHideLoading()
 }
 
 export function handleShowLoading() {

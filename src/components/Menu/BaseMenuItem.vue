@@ -253,7 +253,7 @@ export default {
           if(res.code === this._constant.srCode.SUCCESS) {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.POSITIVE,
-              message: this._i18n.t('menu.successAdd')
+              message: this._i18n.t('menu.successAddMenu')
             })
             location.reload()
           }
@@ -262,25 +262,40 @@ export default {
     },
 
     /**
-     *  item: 菜单项信息
+     * 删除分类
+     * item: 菜单项信息
      */
-    handleDeleteMenuItem() {
+    async handleDeleteMenuItem() {
       this._commonHandle.handleShowLoading()
       this.confirm = true
-      this.$store.dispatch('deleteCategory', this.menuItem.meta.id).then(res => {
-        this._commonHandle.handleHideLoading()
-        if(res.code === this._constant.srCode.SUCCESS) {
-          this._commonHandle.handleNotify({
-            type: this._constant.notify.notifyType.POSITIVE,
-            message: this._i18n.t('menu.successDelete')
-          })
-        } else {
-          this._commonHandle.handleNotify({
-            type: this._constant.notify.notifyType.NEGATIVE,
-            message: this._i18n.t('menu.failedDelete')
-          })
-        }
-      })
+
+      const idCategory = this.menuItem.meta.id
+
+      // 1、删除该分类底下的所有文章
+      const deleteArticleResult = await this.$store.dispatch('deleteArticleByCategoryId', idCategory)
+
+      // 2、删除该分类
+      const deleteCategoryResult = await this.$store.dispatch('deleteCategory', idCategory)
+      if(deleteArticleResult.code === this._constant.srCode.SUCCESS &&
+         deleteCategoryResult.code === this._constant.srCode.SUCCESS) {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.POSITIVE,
+          message: this._i18n.t('menu.successDeleteMenu')
+        })
+        location.reload()
+      } else if(deleteCategoryResult.code !== this._constant.srCode.SUCCESS) {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: this._i18n.t('menu.failedDeleteMenu')
+        })
+      } else if(deleteArticleResult.code !== this._constant.srCode.SUCCESS) {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: this._i18n.t('menu.failedDeleteArticle')
+        })
+      } else {
+        console.error(this._i18n.t('menu.failedDeleteMenu'))
+      }
     },
 
     /**
@@ -293,12 +308,13 @@ export default {
         if(res.code === this._constant.srCode.SUCCESS) {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.POSITIVE,
-            message: this._i18n.t('menu.successModify')
+            message: this._i18n.t('menu.successModifyMenu')
           })
+          location.reload()
         } else {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.NEGATIVE,
-            message: this._i18n.t('menu.failedModify')
+            message: this._i18n.t('menu.failedModifyMenu')
           })
         }
       })

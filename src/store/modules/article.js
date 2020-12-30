@@ -2,6 +2,8 @@ import {
   apiGetAllArticles,
   apiAddArticle,
   apiGetArticle,
+  apiDeleteArticleById,
+  apiDeleteArticleByCategoryId,
   apiGetArticleCategories,
   apiAddArticleCategory,
   apiDeleteArticleCategory,
@@ -78,6 +80,38 @@ const actions = {
   addArticle({ commit }, articleData) {
     return new Promise((resolve, reject) => {
       apiAddArticle(articleData).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 通过文章ID删除文章
+   * @param commit
+   * @param idArticle：文章ID
+   * @returns {Promise<unknown>}
+   */
+  deleteArticleById({ commit }, idArticle) {
+    return new Promise((resolve, reject) => {
+      apiDeleteArticleById(idArticle).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  /**
+   * 通过分类ID删除文章
+   * @param commit
+   * @param idCategory：分类ID
+   * @returns {Promise<unknown>}
+   */
+  deleteArticleByCategoryId({ commit }, idCategory) {
+    return new Promise((resolve, reject) => {
+      apiDeleteArticleByCategoryId(idCategory).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

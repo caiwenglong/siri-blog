@@ -19,7 +19,6 @@ router.beforeEach((to, from, next) => {
     if(to.path === '/logon') {
       next({ path: '/' })
     }
-    debugger
     // 存在用户权限，并且路由不为空则放行
     if(userRole && store.getters.getRoutes.length) {
       next()
