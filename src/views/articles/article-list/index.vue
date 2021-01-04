@@ -27,7 +27,7 @@
                           修改文章
                         </q-tooltip>
                       </q-btn>
-                      <q-btn color="accent" icon="close" @click.stop="handleDeleteArticle(article.id)">
+                      <q-btn color="accent" icon="close" @click.stop="handleShowDialog(article.id)">
                         <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
                           删除文章
                         </q-tooltip>
@@ -67,17 +67,24 @@
         </div>
       </template>
     </div>
+    <dialog-confirm :show="showDialog" @cancelBtnClick="handleCancelBtnClick" @confirmBtnClick="handleConfirmBtnClick" />
   </div>
 </template>
 
 <script>
 import { getUserId } from '@/utils/auth'
+import DialogConfirm from '@/components/DialogConfirm/DialogConfirm.vue'
 
 export default {
   name: 'ArticleList',
   inject: ['reload'],
+  components: {
+    DialogConfirm
+  },
   data() {
     return {
+      showDialog: false,
+      idArticle: '',
       categoryId: '',
       articleList: [],
       hoverClass: 'inset-shadow',
@@ -93,6 +100,9 @@ export default {
   },
 
   methods: {
+    /**
+     * 通过分类ID获取文章列表
+     */
     getArticleList() {
       this._commonHandle.handleShowLoading()
       this.$store.dispatch('getAllArticles', { userId: getUserId(), category: this.categoryId, pageNum: 1, pageSize: 10 }).then(res => {
@@ -112,10 +122,14 @@ export default {
       })
     },
 
-    async handleDeleteArticle(idArticle) {
-
+    /**
+     * 通过文章ID删除文章
+     * @param idArticle
+     * @returns {Promise<void>}
+     */
+    async handleDeleteArticle() {
       this._commonHandle.handleShowLoading()
-      const deleteArticleResult = await this.$store.dispatch('deleteArticleById', idArticle)
+      const deleteArticleResult = await this.$store.dispatch('deleteArticleById', this.idArticle)
       console.log(deleteArticleResult)
       this._commonHandle.handleHideLoading()
       if(deleteArticleResult.code === this._constant.srCode.SUCCESS) {
@@ -126,15 +140,54 @@ export default {
       }
     },
 
+    /**
+     * 显示提示框
+     * @param idArticle：文章id
+     * @returns {Promise<void>}
+     */
+    handleShowDialog(idArticle) {
+      this.showDialog = true
+      this.idArticle = idArticle
+    },
+
+    /**
+     * 点击文章列表项跳转到对应的文章详情页
+     * @param artId
+     */
     handleClickItem(artId) {
       this.$router.push({ name: 'articleDetails', params: { artId: artId }})
     },
 
+    /**
+     * 鼠标划入列表项事件处理
+     * @param evt
+     */
     handleMouseEnter(evt) {
       evt.target.classList.add(this.hoverClass)
     },
+
+    /**
+     * 鼠标划出列表项事件处理
+     * @param evt
+     */
     handleMouseLeave(evt) {
       evt.target.classList.remove(this.hoverClass)
+    },
+
+    /**
+     * 取消删除文章
+     */
+    handleCancelBtnClick() {
+      this.showDialog = false
+      console.log('0')
+    },
+
+    /**
+     * 确认删除文章
+     */
+    handleConfirmBtnClick() {
+      this.showDialog = false
+      this.handleDeleteArticle()
     }
   }
 }
