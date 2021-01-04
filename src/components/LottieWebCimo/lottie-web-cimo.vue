@@ -45,8 +45,8 @@ export default {
       this.lottie.setSpeed(this.animationSpeed)
     },
 
-    isLottieFinish: function(e) {
-      this.$emit('isLottieFinish', e)
+    isLottieFinish: function() {
+      this.$emit('isLottieFinish', true)
     },
 
     initLottie: function() {
@@ -58,7 +58,7 @@ export default {
         // 如果需要用到路径请求，请使用 path ，lottie 如果 animationData 为空 ，则自动选择 path
         path: this.path
       })
-      this.lottie.addEventListener('data_ready', () => { this.isLottieFinish(true) })
+      this.isLottieFinish()
     }
 
   }

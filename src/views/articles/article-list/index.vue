@@ -3,7 +3,7 @@
     <div class="bg-white q-mx-md q-mt-md q-pb-md q-pt-md">
       <template>
         <div class="q-pa-md col-12">
-          <q-list>
+          <q-list v-if="articleList.length">
             <q-item
               v-for="article in articleList"
               :key="article.id"
@@ -64,6 +64,12 @@
               </q-item-section>
             </q-item>
           </q-list>
+          <div v-else>
+            <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
+              <q-skeleton v-if="!isLottieF" type="text" height="70%" width="50%" />
+              <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
+            </div>
+          </div>
         </div>
       </template>
     </div>
@@ -73,16 +79,24 @@
 
 <script>
 import { getUserId } from '@/utils/auth'
+import LottieWebCimo from '@/components/LottieWebCimo/lottie-web-cimo'
 import DialogConfirm from '@/components/DialogConfirm/DialogConfirm.vue'
+import * as animationData from '@/assets/lottie/43191-no-data-error.json'
 
 export default {
   name: 'ArticleList',
   inject: ['reload'],
   components: {
-    DialogConfirm
+    DialogConfirm,
+    LottieWebCimo
   },
   data() {
     return {
+      isLottieF: false,
+      defaultOptions: {
+        animationData: animationData.default,
+        loop: true
+      },
       showDialog: false,
       idArticle: '',
       categoryId: '',
@@ -188,6 +202,14 @@ export default {
     handleConfirmBtnClick() {
       this.showDialog = false
       this.handleDeleteArticle()
+    },
+
+    /**
+     * json动画加载完成后回调
+     * @param e：boolean
+     */
+    handleFinish(e) {
+      this.isLottieF = e
     }
   }
 }
