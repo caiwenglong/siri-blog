@@ -3,10 +3,10 @@ import {
   apiAddArticle,
   apiGetArticle,
   apiDeleteArticleById,
-  apiDeleteArticleByCategoryId,
+  apiDeleteArticleByCategoryIdList,
   apiGetArticleCategories,
   apiAddArticleCategory,
-  apiDeleteArticleCategory,
+  apiBatchDeleteArticleCategory,
   apiModifyArticleCategory
 } from '@/api/article'
 const articleDefaultState = () => {
@@ -109,9 +109,9 @@ const actions = {
    * @param idCategory：分类ID
    * @returns {Promise<unknown>}
    */
-  deleteArticleByCategoryId({ commit }, idCategory) {
+  deleteArticleByCategoryIdList({ commit }, idCategoryList) {
     return new Promise((resolve, reject) => {
-      apiDeleteArticleByCategoryId(idCategory).then(res => {
+      apiDeleteArticleByCategoryIdList(idCategoryList).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -167,9 +167,15 @@ const actions = {
     })
   },
 
-  deleteCategory({ commit }, categoryId) {
+  /**
+   * 通过分类ID列表批量删除分类
+   * @param commit
+   * @param categoryIdList
+   * @returns {Promise<unknown>}
+   */
+  batchDeleteCategory({ commit }, categoryIdList) {
     return new Promise((resolve, reject) => {
-      apiDeleteArticleCategory(categoryId).then(res => {
+      apiBatchDeleteArticleCategory(categoryIdList).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

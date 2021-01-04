@@ -143,7 +143,8 @@ export default {
         idParent: '',
         path: ''
       },
-      isEdit: false
+      isEdit: false,
+      categoryIdList: []
     }
   },
 
@@ -224,6 +225,8 @@ export default {
             onClick: () => {
               this.confirm = true
               this.getMenuItem(item)
+              this.getCategoryIdList(item)
+              console.log(this.categoryIdList)
             }
           }
         ],
@@ -269,13 +272,12 @@ export default {
       this._commonHandle.handleShowLoading()
       this.confirm = true
 
-      const idCategory = this.menuItem.meta.id
-
       // 1、删除该分类底下的所有文章
-      const deleteArticleResult = await this.$store.dispatch('deleteArticleByCategoryId', idCategory)
+      const deleteArticleResult = await this.$store.dispatch('deleteArticleByCategoryIdList', this.categoryIdList)
 
       // 2、删除该分类
-      const deleteCategoryResult = await this.$store.dispatch('deleteCategory', idCategory)
+      const deleteCategoryResult = await this.$store.dispatch('batchDeleteCategory', this.categoryIdList)
+      debugger
       if(deleteArticleResult.code === this._constant.srCode.SUCCESS &&
          deleteCategoryResult.code === this._constant.srCode.SUCCESS) {
         this._commonHandle.handleNotify({
@@ -336,6 +338,21 @@ export default {
       this.categoryForm.id = this.menuItem.meta.id
       this.categoryForm.name = this.menuItem.meta.title
       this.categoryForm.icon = this.menuItem.meta.icon
+    },
+
+    /**
+     * 获取要删除的分类ID列表
+     * @param menuItem：要删除的菜单项
+     */
+    getCategoryIdList(menuItem) {
+      if(menuItem.meta) {
+        this.categoryIdList.push(menuItem.meta.id)
+      }
+      if(menuItem.children && menuItem.children.length) {
+        this._lodash.forEach(menuItem.children, item => {
+          this.getCategoryIdList(item)
+        })
+      }
     }
   }
 }

@@ -29,10 +29,11 @@ export function apiDeleteArticleById(params) {
   })
 }
 
-export function apiDeleteArticleByCategoryId(params) {
+export function apiDeleteArticleByCategoryIdList(params) {
   return request({
-    url: `/article-api/siri-article/deleteArticleByCategoryId/${params}`,
-    method: 'delete'
+    url: `/article-api/siri-article/deleteArticleByCategoryIdList`,
+    method: 'delete',
+    data: params
   })
 }
 
@@ -59,9 +60,10 @@ export function apiModifyArticleCategory(params) {
   })
 }
 
-export function apiDeleteArticleCategory(params) {
+export function apiBatchDeleteArticleCategory(params) {
   return request({
-    url: `/article-api/siri-article/category/deleteArticleCategory/${params}`,
-    method: 'delete'
+    url: `/article-api/siri-article/category/batchDeleteArticleCategory`,
+    method: 'delete',
+    data: params
   })
 }
