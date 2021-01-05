@@ -5,7 +5,7 @@ import store from '../store/index'
 import constantRoutes from './constantRoutes'
 import { addTagView, setTagView } from '../components/TagView/tagViewUtils'
 import { setBreadcrumbs } from '../components/Breadcrumbs/breadcrumbsUtils'
-import { getRole, getToken, getUserId } from '../utils/auth'
+import { getRole, setToken, getToken, getUserId } from '../utils/auth'
 
 router.beforeEach((to, from, next) => {
   // 成功登录后处理
@@ -31,6 +31,9 @@ router.beforeEach((to, from, next) => {
           // 如果 addRoutes 并未完成，路由守卫会再执行一次
           next({ ...to, replace: true })
         })
+      }).catch(() => {
+        setToken('')
+        router.push({ path: '/logon' })
       })
     }
   } else {
