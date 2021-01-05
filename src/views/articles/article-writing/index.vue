@@ -123,16 +123,18 @@ export default {
      */
     handleGetCategories() {
       this._lodash.forEach(this.storeCategories, item => {
-        const category = {
-          label: '',
-          value: '',
-          icon: '',
-          idAuthor: ''
+        if(!item.isParent) {
+          const category = {
+            label: '',
+            value: '',
+            icon: '',
+            idAuthor: ''
+          }
+          category.value = item.id
+          category.label = item.name
+          category.icon = item.icon
+          this.categories.push(category)
         }
-        category.value = item.id
-        category.label = item.name
-        category.icon = item.icon
-        this.categories.push(category)
       })
     },
 

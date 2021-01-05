@@ -24,7 +24,7 @@ const asyncRoutesChildren = [
       roles: ['admin', 'test'],
       title: '组件说明',
       icon: 'apps',
-      isOpen: true,
+      isOpen: false,
       isHidden: false
     },
     children: [
@@ -91,6 +91,7 @@ export function generateAsyncRouters(menus) {
           icon: menu.icon,
           id: menu.id,
           idParent: '0',
+          isOpen: false,
           roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
         },
@@ -117,6 +118,7 @@ function getChildrenRouters(menus, idParent) {
           title: item.name,
           icon: item.icon,
           id: item.id,
+          isOpen: false,
           idParent: item.idParent,
           roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
