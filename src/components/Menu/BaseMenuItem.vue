@@ -84,12 +84,13 @@
                   :error-message="$t('category.error.name')"
                   @input="$v.categoryForm.name.$touch()"
                   @blur="$v.categoryForm.name.$touch()"
+                  @keyup.enter="handleSubmitForm"
                 />
               </div>
             </div>
             <div class="row">
               <div class="col-12">
-                <q-input v-model="categoryForm.icon" dense :label="$t('category.icon')" @keyup.enter="prompt = false" />
+                <q-input v-model="categoryForm.icon" dense :label="$t('category.icon')" @keyup.enter="handleSubmitForm" />
               </div>
             </div>
           </q-form>
@@ -97,8 +98,7 @@
 
         <q-card-actions align="right" class="text-primary">
           <q-btn v-close-popup flat :label="$t('cancel')" />
-          <q-btn v-if="isEdit" v-close-popup flat :label="$t('confirm')" @click="handleModifyMenuItem" />
-          <q-btn v-else v-close-popup flat :label="$t('submit')" @click="handleSubmitForm" />
+          <q-btn flat :label="$t('confirm')" @click="handleSubmitForm" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -112,7 +112,7 @@
 
         <q-card-actions align="right">
           <q-btn v-close-popup flat color="primary" :label="$t('cancel')" />
-          <q-btn v-close-popup flat color="primary" :label="$t('confirm')" @click="handleDeleteMenuItem" />
+          <q-btn flat color="primary" :label="$t('confirm')" @click="handleDeleteMenuItem" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -226,7 +226,6 @@ export default {
               this.confirm = true
               this.getMenuItem(item)
               this.getCategoryIdList(item)
-              console.log(this.categoryIdList)
             }
           }
         ],
@@ -243,6 +242,17 @@ export default {
      * 提交表单
      */
     handleSubmitForm() {
+      if(this.isEdit) {
+        this.handleModifyMenuItem()
+      } else {
+        this.handleAddMenuItem()
+      }
+    },
+
+    /**
+     * 添加菜单
+     */
+    handleAddMenuItem() {
       this.categoryForm.idUser = this.userId
       if(this.menuItem.path === '/') {
         this.categoryForm.idParent = '0'
@@ -252,6 +262,7 @@ export default {
       this.categoryForm.path = uuId(8, 16)
       this.$v.$touch()
       if(!this.$v.categoryForm.$invalid) {
+        this.prompt = false
         this.$store.dispatch('addCategory', this.categoryForm).then(res => {
           if(res.code === this._constant.srCode.SUCCESS) {
             this._commonHandle.handleNotify({
@@ -260,6 +271,12 @@ export default {
             })
             location.reload()
           }
+        }).catch(error => {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.NEGATIVE,
+            message: this._i18n.t('menu.failedAddMenu') + error.message
+          })
+          console.error(error)
         })
       }
     },
@@ -277,7 +294,6 @@ export default {
 
       // 2、删除该分类
       const deleteCategoryResult = await this.$store.dispatch('batchDeleteCategory', this.categoryIdList)
-      debugger
       if(deleteArticleResult.code === this._constant.srCode.SUCCESS &&
          deleteCategoryResult.code === this._constant.srCode.SUCCESS) {
         this._commonHandle.handleNotify({
@@ -319,6 +335,12 @@ export default {
             message: this._i18n.t('menu.failedModifyMenu')
           })
         }
+      }).catch(error => {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: this._i18n.t('menu.failedModifyMenu') + error.message
+        })
+        console.error(error)
       })
     },
 
