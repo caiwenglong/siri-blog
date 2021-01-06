@@ -5,10 +5,12 @@ import {
   apiDeleteArticleById,
   apiDeleteArticleByCategoryIdList,
   apiGetArticleCategories,
+  apiGetCategoryChildren,
   apiAddArticleCategory,
   apiBatchDeleteArticleCategory,
   apiModifyArticleCategory
 } from '@/api/article'
+import srCode from '@/share/constant/files/srCode'
 const articleDefaultState = () => {
   return {
     id: '',
@@ -24,7 +26,8 @@ const articleDefaultState = () => {
 const state = {
   entityArticle: articleDefaultState,
   entityArticleList: [],
-  categories: []
+  categories: [],
+  categoryChildren: []
 }
 
 const mutations = {
@@ -33,6 +36,9 @@ const mutations = {
   },
   SET_ENTITY_ARTICLE_LIST: (state, articleList) => {
     state.entityArticleList = articleList
+  },
+  SET_CATEGORY_CHILDREN: (state, categoryChildren) => {
+    state.categoryChildren = categoryChildren
   }
 }
 
@@ -128,6 +134,7 @@ const actions = {
   getAllCategory({ commit }, userId) {
     return new Promise((resolve, reject) => {
       apiGetArticleCategories(userId).then(res => {
+        console.log(res)
         resolve(res)
       }).catch(err => {
         reject(err)
@@ -173,10 +180,22 @@ const actions = {
    * @param categoryIdList
    * @returns {Promise<unknown>}
    */
-  batchDeleteCategory({ commit }, categoryIdList) {
+  batchDeleteCategory({ commit }, params) {
     return new Promise((resolve, reject) => {
-      apiBatchDeleteArticleCategory(categoryIdList).then(res => {
+      apiBatchDeleteArticleCategory(params).then(res => {
         resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  getCategoryChildren({ commit }, idCategory) {
+    return new Promise((resolve, reject) => {
+      apiGetCategoryChildren(idCategory).then(res => {
+        if(res.code === srCode.SUCCESS && res.data.categoryChildren.length) {
+          commit('SET_CATEGORY_CHILDREN', res.data.categoryChildren)
+        }
       }).catch(err => {
         reject(err)
       })

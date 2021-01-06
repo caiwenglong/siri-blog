@@ -130,11 +130,11 @@ export default {
   props: ['myRouter', 'initLevel', 'bgColor', 'bgColorLevel', 'duration', 'basePath'],
   data() {
     return {
-      menuItem: '',
-      categoryNameMaxLength: 12,
-      categoryFormValid: false,
-      prompt: false,
-      confirm: false,
+      menuItem: '', // 正在操作的菜单项
+      categoryNameMaxLength: 12, // 菜单名称最多12个字符
+      categoryFormValid: false, // 表单验证是否通过
+      prompt: false, // 是否显示提示框
+      confirm: false, // 是否显示确认框
       categoryForm: {
         id: '',
         name: '',
@@ -143,8 +143,9 @@ export default {
         idParent: '',
         path: ''
       },
-      isEdit: false,
-      categoryIdList: []
+      isEdit: false, // 是否是修改
+      categoryIdList: [], // 要删除的分类ID列表
+      categoryParentId: [] // 要删除的分类的父ID，用来判断父ID是否有子分类，如果没有，则父级分类的isParent变为0
     }
   },
 
@@ -208,7 +209,7 @@ export default {
             onClick: () => {
               this.prompt = true
               this.isEdit = false
-              this.getMenuItem(item)
+              this.handleGetMenuItem(item)
             }
           },
           {
@@ -216,16 +217,16 @@ export default {
             onClick: () => {
               this.isEdit = true
               this.prompt = true
-              this.getMenuItem(item)
-              this.getCategoryForm(item)
+              this.handleGetMenuItem(item)
+              this.handleGetCategoryForm(item)
             }
           },
           {
             label: '删除分类',
             onClick: () => {
               this.confirm = true
-              this.getMenuItem(item)
-              this.getCategoryIdList(item)
+              this.handleGetMenuItem(item)
+              this.handleGetCategoryIdList(item)
             }
           }
         ],
@@ -293,7 +294,7 @@ export default {
       const deleteArticleResult = await this.$store.dispatch('deleteArticleByCategoryIdList', this.categoryIdList)
 
       // 2、删除该分类
-      const deleteCategoryResult = await this.$store.dispatch('batchDeleteCategory', this.categoryIdList)
+      const deleteCategoryResult = await this.$store.dispatch('batchDeleteCategory', { categoryIdList: this.categoryIdList, categoryParentId: this.categoryParentId })
       if(deleteArticleResult.code === this._constant.srCode.SUCCESS &&
          deleteCategoryResult.code === this._constant.srCode.SUCCESS) {
         this._commonHandle.handleNotify({
@@ -348,14 +349,15 @@ export default {
      * 得到正在操作的菜单项
      * @param menuItem
      */
-    getMenuItem(menuItem) {
+    handleGetMenuItem(menuItem) {
       this.menuItem = menuItem
+      this.categoryParentId.push(menuItem.meta.idParent)
     },
 
     /**
      * 给categoryForm 赋值
      */
-    getCategoryForm() {
+    handleGetCategoryForm() {
       this.categoryForm.idUser = this.userId
       this.categoryForm.id = this.menuItem.meta.id
       this.categoryForm.name = this.menuItem.meta.title
@@ -366,13 +368,13 @@ export default {
      * 获取要删除的分类ID列表
      * @param menuItem：要删除的菜单项
      */
-    getCategoryIdList(menuItem) {
+    handleGetCategoryIdList(menuItem) {
       if(menuItem.meta) {
         this.categoryIdList.push(menuItem.meta.id)
       }
       if(menuItem.children && menuItem.children.length) {
         this._lodash.forEach(menuItem.children, item => {
-          this.getCategoryIdList(item)
+          this.handleGetCategoryIdList(item)
         })
       }
     }

@@ -67,3 +67,10 @@ export function apiBatchDeleteArticleCategory(params) {
     data: params
   })
 }
+
+export function apiGetCategoryChildren(params) {
+  return request({
+    url: `/article-api/siri-article/category/getCategoryChildren/${params}`,
+    method: 'get'
+  })
+}

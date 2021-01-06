@@ -101,7 +101,7 @@ export default {
       idArticle: '',
       categoryId: '',
       articleList: [],
-      hoverClass: 'inset-shadow',
+      hoverClass: 'inset-shadow-1',
       tagColors: ['primary', 'teal', 'orange', 'info', 'warning'],
       pageNum: 1,
       pageSize: 10
@@ -222,7 +222,7 @@ export default {
     transition: all 0.5s;
     cursor: pointer;
     border-radius: 4px;
-    &.inset-shadow {
+    &.inset-shadow-1 {
       box-shadow: 0 7px 90px -50px rgba(0,0,0,0.5) inset
     }
   }
