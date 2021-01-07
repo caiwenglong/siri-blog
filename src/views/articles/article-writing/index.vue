@@ -21,8 +21,11 @@
           </div>
           <div class="col-4">
             <q-select
-              v-model="articleForm.category"
+              v-model="category"
+              name="category"
               color="secondary"
+              transition-show="flip-up"
+              transition-hide="flip-down"
               :options="categories"
               :label="$t('article.category')"
             >
@@ -53,9 +56,10 @@
           </div>
         </div>
         <div class="row q-gutter-md justify-end">
-          <q-btn outline type="submit" color="secondary" icon="send" :label="$t('article.public')" />
+          <q-btn v-if="isEdit" outline type="submit" color="secondary" icon="send" :label="$t('article.edit')" />
+          <q-btn v-else outline type="submit" color="secondary" icon="send" :label="$t('article.public')" />
           <q-btn outline color="amber" icon="refresh" :label="$t('article.reset')" @click="handleReset" />
-          <q-btn outline color="white" text-color="black" :label="$t('article.cancel')" @click="handleCancel" />
+          <q-btn outline color="white" text-color="black" :label="isEdit ? $t('article.goBack') : $t('article.cancel')" @click="handleCancel" />
         </div>
       </q-form>
     </div>
@@ -71,6 +75,7 @@ export default {
   data() {
     return {
       articleForm: {
+        id: '',
         title: '',
         category: '',
         content: '',
@@ -81,9 +86,17 @@ export default {
       articleTitleMaxLength: 12,
       modelCategory: null,
       categories: [],
+      category: {
+        label: '',
+        value: '',
+        icon: '',
+        idAuthor: ''
+      },
       optionsTags: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-      ]
+      ],
+      isEdit: false,
+      idArticle: ''
     }
   },
 
@@ -114,9 +127,37 @@ export default {
   created() {
     this.$v.$reset()
     this.handleGetCategories()
+    if(this.$route.params.isEdit) this.isEdit = this.$route.params.isEdit
+    if(this.$route.params.idArticle) this.idArticle = this.$route.params.idArticle
+    if(this.$route.params.isEdit && this.$route.params.idArticle) {
+      this.handleGetArticle(this.$route.params.idArticle)
+    }
   },
 
   methods: {
+
+    /**
+     * 获取文章信息
+     * @param idArticle: 文章ID
+     */
+    handleGetArticle(idArticle) {
+      this.$store.dispatch('getArticle', idArticle).then(res => {
+        if(res.code === this._constant.srCode.SUCCESS) {
+          const articleEntity = res.data.article
+          if(articleEntity) {
+            this.articleForm.id = idArticle
+            this.articleForm.title = articleEntity.title
+            this.articleForm.content = articleEntity.content
+            this.articleForm.tags = articleEntity.tags
+            this._lodash.filter(this.categories, category => {
+              if(category.value === articleEntity.category) {
+                this.category = category
+              }
+            })
+          }
+        }
+      })
+    },
 
     /**
      * 创建标签
@@ -175,10 +216,11 @@ export default {
       this._commonHandle.handleShowLoading()
       this.$v.$touch()
       this.articleForm.tags = this._lodash.toString(this.tags)
-      this.articleForm.category = this.articleForm.category.value
+      this.articleForm.category = this.category.value
       this.articleForm.idAuthor = this.userId
       if(!this.$v.articleForm.$invalid) {
-        this.$store.dispatch('addArticle', this.articleForm).then(res => {
+        const moduleMethod = this.isEdit ? 'modifyArticle' : 'addArticle'
+        this.$store.dispatch(moduleMethod, this.articleForm).then(res => {
           this._commonHandle.handleHideLoading()
           if(res.code === this._constant.srCode.SUCCESS) {
             this._commonHandle.handleNotify({
@@ -223,7 +265,7 @@ export default {
      * 取消提交
      */
     handleCancel() {
-      this._commonHandle.handleNotify({ type: 'positive', message: 'error.form' })
+      this.$router.go(-1)
     },
 
     /**

@@ -22,6 +22,14 @@ export function apiAddArticle(articleForm) {
   })
 }
 
+export function apiModifyArticle(articleForm) {
+  return request({
+    url: '/article-api/siri-article/modify',
+    method: 'post',
+    data: articleForm
+  })
+}
+
 export function apiDeleteArticleById(params) {
   return request({
     url: `/article-api/siri-article/deleteArticleById/${params}`,

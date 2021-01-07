@@ -1,6 +1,7 @@
 import {
   apiGetAllArticles,
   apiAddArticle,
+  apiModifyArticle,
   apiGetArticle,
   apiDeleteArticleById,
   apiDeleteArticleByCategoryIdList,
@@ -86,6 +87,16 @@ const actions = {
   addArticle({ commit }, articleData) {
     return new Promise((resolve, reject) => {
       apiAddArticle(articleData).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  modifyArticle({ commit }, articleData) {
+    return new Promise((resolve, reject) => {
+      apiModifyArticle(articleData).then(res => {
         resolve(res)
       }).catch(err => {
         reject(err)

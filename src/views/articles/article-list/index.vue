@@ -22,14 +22,14 @@
                   <span class="action-group float-right">
                     <q-btn-group>
 
-                      <q-btn color="accent" icon="create">
+                      <q-btn color="accent" icon="create" @click.stop="handleEditArticle(article.id)">
                         <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-                          修改文章
+                          {{ $t('article.modifyArticle') }}
                         </q-tooltip>
                       </q-btn>
                       <q-btn color="accent" icon="close" @click.stop="handleShowDialog(article.id)">
                         <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-                          删除文章
+                          {{ $t('article.deleteArticle') }}
                         </q-tooltip>
                       </q-btn>
                     </q-btn-group>
@@ -138,7 +138,7 @@ export default {
 
     /**
      * 通过文章ID删除文章
-     * @param idArticle
+     * @param idArticle：文章ID
      * @returns {Promise<void>}
      */
     async handleDeleteArticle() {
@@ -152,6 +152,15 @@ export default {
         })
         this.reload()
       }
+    },
+
+    /**
+     * 修改文章
+     * @param idArticle：文章id
+     * @returns {Promise<void>}
+     */
+    handleEditArticle(idArticle) {
+      this.$router.push({ name: 'articleWriting', params: { idArticle: idArticle, isEdit: true }})
     },
 
     /**
