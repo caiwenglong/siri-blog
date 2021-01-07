@@ -64,14 +64,24 @@
       </q-form>
     </div>
     <v-md-editor v-model="articleForm.content" height="400px" />
+    <dialog-confirm
+      :show="isShowDialog"
+      :confirm-message="$t('article.confirmReset')"
+      @cancelBtnClick="handleCancelBtnClick"
+      @confirmBtnClick="handleConfirmBtnClick"
+    />
   </div>
 </template>
 
 <script>
 import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import DialogConfirm from '@/components/DialogConfirm/DialogConfirm'
 export default {
   name: 'ArticleWriting',
+  components: {
+    DialogConfirm
+  },
   data() {
     return {
       articleForm: {
@@ -96,7 +106,8 @@ export default {
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ],
       isEdit: false,
-      idArticle: ''
+      idArticle: '',
+      isShowDialog: false
     }
   },
 
@@ -148,7 +159,7 @@ export default {
             this.articleForm.id = idArticle
             this.articleForm.title = articleEntity.title
             this.articleForm.content = articleEntity.content
-            this.articleForm.tags = articleEntity.tags
+            this.tags = articleEntity.tags.split(',')
             this._lodash.filter(this.categories, category => {
               if(category.value === articleEntity.category) {
                 this.category = category
@@ -160,7 +171,7 @@ export default {
     },
 
     /**
-     * 创建标签
+     * 创建分类列表
      */
     handleGetCategories() {
       this._lodash.forEach(this.storeCategories, item => {
@@ -225,8 +236,9 @@ export default {
           if(res.code === this._constant.srCode.SUCCESS) {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.POSITIVE,
-              message: this._i18n.t('article.publicSuccess')
+              message: this.isEdit ? this._i18n.t('article.editSuccess') : this._i18n.t('article.publicSuccess')
             })
+            // 跳转到所添加分类的列表页
             this.$router.push({ name: this.articleForm.category, params: { categoryId: this.articleForm.category }})
           } else {
             this._commonHandle.handleNotify({
@@ -257,8 +269,7 @@ export default {
      * 重置表单
      */
     handleReset() {
-      this.$v.$reset()
-      this.handleResetForm()
+      this.isShowDialog = true
     },
 
     /**
@@ -274,9 +285,30 @@ export default {
     handleResetForm() {
       this.articleForm.title = ''
       this.articleForm.content = ''
-      this.articleForm.category = ''
       this.articleForm.tags = null
+      this.category = {
+        label: '',
+        value: '',
+        icon: '',
+        idAuthor: ''
+      }
       this.tags = []
+    },
+
+    /**
+     * 取消重置
+     */
+    handleCancelBtnClick() {
+      this.isShowDialog = false
+    },
+
+    /**
+     * 确认重置
+     */
+    handleConfirmBtnClick() {
+      this.isShowDialog = false
+      this.$v.$reset()
+      this.handleResetForm()
     }
   }
 }

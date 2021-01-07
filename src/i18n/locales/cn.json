@@ -32,17 +32,20 @@
     "categoryTip": "请输入文章分类",
     "publicSuccess": "文章发布成功",
     "publicFailed": "文章发布失败！",
+    "deleteArticle": "删除文章",
+    "confirmDeleteArticle": "是否要删除文章？",
     "successDeleteArticle": "文章删除成功",
     "failedDeleteArticle": "文章删除失败",
     "public": "发布",
     "edit": "修改",
+    "editSuccess": "文章修改成功",
     "reset": "重置",
+    "confirmReset": "是否要重置内容？",
     "cancel": "取消",
-    "goBack": "取消",
+    "goBack": "返回",
     "createTime": "创建时间：",
     "modifiedTime": "修改时间：",
-    "modifyArticle": "修改文章",
-    "deleteArticle": "删除文章"
+    "modifyArticle": "修改文章"
   },
   "category": {
     "name": "分类名称",

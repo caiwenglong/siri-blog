@@ -27,8 +27,8 @@ export function handleShowLoading() {
   const defaultOptions = {
     spinner: QSpinnerBars,
     spinnerSize: 60,
-    message: '登录中....',
-    messageColor: 'primary',
+    message: '加载中，请稍后...',
+    messageColor: 'grey-1',
     customClass: 'customClass'
   }
   const options = Object.assign({}, defaultOptions, defaultOptions)

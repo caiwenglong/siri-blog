@@ -3,7 +3,7 @@
     <q-dialog v-model="showDialog" persistent>
       <q-card>
         <q-card-section class="row items-center">
-          <q-avatar size="md" :icon="confirmIcon" color="primary" text-color="white" />
+          <q-avatar size="md" :icon="confirmIcon" color="warning" text-color="white" />
           <span class="q-ml-sm confirm_message">{{ confirmMessage }}</span>
         </q-card-section>
 
