@@ -70,8 +70,7 @@
             </q-list>
             <div v-else>
               <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
-                <q-skeleton v-if="!isLottieF" type="text" height="70%" width="50%" />
-                <lottie-web-cimo v-else class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
+                <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
               </div>
             </div>
           </div>

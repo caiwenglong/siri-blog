@@ -48,7 +48,7 @@ const asyncRoutesChildren = [
       roles: ['admin', 'editor'],
       t_title: 'route.articleWriting',
       title: '文章写作',
-      icon: 'edit_road',
+      icon: 'history_edu',
       keepAlive: true,
       component: () => import('@/components/Layout/layout.vue')
     },

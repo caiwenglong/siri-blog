@@ -1,21 +1,5 @@
 <template>
   <div class="unit-article-details">
-    <div class="unit-article__infos">
-      <span class="infos__author-name">
-        <label>作者名称：</label>
-        <span>{{ article.author }}</span>
-      </span>
-      <span class="infos__time">
-        <span class="time--create">
-          <label>创建时间：</label>
-          <span>{{ article.gmtCreate | dateFormat }}</span>
-        </span>
-        <span class="time--modified">
-          <label>更新时间：</label>
-          <span>{{ article.gmtModified | dateFormat }}</span>
-        </span>
-      </span>
-    </div>
     <v-md-editor :value="article.content" mode="preview" />
   </div>
 </template>
