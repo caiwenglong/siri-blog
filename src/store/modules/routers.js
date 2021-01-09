@@ -4,7 +4,7 @@ import deepClone from '../../utils/common'
 import { forEach } from 'lodash'
 import constructionRouters from '../../router/permissionUtils'
 import store from '../index'
-import router from '../../router'
+import router, { resetRouter } from '../../router'
 
 const state = {
   dynamicRouters: null,
@@ -42,10 +42,11 @@ const actions = {
         if(menus.length) {
           routes = generateAsyncRouters(menus)
         }
-        commit('SET_CATEGORIES', menus)
-        commit('SET_ROUTERS', routes)
-        commit('SET_ROLES_AND_ROUTES', routes)
-        router.addRoutes(store.getters.getRoutes)
+        commit('SET_CATEGORIES', menus) // 设置分类列表
+        commit('SET_ROUTERS', routes) // 设置动态路由
+        commit('SET_ROLES_AND_ROUTES', routes) // 完整路由
+        resetRouter() // 在添加路由之前将路由重置为空
+        router.addRoutes(store.getters.getRoutes) // 添加动态路由
         resolve(routes)
       })
     })

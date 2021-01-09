@@ -204,7 +204,7 @@ export default {
       this.$contextmenu({
         items: [
           {
-            label: '添加分类',
+            label: this._i18n.t('menu.menuAdd'),
             icon: 'eye',
             onClick: () => {
               this.prompt = true
@@ -213,7 +213,7 @@ export default {
             }
           },
           {
-            label: '编辑',
+            label: this._i18n.t('menu.menuModify'),
             onClick: () => {
               this.isEdit = true
               this.prompt = true
@@ -222,7 +222,7 @@ export default {
             }
           },
           {
-            label: '删除分类',
+            label: this._i18n.t('menu.menuDelete'),
             onClick: () => {
               this.confirm = true
               this.handleGetMenuItem(item)
@@ -270,7 +270,7 @@ export default {
               type: this._constant.notify.notifyType.POSITIVE,
               message: this._i18n.t('menu.successAddMenu')
             })
-            location.reload()
+            this.handleRegenerateMenu()
           }
         }).catch(error => {
           this._commonHandle.handleNotify({
@@ -301,7 +301,7 @@ export default {
           type: this._constant.notify.notifyType.POSITIVE,
           message: this._i18n.t('menu.successDeleteMenu')
         })
-        location.reload()
+        this.handleRegenerateMenu()
       } else if(deleteCategoryResult.code !== this._constant.srCode.SUCCESS) {
         this._commonHandle.handleNotify({
           type: this._constant.notify.notifyType.NEGATIVE,
@@ -329,7 +329,7 @@ export default {
             type: this._constant.notify.notifyType.POSITIVE,
             message: this._i18n.t('menu.successModifyMenu')
           })
-          location.reload()
+          this.handleRegenerateMenu()
         } else {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.NEGATIVE,
@@ -377,6 +377,15 @@ export default {
           this.handleGetCategoryIdList(item)
         })
       }
+    },
+
+    /**
+     * 增删改分类之后，重新生成菜单
+     */
+    handleRegenerateMenu() {
+      this.$store.dispatch('routers/generateRoutes', this.userId).then(() => {
+        this.$router.push('/')
+      })
     }
   }
 }

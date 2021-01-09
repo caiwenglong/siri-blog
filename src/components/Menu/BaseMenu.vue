@@ -18,14 +18,27 @@
 <script>
 import { thumbStyleOfMenu } from '../BaseContent/thumbStyle'
 import BaseMenuItem from './BaseMenuItem'
+import { mapGetters } from 'vuex'
 export default {
   name: 'BaseMenu',
+  inject: ['reload'],
   components: { BaseMenuItem },
   data() {
     return {
       menuList: this.$store.getters.getRoutes[0].children,
       bgColor: 'bg-grey',
       thumbStyleOfMenu
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getRoutes'
+    ])
+  },
+  watch: {
+    // 当增删改查菜单后更新菜单列表
+    getRoutes() {
+      this.reload()
     }
   }
 }

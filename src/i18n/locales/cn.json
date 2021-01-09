@@ -58,7 +58,7 @@
     "menuAdd": "添加菜单",
     "successAddMenu": "菜单添加成功",
     "failedAddMenu": "菜单添加失败",
-    "menuDeleteMenu": "删除菜单",
+    "menuDelete": "删除菜单",
     "menuDeleteTip": "删除{categoryName}分类后，{categoryName}分类底下的所有文章也将被删除，是否继续删除？",
     "successDeleteMenu": "菜单删除成功",
     "failedDeleteMenu": "菜单删除失败",
