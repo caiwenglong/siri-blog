@@ -11,7 +11,7 @@ export default {
   name: 'ToolbarTitle',
   data() {
     return {
-      title: 'CIMO'
+      title: 'SIRI'
     }
   }
 }
