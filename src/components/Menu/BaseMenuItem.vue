@@ -26,10 +26,11 @@
           :key="index"
           v-ripple
           exact
-          :class="bgColor + '-' + bgColorLevel"
+          active-class="baseItemActive"
+          :class="bgColor + '-' + bgColorLevel + ' base-menu-item'"
           :inset-level="initLevel"
           clickable
-          @click="handleRedirect(item)"
+          :to="handleLink(basePath, item.path)"
           @contextmenu.prevent="onContextmenu(item)"
         >
           <q-item-section avatar>
@@ -43,12 +44,13 @@
           v-else
           :key="index"
           :duration="duration"
-          :class="bgColor + '-' + bgColorLevel"
+          :class="$route.fullPath.startsWith(item.path)?
+            'baseRootItemActive base-menu-item'+bgColor + '-' + bgColorLevel:
+            bgColor + '-' + bgColorLevel+ ' base-menu-item'"
           :default-opened="item.meta.isOpen"
           :header-inset-level="initLevel"
           :icon="item.meta.icon"
           :label="item.meta.title"
-          tag="div"
           @contextmenu.prevent="onContextmenu(item)"
         >
 
@@ -56,7 +58,7 @@
           <base-menu-item
             :my-router="item.children"
             :init-level="initLevel + 0.2"
-            :bg-color-level="bgColorLevel+1"
+            :bg-color-level="bgColorLevel + 1"
             :bg-color="bgColor"
             :base-path="basePath === undefined ? item.path : basePath + '/' + item.path"
           />
@@ -188,14 +190,6 @@ export default {
     },
 
     /**
-     * 跳转到该路由
-     * @param item: 菜单项
-     */
-    handleRedirect(item) {
-      this.$router.push({ name: item.name, params: { categoryId: item.meta.id }})
-    },
-
-    /**
      * 右击菜单
      * @param item: 获得菜单项的信息
      * @returns {boolean}
@@ -270,7 +264,7 @@ export default {
               type: this._constant.notify.notifyType.POSITIVE,
               message: this._i18n.t('menu.successAddMenu')
             })
-            this.handleRegenerateMenu()
+            this.handleRegenerateMenu(res.data.category.id)
           }
         }).catch(error => {
           this._commonHandle.handleNotify({
@@ -329,7 +323,7 @@ export default {
             type: this._constant.notify.notifyType.POSITIVE,
             message: this._i18n.t('menu.successModifyMenu')
           })
-          this.handleRegenerateMenu()
+          this.handleRegenerateMenu(res.data.category.id)
         } else {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.NEGATIVE,
@@ -382,9 +376,9 @@ export default {
     /**
      * 增删改分类之后，重新生成菜单
      */
-    handleRegenerateMenu() {
+    handleRegenerateMenu(menuId) {
       this.$store.dispatch('routers/generateRoutes', this.userId).then(() => {
-        this.$router.push('/')
+        menuId ? this.$router.push({ name: menuId }) : this.$router.push('/')
       })
     }
   }
@@ -392,7 +386,37 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  /* item 颜色 */
+  $ITEM_COLOR: #2c3e50;
+
+    /* item 激活时颜色 */
+  $ACTIVE_COLOR: #1976d2;
+  $ACTIVE_BACKGROUND: rgba(25, 118, 210, 0.0618);
+
   .infos-content {
     max-width: 460px;
+  }
+
+  .base-menu-item {
+    color: $ITEM_COLOR !important
+  }
+
+  /* item 被激活时父组件的样式 */
+  .baseRootItemActive {
+    color: $ACTIVE_COLOR !important
+  }
+
+  .baseItemActive {
+    color: #1976d2 !important;
+    transition: all .618s;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      height: 100%;
+      background: #1976d2 !important;
+      top: -0.5px;
+      right: 0
+    }
   }
 </style>

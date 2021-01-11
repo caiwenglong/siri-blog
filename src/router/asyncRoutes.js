@@ -17,7 +17,7 @@ const asyncRoutesChildren = [
     component: () => import('../views/home/home.vue')
   },
   {
-    path: 'component',
+    path: '/component',
     name: 'component',
     component: () => import('@/components/Layout/layout.vue'),
     meta: {
@@ -42,7 +42,7 @@ const asyncRoutesChildren = [
     ]
   },
   {
-    path: 'article-writing',
+    path: '/article-writing',
     name: 'articleWriting',
     meta: {
       roles: ['admin', 'editor'],
@@ -55,7 +55,7 @@ const asyncRoutesChildren = [
     component: () => import('@/views/articles/article-writing/index.vue')
   },
   {
-    path: 'article-details/:artId',
+    path: '/article-details/:artId',
     name: 'articleDetails',
     meta: {
       roles: ['admin', 'editor', 'test'],
