@@ -7,67 +7,82 @@
             <q-skeleton v-for="i in 3" :key="i" class="q-skeleton" height="150px" />
           </div>
           <div v-else>
-            <q-list v-if="articleList.length">
-              <q-item
-                v-for="article in articleList"
-                :key="article.id"
-                class="article__item"
-                transition-show="jump-down"
-                transition-hide="jump-up"
-                @mouseenter.native="handleMouseEnter"
-                @mouseleave.native="handleMouseLeave"
-                @click.native="handleClickItem(article.id)"
-              >
-                <q-item-section>
-                  <q-item-label class="item__title">
-                    <strong>
-                      {{ article.title }}
-                    </strong>
-                    <span class="action-group float-right">
-                      <q-btn-group>
+            <div v-if="articleList.length">
+              <q-list>
+                <q-item
+                  v-for="article in articleList"
+                  :key="article.id"
+                  class="article__item"
+                  transition-show="jump-down"
+                  transition-hide="jump-up"
+                  @mouseenter.native="handleMouseEnter"
+                  @mouseleave.native="handleMouseLeave"
+                  @click.native="handleClickItem(article.id)"
+                >
+                  <q-item-section>
+                    <q-item-label class="item__title">
+                      <strong>
+                        {{ article.title }}
+                      </strong>
+                      <span class="action-group float-right">
+                        <q-btn-group>
 
-                        <q-btn color="accent" icon="create" @click.stop="handleEditArticle(article.id)">
-                          <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-                            {{ $t('article.modifyArticle') }}
-                          </q-tooltip>
-                        </q-btn>
-                        <q-btn color="accent" icon="close" @click.stop="handleShowDialog(article.id)">
-                          <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-                            {{ $t('article.deleteArticle') }}
-                          </q-tooltip>
-                        </q-btn>
-                      </q-btn-group>
-                    </span>
-                  </q-item-label>
-                  <q-item-label v-if="article.tags.length" class="q-chip-wrapper">
-                    <template v-for="(tag, i) in article.tags">
-                      <q-chip :key="tag" square :color="tagColors[i]" text-color="white">{{ tag }}</q-chip>
-                    </template>
-                  </q-item-label>
-                  <q-item-label class="item__body" caption lines="2">
-                    <v-md-editor :value="article.content" mode="preview" />
-                  </q-item-label>
-                  <q-item-label>
-                    <q-chip v-if="article.author" dense size="md" color="primary" text-color="white">
-                      <q-avatar>
-                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                      </q-avatar>
-                      <span class="author">{{ article.author }}</span>
-                    </q-chip>
-                    <span class="item-time float-right">
-                      <span class="create-time">
-                        <span class="">{{ $t('article.createTime') }}</span>
-                        <span class="">{{ article.gmtCreate | dateFormat }}</span>
+                          <q-btn color="accent" icon="create" @click.stop="handleEditArticle(article.id)">
+                            <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+                              {{ $t('article.modifyArticle') }}
+                            </q-tooltip>
+                          </q-btn>
+                          <q-btn color="accent" icon="close" @click.stop="handleShowDialog(article.id)">
+                            <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+                              {{ $t('article.deleteArticle') }}
+                            </q-tooltip>
+                          </q-btn>
+                        </q-btn-group>
                       </span>
-                      <span class="modified-time">
-                        <span class="">{{ $t('article.modifiedTime') }}</span>
-                        <span class="">{{ article.gmtModified | dateFormat }}</span>
+                    </q-item-label>
+                    <q-item-label v-if="article.tags.length" class="q-chip-wrapper">
+                      <template v-for="(tag, i) in article.tags">
+                        <q-chip :key="tag" square :color="tagColors[i]" text-color="white">{{ tag }}</q-chip>
+                      </template>
+                    </q-item-label>
+                    <q-item-label class="item__body" caption lines="2">
+                      <v-md-editor :value="article.content" mode="preview" />
+                    </q-item-label>
+                    <q-item-label>
+                      <q-chip v-if="article.author" dense size="md" color="primary" text-color="white">
+                        <q-avatar>
+                          <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                        </q-avatar>
+                        <span class="author">{{ article.author }}</span>
+                      </q-chip>
+                      <span class="item-time float-right">
+                        <span class="create-time">
+                          <span class="">{{ $t('article.createTime') }}</span>
+                          <span class="">{{ article.gmtCreate | dateFormat }}</span>
+                        </span>
+                        <span class="modified-time">
+                          <span class="">{{ $t('article.modifiedTime') }}</span>
+                          <span class="">{{ article.gmtModified | dateFormat }}</span>
+                        </span>
                       </span>
-                    </span>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+              <div class="q-pa-lg flex flex-center">
+                <q-pagination
+                  v-model="pageNum"
+                  color="purple"
+                  :max="totalPage"
+                  :max-pages="1"
+                  :boundary-numbers="true"
+                  :direction-links="true"
+                  :boundary-links="true"
+                  @input="getArticleList"
+                >
+                </q-pagination>
+              </div>
+            </div>
             <div v-else>
               <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
                 <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
@@ -113,8 +128,9 @@ export default {
       articleList: [],
       hoverClass: 'inset-shadow-1',
       tagColors: ['primary', 'teal', 'orange', 'info', 'warning'],
+      totalPage: 1,
       pageNum: 1,
-      pageSize: 10
+      pageSize: 2
     }
   },
 
@@ -129,7 +145,11 @@ export default {
      */
     getArticleList() {
       this._commonHandle.handleShowLoading()
-      this.$store.dispatch('getAllArticles', { userId: getUserId(), category: this.categoryId, pageNum: 1, pageSize: 10 }).then(res => {
+      this.$store.dispatch('getAllArticles', {
+        userId: getUserId(),
+        category: this.categoryId,
+        pageNum: this.pageNum,
+        pageSize: this.pageSize }).then(res => {
         if(res.code === this._constant.srCode.SUCCESS && res.data.result.articleList.length) {
           this.articleList = this._lodash.map(res.data.result.articleList, article => {
             if(article.tags) {
@@ -139,6 +159,7 @@ export default {
             }
             return article
           })
+          this.totalPage = this._lodash.ceil(res.data.result.total / this.pageSize)
         }
         this.isCompleteLoading = true
         this._commonHandle.handleHideLoading()
