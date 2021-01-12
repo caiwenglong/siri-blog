@@ -29,7 +29,6 @@ export default {
   methods: {
     getArticleDetails() {
       this.$store.dispatch('getArticle', this.$route.params.artId).then((res) => {
-        console.log(res)
         if(res.code === this._constant.srCode.SUCCESS && res.data.article) {
           this.article.title = res.data.article.title
           this.article.content = res.data.article.content

@@ -79,8 +79,7 @@
                   :direction-links="true"
                   :boundary-links="true"
                   @input="getArticleList"
-                >
-                </q-pagination>
+                />
               </div>
             </div>
             <div v-else>

@@ -12,6 +12,7 @@ const asyncRoutesChildren = [
       t_title: 'route.home',
       title: '主页',
       icon: 'home',
+      isShowMenuContext: true,
       keepAlive: true
     },
     component: () => import('../views/home/home.vue')
@@ -25,6 +26,7 @@ const asyncRoutesChildren = [
       title: '组件说明',
       icon: 'apps',
       isOpen: false,
+      isShowMenuContext: false,
       isHidden: false
     },
     children: [
@@ -35,6 +37,7 @@ const asyncRoutesChildren = [
           roles: ['admin', 'editor'],
           title: 'icon 集合',
           icon: 'api',
+          isShowMenuContext: false,
           keepAlive: false
         },
         component: () => import('@/views/components/icon')
@@ -49,6 +52,7 @@ const asyncRoutesChildren = [
       t_title: 'route.articleWriting',
       title: '文章写作',
       icon: 'history_edu',
+      isShowMenuContext: false,
       keepAlive: true,
       component: () => import('@/components/Layout/layout.vue')
     },
@@ -62,6 +66,7 @@ const asyncRoutesChildren = [
       t_title: 'route.articleDetails',
       title: 'article',
       icon: 'description',
+      isShowMenuContext: false,
       isHidden: true,
       keepAlive: true
     },
@@ -90,8 +95,10 @@ export function generateAsyncRouters(menus) {
           title: menu.name,
           icon: menu.icon,
           id: menu.id,
-          idParent: '0',
           isOpen: false,
+          isShowMenuContext: true,
+          idParent: '0',
+          isParent: menu.isParent,
           roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
         },
@@ -119,7 +126,9 @@ function getChildrenRouters(menus, idParent) {
           icon: item.icon,
           id: item.id,
           isOpen: false,
+          isShowMenuContext: true,
           idParent: item.idParent,
+          isParent: item.isParent,
           roles: pool.accessible.ROLE_ADMIN,
           isHidden: false
         },

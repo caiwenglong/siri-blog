@@ -64,7 +64,8 @@
     "failedDeleteMenu": "菜单删除失败",
     "menuModify": "修改菜单",
     "successModifyMenu": "菜单修改成功",
-    "failedModifyMenu": "菜单修改失败"
+    "failedModifyMenu": "菜单修改失败",
+    "addArticle": "添加文章"
   },
   "route": {
     "home": "主页",

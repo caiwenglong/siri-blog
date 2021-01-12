@@ -191,45 +191,60 @@ export default {
 
     /**
      * 右击菜单
+     * plugin: https://github.com/GitHub-Laziji/menujs
      * @param item: 获得菜单项的信息
      * @returns {boolean}
      */
     onContextmenu(item) {
-      this.$contextmenu({
-        items: [
-          {
-            label: this._i18n.t('menu.menuAdd'),
-            icon: 'eye',
-            onClick: () => {
-              this.prompt = true
-              this.isEdit = false
-              this.handleGetMenuItem(item)
+      if(item.meta.isShowMenuContext) {
+        this.$contextmenu({
+          items: [
+            {
+              label: this._i18n.t('menu.addArticle'),
+              icon: 'fas fa-file-signature',
+              disabled: item.meta.isParent || item.path === '/',
+              onClick: () => {
+                this.handleAddArticle(item)
+              }
+            },
+            {
+              label: this._i18n.t('menu.menuAdd'),
+              icon: 'far fa-calendar-plus',
+              onClick: () => {
+                this.prompt = true
+                this.isEdit = false
+                this.handleGetMenuItem(item)
+              }
+            },
+            {
+              label: this._i18n.t('menu.menuModify'),
+              icon: 'far fa-calendar-check',
+              disabled: item.path === '/',
+              onClick: () => {
+                this.isEdit = true
+                this.prompt = true
+                this.handleGetMenuItem(item)
+                this.handleGetCategoryForm(item)
+              }
+            },
+            {
+              label: this._i18n.t('menu.menuDelete'),
+              icon: 'far fa-calendar-times',
+              disabled: item.path === '/',
+              onClick: () => {
+                this.confirm = true
+                this.handleGetMenuItem(item)
+                this.handleGetCategoryIdList(item)
+              }
             }
-          },
-          {
-            label: this._i18n.t('menu.menuModify'),
-            onClick: () => {
-              this.isEdit = true
-              this.prompt = true
-              this.handleGetMenuItem(item)
-              this.handleGetCategoryForm(item)
-            }
-          },
-          {
-            label: this._i18n.t('menu.menuDelete'),
-            onClick: () => {
-              this.confirm = true
-              this.handleGetMenuItem(item)
-              this.handleGetCategoryIdList(item)
-            }
-          }
-        ],
-        x: event.clientX,
-        y: event.clientY,
-        customClass: 'menu-context',
-        zIndex: 3000,
-        minWidth: 230
-      })
+          ],
+          x: event.clientX,
+          y: event.clientY,
+          customClass: 'menu-context',
+          zIndex: 3000,
+          minWidth: 230
+        })
+      }
       return false
     },
 
@@ -346,6 +361,14 @@ export default {
     handleGetMenuItem(menuItem) {
       this.menuItem = menuItem
       this.categoryParentId.push(menuItem.meta.idParent)
+    },
+
+    /**
+     * 得到正在操作的菜单项
+     * @param item
+     */
+    handleAddArticle(item) {
+      console.log(item)
     },
 
     /**
