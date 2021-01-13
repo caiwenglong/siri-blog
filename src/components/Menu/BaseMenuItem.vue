@@ -26,7 +26,7 @@
           :key="index"
           v-ripple
           exact
-          active-class="baseItemActive"
+          active-class="baseItemActive bg-grey-3"
           :class="bgColor + '-' + bgColorLevel + ' base-menu-item'"
           :inset-level="initLevel"
           clickable
@@ -95,6 +95,15 @@
                 <q-input v-model="categoryForm.icon" dense :label="$t('category.icon')" @keyup.enter="handleSubmitForm" />
               </div>
             </div>
+            <div class="row">
+              <div class="col-12">
+                <article-category-select
+                  :is-edit="true"
+                  :label="$t('category.parentCategory')"
+                  :category-id="categoryForm.idParent"
+                  @emitSelectedCategory="handleGetEmitCategory" />
+              </div>
+            </div>
           </q-form>
         </q-card-section>
 
@@ -125,9 +134,13 @@
 import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import { uuId } from '@/utils/common'
+import ArticleCategorySelect from '@/components/ArticleCategorySelect/ArticleCategorySelect'
 
 export default {
   name: 'BaseMenuItem',
+  components: {
+    ArticleCategorySelect
+  },
   // eslint-disable-next-line vue/require-prop-types
   props: ['myRouter', 'initLevel', 'bgColor', 'bgColorLevel', 'duration', 'basePath'],
   data() {
@@ -376,9 +389,11 @@ export default {
      */
     handleGetCategoryForm() {
       this.categoryForm.idUser = this.userId
+      this.categoryForm.path = this.menuItem.path
       this.categoryForm.id = this.menuItem.meta.id
       this.categoryForm.name = this.menuItem.meta.title
       this.categoryForm.icon = this.menuItem.meta.icon
+      this.categoryForm.idParent = this.menuItem.meta.idParent
     },
 
     /**
@@ -403,6 +418,10 @@ export default {
       this.$store.dispatch('routers/generateRoutes', this.userId).then(() => {
         menuId ? this.$router.push({ name: menuId }) : this.$router.push('/')
       })
+    },
+
+    handleGetEmitCategory(parentId) {
+      this.categoryForm.idParent = parentId
     }
   }
 }
@@ -421,23 +440,23 @@ export default {
   }
 
   .base-menu-item {
-    color: $ITEM_COLOR !important
+    color: $ITEM_COLOR
   }
 
   /* item 被激活时父组件的样式 */
   .baseRootItemActive {
-    color: $ACTIVE_COLOR !important
+    color: $ACTIVE_COLOR
   }
 
   .baseItemActive {
-    color: #1976d2 !important;
+    color: #1976d2;
     transition: all .618s;
     &:after {
       content: '';
       position: absolute;
       width: 3px;
       height: 100%;
-      background: #1976d2 !important;
+      background: #1976d2;
       top: -0.5px;
       right: 0
     }

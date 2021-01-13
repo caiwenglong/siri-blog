@@ -50,6 +50,7 @@
   "category": {
     "name": "分类名称",
     "icon": "图标类名",
+    "parentCategory": "父级分类",
     "error": {
       "name": "分类名称为必填项！"
     }
