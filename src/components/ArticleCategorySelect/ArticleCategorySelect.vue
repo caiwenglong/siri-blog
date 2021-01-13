@@ -81,6 +81,18 @@ export default {
     }
   },
 
+  watch: {
+    /**
+     * categoryId可能是通过异步获取数据之后在传入的，所有需要监听categoryId的变化
+     */
+    categoryId(val) {
+      this.categoryId = val
+      if(this.isEdit) {
+        this.handleGetCategoryModel()
+      }
+    }
+  },
+
   created() {
     if(this.isEdit) {
       this.handleGetCategoryModel()

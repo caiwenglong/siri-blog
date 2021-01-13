@@ -20,23 +20,13 @@
             />
           </div>
           <div class="col-4">
-            <q-select
-              v-model="category"
-              name="category"
-              color="secondary"
-              transition-show="flip-up"
-              transition-hide="flip-down"
-              :options="categories"
-              :label="$t('article.category')"
-            >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-italic text-grey">
-                    No options slot
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
+            <article-category-select
+              :is-edit="isEdit"
+              :label="$t('category.category')"
+              :category-id="articleForm.category"
+              :categories="categories"
+              @emitSelectedCategory="handleGetEmitCategory"
+            />
           </div>
           <div class="col-4">
             <q-select
@@ -77,10 +67,12 @@
 import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import DialogConfirm from '@/components/DialogConfirm/DialogConfirm'
+import ArticleCategorySelect from '@/components/ArticleCategorySelect/ArticleCategorySelect'
 export default {
   name: 'ArticleWriting',
   components: {
-    DialogConfirm
+    DialogConfirm,
+    ArticleCategorySelect
   },
   data() {
     return {
@@ -151,21 +143,18 @@ export default {
      * 获取文章信息
      * @param idArticle: 文章ID
      */
-    handleGetArticle(idArticle) {
-      this.$store.dispatch('getArticle', idArticle).then(res => {
+    async handleGetArticle(idArticle) {
+      await this.$store.dispatch('getArticle', idArticle).then(res => {
         if(res.code === this._constant.srCode.SUCCESS) {
           const articleEntity = res.data.article
           if(articleEntity) {
             this.articleForm.id = idArticle
             this.articleForm.title = articleEntity.title
             this.articleForm.content = articleEntity.content
+            this.articleForm.category = articleEntity.category
             this.tags = articleEntity.tags.split(',')
-            this._lodash.filter(this.categories, category => {
-              if(category.value === articleEntity.category) {
-                this.category = category
-              }
-            })
           }
+          console.log(this.articleForm)
         }
       })
     },
@@ -176,16 +165,7 @@ export default {
     handleGetCategories() {
       this._lodash.forEach(this.storeCategories, item => {
         if(!item.isParent) {
-          const category = {
-            label: '',
-            value: '',
-            icon: '',
-            idAuthor: ''
-          }
-          category.value = item.id
-          category.label = item.name
-          category.icon = item.icon
-          this.categories.push(category)
+          this.categories.push(item)
         }
       })
     },
@@ -221,13 +201,20 @@ export default {
     },
 
     /**
+     * 得到分类选择框的选项值
+     * @param value
+     */
+    handleGetEmitCategory(value) {
+      this.articleForm.category = value
+    },
+
+    /**
      * 提交表单
      */
     onSubmit() {
       this._commonHandle.handleShowLoading()
       this.$v.$touch()
       this.articleForm.tags = this._lodash.toString(this.tags)
-      this.articleForm.category = this.category.value
       this.articleForm.idAuthor = this.userId
       if(!this.$v.articleForm.$invalid) {
         const moduleMethod = this.isEdit ? 'modifyArticle' : 'addArticle'
@@ -285,13 +272,8 @@ export default {
     handleResetForm() {
       this.articleForm.title = ''
       this.articleForm.content = ''
+      this.articleForm.category = ''
       this.articleForm.tags = null
-      this.category = {
-        label: '',
-        value: '',
-        icon: '',
-        idAuthor: ''
-      }
       this.tags = []
     },
 

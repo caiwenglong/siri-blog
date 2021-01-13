@@ -101,7 +101,8 @@
                   :is-edit="true"
                   :label="$t('category.parentCategory')"
                   :category-id="categoryForm.idParent"
-                  @emitSelectedCategory="handleGetEmitCategory" />
+                  @emitSelectedCategory="handleGetEmitCategory"
+                />
               </div>
             </div>
           </q-form>
@@ -420,8 +421,12 @@ export default {
       })
     },
 
-    handleGetEmitCategory(parentId) {
-      this.categoryForm.idParent = parentId
+    /**
+     * 得到分类选择框的选项值
+     * @param value
+     */
+    handleGetEmitCategory(value) {
+      this.categoryForm.idParent = value
     }
   }
 }

@@ -28,7 +28,6 @@
     "article": "文章文集",
     "title": "标题",
     "titleTip": "请输入文章标题",
-    "category": "文章分类",
     "categoryTip": "请输入文章分类",
     "publicSuccess": "文章发布成功",
     "publicFailed": "文章发布失败！",
@@ -50,6 +49,7 @@
   "category": {
     "name": "分类名称",
     "icon": "图标类名",
+    "category": "文章分类",
     "parentCategory": "父级分类",
     "error": {
       "name": "分类名称为必填项！"
