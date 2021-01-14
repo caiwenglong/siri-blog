@@ -390,7 +390,7 @@ export default {
      * @param item
      */
     handleAddArticle(item) {
-      console.log(item)
+      this.$router.push({ path: '/article-writing', query: { categoryId: item.meta.id }})
     },
 
     /**

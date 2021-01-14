@@ -55,7 +55,7 @@ export default {
       type: String,
       default: 'name'
     },
-    isEdit: {
+    isAutoFillCategory: {
       require: false,
       type: Boolean,
       default: false
@@ -86,15 +86,14 @@ export default {
      * categoryId可能是通过异步获取数据之后在传入的，所有需要监听categoryId的变化
      */
     categoryId(val) {
+      debugger
       this.categoryId = val
-      if(this.isEdit) {
-        this.handleGetCategoryModel()
-      }
+      this.handleGetCategoryModel()
     }
   },
 
   created() {
-    if(this.isEdit) {
+    if(this.isAutoFillCategory) {
       this.handleGetCategoryModel()
     }
   },
