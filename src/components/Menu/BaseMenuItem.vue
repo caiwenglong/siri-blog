@@ -67,13 +67,28 @@
       </template>
     </template>
     <q-dialog v-model="prompt" persistent>
-      <q-card style="min-width: 350px">
-        <q-card-section>
+      <q-card class="md-width-prompt">
+        <q-card-section class="dividing-line">
           <div class="text-h6">{{ isEdit ? $t('menu.menuModify') : $t('menu.menuAdd') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-form ref="categoryForm" v-model="categoryFormValid">
+            <div class="row">
+              <div class="col-12">
+                <span class="text-link text-primary" @click="handleSetTopLevel">设置为一级菜单</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <article-category-select
+                  :is-edit="true"
+                  :label="$t('category.parentCategory')"
+                  :category-id="categoryForm.idParent"
+                  @emitSelectedCategory="handleGetEmitCategory"
+                />
+              </div>
+            </div>
             <div class="row">
               <div class="col-12">
                 <q-input
@@ -93,16 +108,6 @@
             <div class="row">
               <div class="col-12">
                 <q-input v-model="categoryForm.icon" dense :label="$t('category.icon')" @keyup.enter="handleSubmitForm" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <article-category-select
-                  :is-edit="true"
-                  :label="$t('category.parentCategory')"
-                  :category-id="categoryForm.idParent"
-                  @emitSelectedCategory="handleGetEmitCategory"
-                />
               </div>
             </div>
           </q-form>
@@ -159,6 +164,7 @@ export default {
         idParent: '',
         path: ''
       },
+      categories: [],
       isEdit: false, // 是否是修改
       categoryIdList: [], // 要删除的分类ID列表
       categoryParentId: [] // 要删除的分类的父ID，用来判断父ID是否有子分类，如果没有，则父级分类的isParent变为0
@@ -184,7 +190,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userId'
+      'userId',
+      'storeCategories'
     ])
   },
 
@@ -239,6 +246,7 @@ export default {
                 this.prompt = true
                 this.handleGetMenuItem(item)
                 this.handleGetCategoryForm(item)
+                this.handleGetCategories()
               }
             },
             {
@@ -397,6 +405,9 @@ export default {
       this.categoryForm.idParent = this.menuItem.meta.idParent
     },
 
+    handleGetCategories() {
+    },
+
     /**
      * 获取要删除的分类ID列表
      * @param menuItem：要删除的菜单项
@@ -427,6 +438,13 @@ export default {
      */
     handleGetEmitCategory(value) {
       this.categoryForm.idParent = value
+    },
+
+    /**
+     * 设置为一级菜单
+     */
+    handleSetTopLevel() {
+      this.categoryForm.idParent = '0'
     }
   }
 }
