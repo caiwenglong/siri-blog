@@ -1,5 +1,6 @@
 import * as _ from 'lodash'
 import pool from '@/share/constant/files/pool'
+import gather from '@/share/constant/files/gather'
 /**
  * 需要授权访问的路由
  */
@@ -86,7 +87,7 @@ const notFound = {
 export function generateAsyncRouters(menus) {
   const generateRouters = []
   _.forEach(menus, menu => {
-    if(menu.idParent === '0') {
+    if(menu.idParent === gather.TOP_LEVEL_MENU_ID) {
       const route = {
         path: `/${menu.path}`,
         name: menu.id,
@@ -97,7 +98,7 @@ export function generateAsyncRouters(menus) {
           id: menu.id,
           isOpen: false,
           isShowMenuContext: true,
-          idParent: '0',
+          idParent: gather.TOP_LEVEL_MENU_ID,
           isParent: menu.isParent,
           roles: pool.accessible.ROLE_ADMIN,
           isHidden: false

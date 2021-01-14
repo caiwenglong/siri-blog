@@ -287,7 +287,7 @@ export default {
     handleAddMenuItem() {
       this.categoryForm.idUser = this.userId
       if(this.menuItem.path === '/') {
-        this.categoryForm.idParent = '0'
+        this.categoryForm.idParent = this._constant.gather.TOP_LEVEL_MENU_ID
       } else {
         this.categoryForm.idParent = this.menuItem.meta.id
       }
@@ -444,7 +444,8 @@ export default {
      * 设置为一级菜单
      */
     handleSetTopLevel() {
-      this.categoryForm.idParent = '0'
+      console.log(this._constant.gather.TOP_LEVEL_MENU_ID)
+      this.categoryForm.idParent = this._constant.gather.TOP_LEVEL_MENU_ID
     }
   }
 }
