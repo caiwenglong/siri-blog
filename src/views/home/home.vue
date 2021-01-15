@@ -1,31 +1,35 @@
 <template>
 
   <div class="unit unit-home">
-    <div @click="handleClick">home</div>
-    <span class="svg-container">
-      <svg-icon icon-class="eye" />
-    </span>
+    <div class="home-lottie">
+      <q-skeleton v-if="!isLottieF" type="text" height="150px" />
+      <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleLottieFinish" />
+    </div>
   </div>
 
 </template>
 
 <script>
-
+import LottieWebCimo from '@/components/LottieWebCimo/lottie-web-cimo'
+import * as animationData from '@/assets/lottie/lf20_gzl797gs.json'
 export default {
   name: 'Home',
+  components: {
+    LottieWebCimo
+  },
   data() {
     return {
-      content: ''
+      defaultOptions: {
+        animationData: animationData.default,
+        loop: true
+      },
+      isLottieF: false
     }
   },
 
   methods: {
-    handleClick() {
-      this._commonHandle.handleShowLoading()
-      this.$store.dispatch('GenerateRoutes', {}).then(res => {
-        this._commonHandle.handleHideLoading()
-        console.log(res)
-      })
+    handleLottieFinish(e) {
+      this.isLottieF = e
     }
   }
 }
