@@ -154,7 +154,7 @@ export default {
           console.error(error)
         })
       } else {
-        console.log('failed')
+        console.error('failed')
       }
     },
     handleFinish(e) {

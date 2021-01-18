@@ -174,7 +174,6 @@ export default {
     async handleDeleteArticle() {
       this._commonHandle.handleShowLoading()
       const deleteArticleResult = await this.$store.dispatch('deleteArticleById', this.idArticle)
-      console.log(deleteArticleResult)
       this._commonHandle.handleHideLoading()
       if(deleteArticleResult.code === this._constant.srCode.SUCCESS) {
         this._commonHandle.handleNotify({

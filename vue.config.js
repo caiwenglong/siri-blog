@@ -1,10 +1,12 @@
 const timeStamp = new Date().getTime()
 const path = require('path')
 const name = 'siri blog'
-const port = 8086
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+const port = process.env.NODE_ENV === 'production' ? 8086 : 8088
+const userApi = process.env.NODE_ENV === 'production' ? 'http://192.168.43.93:8803' : 'http://localhost:8003'
+const articleApi = process.env.NODE_ENV === 'production' ? 'http://192.168.43.93:8802' : 'http://localhost:8002'
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production' ? '/siri-blog/' : '/',
   devServer: {
@@ -13,7 +15,7 @@ module.exports = {
     open: false,
     proxy: {
       '/user-api': {
-        target: 'http://localhost:8003',
+        target: userApi,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
@@ -21,7 +23,7 @@ module.exports = {
         }
       },
       '/article-api': {
-        target: 'http://localhost:8002',
+        target: articleApi,
         ws: true,
         changeOrigin: true,
         pathRewrite: {

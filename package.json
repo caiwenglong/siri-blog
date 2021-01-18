@@ -16,6 +16,7 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "quasar": "^1.0.0",
+    "script-ext-html-webpack-plugin": "^2.1.5",
     "svg-sprite-loader": "^5.2.1",
     "vue": "^2.6.11",
     "vue-context": "^6.0.0",

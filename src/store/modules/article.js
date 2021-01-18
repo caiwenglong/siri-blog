@@ -145,7 +145,6 @@ const actions = {
   getAllCategory({ commit }, userId) {
     return new Promise((resolve, reject) => {
       apiGetArticleCategories(userId).then(res => {
-        console.log(res)
         resolve(res)
       }).catch(err => {
         reject(err)

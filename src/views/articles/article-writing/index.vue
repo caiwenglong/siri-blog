@@ -166,7 +166,6 @@ export default {
             this.articleForm.categoryId = articleEntity.category
             this.tags = articleEntity.tags.split(',')
           }
-          console.log(this.articleForm)
         }
       })
     },

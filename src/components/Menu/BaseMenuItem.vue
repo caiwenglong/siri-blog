@@ -444,7 +444,6 @@ export default {
      * 设置为一级菜单
      */
     handleSetTopLevel() {
-      console.log(this._constant.gather.TOP_LEVEL_MENU_ID)
       this.categoryForm.idParent = this._constant.gather.TOP_LEVEL_MENU_ID
     }
   }
