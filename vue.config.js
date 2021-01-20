@@ -4,18 +4,16 @@ const name = 'siri blog'
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-const port = process.env.NODE_ENV === 'production' ? 8086 : 8088
-const userApi = process.env.NODE_ENV === 'production' ? 'http://192.168.43.93:8803' : 'http://localhost:8003'
-const articleApi = process.env.NODE_ENV === 'production' ? 'http://192.168.43.93:8802' : 'http://localhost:8002'
+const port = process.env.NODE_ENV === 'production' ? 8088 : 8086
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/siri-blog/' : '/',
+  publicPath: '/',
   devServer: {
     hot: true,
     port: port,
     open: false,
     proxy: {
       '/user-api': {
-        target: userApi,
+        target: process.env.VUE_APP_USER_URL,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
@@ -23,7 +21,7 @@ module.exports = {
         }
       },
       '/article-api': {
-        target: articleApi,
+        target: process.env.VUE_APP_ARTICLE_URL,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
