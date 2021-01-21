@@ -13,7 +13,7 @@ module.exports = {
     open: false,
     proxy: {
       '/user-api': {
-        target: process.env.VUE_APP_USER_URL,
+        target: 'http://120.24.144.34:8803',
         ws: true,
         changeOrigin: true,
         pathRewrite: {
@@ -21,7 +21,7 @@ module.exports = {
         }
       },
       '/article-api': {
-        target: process.env.VUE_APP_ARTICLE_URL,
+        target: 'http://120.24.144.34:8802',
         ws: true,
         changeOrigin: true,
         pathRewrite: {
