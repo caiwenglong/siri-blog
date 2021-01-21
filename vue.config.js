@@ -4,7 +4,7 @@ const name = 'siri blog'
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-const port = process.env.NODE_ENV === 'production' ? 8088 : 8086
+const port = 8090
 module.exports = {
   publicPath: '/',
   devServer: {
