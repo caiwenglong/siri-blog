@@ -115,7 +115,7 @@ export default {
       idAuthor: {
         required
       },
-      category: {
+      categoryId: {
         required
       }
     }
