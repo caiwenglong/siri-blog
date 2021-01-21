@@ -84,6 +84,20 @@ const notFound = {
   }
 }
 
+const aboutMe = {
+  path: '/about',
+  name: 'about',
+  meta: {
+    roles: ['admin', 'editor'],
+    t_title: 'route.aboutMe',
+    title: '个人简介',
+    icon: 'history_edu',
+    isShowMenuContext: false,
+    keepAlive: true
+  },
+  component: () => import('@/views/about/index.vue')
+}
+
 export function generateAsyncRouters(menus) {
   const generateRouters = []
   _.forEach(menus, menu => {
@@ -109,6 +123,7 @@ export function generateAsyncRouters(menus) {
       generateRouters.push(route)
     }
   })
+  generateRouters.push(aboutMe)
   generateRouters.push(notFound)
   return generateRouters
 }
