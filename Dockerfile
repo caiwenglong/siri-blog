@@ -1,0 +1,3 @@
+FROM nginx
+
+EXPOSE 8091
