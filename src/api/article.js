@@ -2,21 +2,21 @@ import request from '@/utils/request'
 
 export function apiGetAllArticles(params) {
   return request({
-    url: `/article-api/siri-article/getAll/${params.userId}/${params.category}/${params.pageNum}/${params.pageSize}`,
+    url: `http://120.24.144.34:8803/siri-article/getAll/${params.userId}/${params.category}/${params.pageNum}/${params.pageSize}`,
     method: 'get'
   })
 }
 
 export function apiGetArticle(params) {
   return request({
-    url: `/article-api/siri-article/getArticle/${params}`,
+    url: `http://120.24.144.34:8803/siri-article/getArticle/${params}`,
     method: 'get'
   })
 }
 
 export function apiAddArticle(articleForm) {
   return request({
-    url: '/article-api/siri-article/add',
+    url: 'http://120.24.144.34:8803/siri-article/add',
     method: 'post',
     data: articleForm
   })
@@ -24,7 +24,7 @@ export function apiAddArticle(articleForm) {
 
 export function apiModifyArticle(articleForm) {
   return request({
-    url: '/article-api/siri-article/modify',
+    url: 'http://120.24.144.34:8803/siri-article/modify',
     method: 'post',
     data: articleForm
   })
@@ -32,14 +32,14 @@ export function apiModifyArticle(articleForm) {
 
 export function apiDeleteArticleById(params) {
   return request({
-    url: `/article-api/siri-article/deleteArticleById/${params}`,
+    url: `http://120.24.144.34:8803/siri-article/deleteArticleById/${params}`,
     method: 'delete'
   })
 }
 
 export function apiDeleteArticleByCategoryIdList(params) {
   return request({
-    url: `/article-api/siri-article/deleteArticleByCategoryIdList`,
+    url: `http://120.24.144.34:8803/siri-article/deleteArticleByCategoryIdList`,
     method: 'delete',
     data: params
   })
@@ -47,14 +47,14 @@ export function apiDeleteArticleByCategoryIdList(params) {
 
 export function apiGetArticleCategories(params) {
   return request({
-    url: `/article-api/siri-article/category/getAllCategories/${params}`,
+    url: `http://120.24.144.34:8803/siri-article/category/getAllCategories/${params}`,
     method: 'get'
   })
 }
 
 export function apiAddArticleCategory(params) {
   return request({
-    url: `/article-api/siri-article/category/addArticleCategory`,
+    url: `http://120.24.144.34:8803/siri-article/category/addArticleCategory`,
     method: 'post',
     data: params
   })
@@ -62,7 +62,7 @@ export function apiAddArticleCategory(params) {
 
 export function apiModifyArticleCategory(params) {
   return request({
-    url: `/article-api/siri-article/category/modifyArticleCategory`,
+    url: `http://120.24.144.34:8803/siri-article/category/modifyArticleCategory`,
     method: 'post',
     data: params
   })
@@ -70,7 +70,7 @@ export function apiModifyArticleCategory(params) {
 
 export function apiBatchDeleteArticleCategory(params) {
   return request({
-    url: `/article-api/siri-article/category/batchDeleteArticleCategory`,
+    url: `http://120.24.144.34:8803/siri-article/category/batchDeleteArticleCategory`,
     method: 'delete',
     data: params
   })
@@ -78,7 +78,7 @@ export function apiBatchDeleteArticleCategory(params) {
 
 export function apiGetCategoryChildren(params) {
   return request({
-    url: `/article-api/siri-article/category/getCategoryChildren/${params}`,
+    url: `http://120.24.144.34:8803/siri-article/category/getCategoryChildren/${params}`,
     method: 'get'
   })
 }

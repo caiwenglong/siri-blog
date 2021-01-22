@@ -4,36 +4,8 @@ const name = 'siri blog'
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
-const port = 8090
 module.exports = {
   publicPath: '/',
-  devServer: {
-    hot: true,
-    port: port,
-    open: false,
-    proxy: {
-      '/user-api': {
-        target: 'http://120.24.144.34:8803',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/user-api': ''
-        }
-      },
-      '/article-api': {
-        target: 'http://120.24.144.34:8802',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/article-api': ''
-        }
-      }
-    },
-    overlay: {
-      warnings: false,
-      errors: true
-    }
-  },
   pwa: {
     name: name
   },
