@@ -7,13 +7,14 @@ function resolve(dir) {
 const port = 8090
 module.exports = {
   publicPath: '/',
+  mode: 'production',
   devServer: {
     hot: true,
     port: port,
     open: false,
     proxy: {
       '/user-api': {
-        target: 'http://120.24.144.34:8803',
+        target: process.env.VUE_APP_USER_URL,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
@@ -21,7 +22,7 @@ module.exports = {
         }
       },
       '/article-api': {
-        target: 'http://120.24.144.34:8802',
+        target: process.env.VUE_APP_ARTICLE_URL,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
