@@ -7,7 +7,6 @@ function resolve(dir) {
 const port = 8090
 module.exports = {
   publicPath: '/',
-  mode: 'production',
   devServer: {
     hot: true,
     port: port,
