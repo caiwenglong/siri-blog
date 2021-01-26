@@ -23,7 +23,7 @@
             <article-category-select
               :is-auto-fill-category="isAutoFillCategory"
               :label="$t('category.category')"
-              :category-id="articleForm.categoryId"
+              :category-id="articleForm.category"
               :categories="categories"
               @emitSelectedCategory="handleGetEmitCategory"
             />
@@ -79,7 +79,7 @@ export default {
       articleForm: {
         id: '',
         title: '',
-        categoryId: '',
+        category: '',
         content: '',
         tags: ''
       },
@@ -115,7 +115,7 @@ export default {
       idAuthor: {
         required
       },
-      categoryId: {
+      category: {
         required
       }
     }
@@ -134,7 +134,7 @@ export default {
 
     // 从菜单跳转过来创建文章的
     if(this.$route.query.categoryId) {
-      this.articleForm.categoryId = this.$route.query.categoryId
+      this.articleForm.category = this.$route.query.categoryId
       this.isAutoFillCategory = true
     }
 
@@ -163,7 +163,7 @@ export default {
             this.articleForm.id = idArticle
             this.articleForm.title = articleEntity.title
             this.articleForm.content = articleEntity.content
-            this.articleForm.categoryId = articleEntity.category
+            this.articleForm.category = articleEntity.category
             this.tags = articleEntity.tags.split(',')
           }
         }
@@ -216,7 +216,7 @@ export default {
      * @param value
      */
     handleGetEmitCategory(value) {
-      this.articleForm.categoryId = value
+      this.articleForm.category = value
     },
 
     /**
@@ -237,7 +237,7 @@ export default {
               message: this.isEdit ? this._i18n.t('article.editSuccess') : this._i18n.t('article.publicSuccess')
             })
             // 跳转到所添加分类的列表页
-            this.$router.push({ name: this.articleForm.categoryId, params: { categoryId: this.articleForm.categoryId }})
+            this.$router.push({ name: this.articleForm.category, params: { categoryId: this.articleForm.category }})
           } else {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.NEGATIVE,
@@ -283,7 +283,7 @@ export default {
     handleResetForm() {
       this.articleForm.title = ''
       this.articleForm.content = ''
-      this.articleForm.categoryId = ''
+      this.articleForm.category = ''
       this.articleForm.tags = null
       this.tags = []
     },
