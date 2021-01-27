@@ -21,7 +21,6 @@
           </div>
           <div class="col-4">
             <article-category-select
-              :is-auto-fill-category="isAutoFillCategory"
               :label="$t('category.category')"
               :category-id="articleForm.category"
               :categories="categories"
@@ -99,8 +98,7 @@ export default {
       ],
       isEdit: false,
       idArticle: '',
-      isShowDialog: false,
-      isAutoFillCategory: false
+      isShowDialog: false
     }
   },
 
@@ -135,13 +133,11 @@ export default {
     // 从菜单跳转过来创建文章的
     if(this.$route.query.categoryId) {
       this.articleForm.category = this.$route.query.categoryId
-      this.isAutoFillCategory = true
     }
 
     // 从文章列表页跳转过来，进行文章编辑
     if(this.$route.params.isEdit) {
       this.isEdit = this.$route.params.isEdit
-      this.isAutoFillCategory = true
     }
     if(this.$route.params.idArticle) this.idArticle = this.$route.params.idArticle
     if(this.$route.params.isEdit && this.$route.params.idArticle) {

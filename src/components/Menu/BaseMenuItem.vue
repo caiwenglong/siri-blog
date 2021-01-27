@@ -234,6 +234,7 @@ export default {
               onClick: () => {
                 this.prompt = true
                 this.isEdit = false
+                this.categoryForm.idParent = item.meta.id
                 this.handleGetMenuItem(item)
               }
             },
