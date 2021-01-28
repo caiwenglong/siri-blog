@@ -8,3 +8,45 @@
     background: rgba(219, 55, 55,.8);
   }
 }
+
+/* 滑块 */
+.b-related-skill {
+  .q-item {
+    opacity: 0;
+  }
+}
+
+/* 时间线 */
+.q-timeline__entry {
+  opacity: 0;
+  .q-timeline__subtitle {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: black;
+    display: inline-block;
+    margin-bottom: 1.2em;
+    padding: 0.25em 1em 0.2em 1em;
+    opacity: 1;
+  }
+  .q-timeline__dot:before,
+  .q-timeline__subtitle {
+    -moz-transition: background-color 0.5s ease-in 0.1s;
+    -o-transition: background-color 0.5s ease-in 0.1s;
+    -webkit-transition-delay: 0.1s;
+    -webkit-transition: background-color 0.5s ease-in 0.1s;
+    transition: background-color 0.5s ease-in 0.1s;
+  }
+  &:hover {
+    .q-timeline__dot:before,
+    .q-timeline__subtitle {
+      background-color: #425BB5;
+    }
+  }
+  .text-secondary {
+    color: black !important;
+  }
+  .q-timeline__content {
+    padding-bottom: 44px;
+  }
+}
