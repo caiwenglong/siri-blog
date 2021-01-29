@@ -9,6 +9,12 @@
   }
 }
 
+.q-field--standout.q-field--highlighted {
+  .q-field__control {
+    background: rgba(219, 55, 55,.8);
+  }
+}
+
 /* 滑块 */
 .b-related-skill {
   .q-item {

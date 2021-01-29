@@ -5,12 +5,12 @@
     <div class="row base-card-shadow" style="width: 60vw;min-width: 300px">
       <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
         <q-skeleton v-if="!isLottieF" type="text" height="70%" width="50%" />
-        <lottie-web-cimo align="right" style="height: 70%" :path="defaultOptions.path" @isLottieFinish="handleFinish" />
+        <lottie-web-cimo class="logon-lottie" :path="defaultOptions.path" @isLottieFinish="handleFinish" />
       </div>
       <q-separator v-if="$q.screen.gt.sm" vertical inset />
       <div class="col flex justify-center items-center">
         <q-card square style="min-width: 290px;height: 100%; width: 60%;" class="no-shadow">
-          <q-card-section align="center">
+          <q-card-section>
             <q-form ref="logonForm" v-model="logonFormValid">
               <h3 class="text-uppercase">SIRI</h3>
               <!-- 用户名 -->
@@ -42,7 +42,6 @@
                 :label="$t('login.password')"
                 :error="$v.logonForm.password.$dirty && $v.logonForm.password.$invalid"
                 :error-message="passwordErrors"
-                @input="$v.logonForm.password.$touch()"
                 @blur="$v.logonForm.password.$touch()"
               >
                 <template v-slot:prepend>
@@ -73,7 +72,6 @@
               <q-btn flat label="忘记密码" />
               <q-btn outline label="我要注册" />
             </div>
-            <p class="text-grey" align="left">账号2 ：test &nbsp;&nbsp;&nbsp;&nbsp;密码均为空</p>
           </q-card-section>
         </q-card>
       </div>
@@ -165,9 +163,13 @@ export default {
 </script>
 
 <style scoped>
+  .logon-lottie {
+    width: 70%;
+    text-align: left;
+  }
   .logon-btn {
     font-size: large;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 20px;
     width: 100%;
   }
