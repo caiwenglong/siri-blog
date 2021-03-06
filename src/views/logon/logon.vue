@@ -11,66 +11,172 @@
       <div class="col flex justify-center items-center">
         <q-card square style="min-width: 290px;height: 100%; width: 60%;" class="no-shadow">
           <q-card-section>
-            <q-form ref="logonForm" v-model="logonFormValid">
-              <h3 class="text-uppercase">SIRI</h3>
-              <!-- 用户名 -->
-              <q-input
-                v-model="logonForm.username"
-                class="logon-input"
-                clearable
-                standout="bg-cyan text-white"
-                bottom-slots
-                :label="$t('login.username')"
-                :error="$v.logonForm.username.$dirty && $v.logonForm.username.$invalid"
-                :error-message="$t('error.login.usernameRequire')"
-                @input="$v.logonForm.username.$touch()"
-                @blur="$v.logonForm.username.$touch()"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="account_circle" />
-                </template>
-              </q-input>
-              <!-- 密码 -->
-              <q-input
-                v-model="logonForm.password"
-                class="logon-input"
-                standout="bg-cyan text-white"
-                bottom-slots
-                counter
-                :maxlength="passwordMaxLength"
-                :type="isPwd ? 'password' : 'text'"
-                :label="$t('login.password')"
-                :error="$v.logonForm.password.$dirty && $v.logonForm.password.$invalid"
-                :error-message="passwordErrors"
-                @blur="$v.logonForm.password.$touch()"
-              >
-                <template v-slot:prepend>
-                  <q-icon name="vpn_key" />
-                </template>
-                <template v-slot:append>
-                  <q-icon
-                    :name="isPwd ? 'visibility_off' : 'visibility'"
-                    class="cursor-pointer"
-                    @click="isPwd = !isPwd"
-                  />
-                </template>
-              </q-input>
+            <div v-if="isRegister" class="b-register">
+              <q-form ref="registerForm" v-model="registerFormValid">
+                <h3 class="text-uppercase">SIRI</h3>
+                <!-- 用户名 -->
+                <q-input
+                  v-model="registerForm.username"
+                  class="logon-input"
+                  clearable
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  :label="$t('login.username')"
+                  :error="$v.registerForm.username.$dirty && $v.registerForm.username.$invalid"
+                  :error-message="$t('error.login.usernameRequire')"
+                  @input="$v.registerForm.username.$touch()"
+                  @blur="$v.registerForm.username.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="account_circle" />
+                  </template>
+                </q-input>
+                <!-- 密码 -->
+                <q-input
+                  v-model="registerForm.password"
+                  class="logon-input"
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  counter
+                  :maxlength="passwordMaxLength"
+                  :type="isPwd ? 'password' : 'text'"
+                  :label="$t('login.password')"
+                  :error="$v.registerForm.password.$dirty && $v.registerForm.password.$invalid"
+                  :error-message="registerPasswordErrors"
+                  @blur="$v.registerForm.password.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="vpn_key" />
+                  </template>
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    />
+                  </template>
+                </q-input>
 
-              <!-- 登录按钮 -->
-              <q-btn
-                :loading="loading"
-                class="logon-btn bg-logon-card-input"
-                text-color="white"
-                unelevated
-                label=""
-                style="font-size: large;"
-                @click="logon"
-              >登 录 系 统
-              </q-btn>
-            </q-form>
-            <div class="row justify-between" style="margin-bottom: 20px;">
+                <!-- 电话号码 -->
+                <q-input
+                  v-model="registerForm.phoneNum"
+                  class="logon-input"
+                  clearable
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  counter
+                  :label="$t('login.phoneNum')"
+                  :maxlength="phoneNumMaxLength"
+                  :error="$v.registerForm.phoneNum.$dirty && $v.registerForm.phoneNum.$invalid"
+                  :error-message="phoneNumErrors"
+                  @input="$v.registerForm.phoneNum.$touch()"
+                  @blur="$v.registerForm.phoneNum.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="account_circle" />
+                  </template>
+                </q-input>
+
+                <!-- 手机验证码 -->
+                <q-input
+                  v-model="registerForm.registerCode"
+                  class="logon-input"
+                  clearable
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  :label="$t('login.registerCode')"
+                  :error="$v.registerForm.registerCode.$dirty && $v.registerForm.registerCode.$invalid"
+                  :error-message="$t('error.login.registerCodeRequire')"
+                  @input="$v.registerForm.registerCode.$touch()"
+                  @blur="$v.registerForm.registerCode.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="account_circle" />
+                  </template>
+                </q-input>
+                <!-- 注册按钮 -->
+                <div class="q-gutter-md">
+                  <q-btn
+                    class="register-btn"
+                    text-color="black"
+                    unelevated
+                    label=""
+                    style="font-size: medium;"
+                    @click="handleCancelRegister"
+                  >取消
+                  </q-btn>
+                  <q-btn
+                    class="register-btn bg-logon-card-input"
+                    text-color="white"
+                    unelevated
+                    label=""
+                    style="font-size: medium;"
+                    @click="handleRegister"
+                  >注册
+                  </q-btn>
+                </div>
+              </q-form>
+            </div>
+            <div v-else class="b-logon">
+              <q-form ref="logonForm" v-model="logonFormValid">
+                <h3 class="text-uppercase">SIRI</h3>
+                <!-- 用户名 -->
+                <q-input
+                  v-model="logonForm.username"
+                  class="logon-input"
+                  clearable
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  :label="$t('login.username')"
+                  :error="$v.logonForm.username.$dirty && $v.logonForm.username.$invalid"
+                  :error-message="$t('error.login.usernameRequire')"
+                  @input="$v.logonForm.username.$touch()"
+                  @blur="$v.logonForm.username.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="account_circle" />
+                  </template>
+                </q-input>
+                <!-- 密码 -->
+                <q-input
+                  v-model="logonForm.password"
+                  class="logon-input"
+                  standout="bg-cyan text-white"
+                  bottom-slots
+                  counter
+                  :maxlength="passwordMaxLength"
+                  :type="isPwd ? 'password' : 'text'"
+                  :label="$t('login.password')"
+                  :error="$v.logonForm.password.$dirty && $v.logonForm.password.$invalid"
+                  :error-message="logonPasswordErrors"
+                  @blur="$v.logonForm.password.$touch()"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="vpn_key" />
+                  </template>
+                  <template v-slot:append>
+                    <q-icon
+                      :name="isPwd ? 'visibility_off' : 'visibility'"
+                      class="cursor-pointer"
+                      @click="isPwd = !isPwd"
+                    />
+                  </template>
+                </q-input>
+                <q-btn
+                  :loading="loading"
+                  class="logon-btn bg-logon-card-input"
+                  text-color="white"
+                  unelevated
+                  label=""
+                  style="font-size: large;"
+                  @click="logon"
+                >登 录 系 统
+                </q-btn>
+              </q-form>
+            </div>
+            <div v-if="!isRegister" class="row justify-between" style="margin-bottom: 20px;">
               <q-btn flat label="忘记密码" />
-              <q-btn outline label="我要注册" />
+              <q-btn outline label="我要注册" @click="handleSwitchRegister" />
             </div>
           </q-card-section>
         </q-card>
@@ -89,6 +195,15 @@ export default {
   data() {
     return {
       isPwd: true,
+      isRegister: false,
+      registerForm: {
+        username: '',
+        password: '',
+        phoneNum: '',
+        registerCode: ''
+      },
+      registerFormValid: false,
+      phoneNumMaxLength: 11,
       logonFormValid: false,
       logonForm: {
         username: '',
@@ -114,17 +229,56 @@ export default {
         required,
         minLength: minLength(6)
       }
+    },
+    registerForm: {
+      username: {
+        required
+      },
+      password: {
+        required,
+        minLength: minLength(6)
+      },
+      phoneNum: {
+        required,
+        minLength: minLength(11)
+      },
+      registerCode: {
+        required,
+        minLength: minLength(6)
+      }
     }
   },
 
   computed: {
-    passwordErrors() {
+    logonPasswordErrors() {
       if(!this.$v.logonForm.password.$dirty) return ''
       if(!this.$v.logonForm.password.required) {
         return this._i18n.t('error.login.passwordRequire')
       }
       if(!this.$v.logonForm.password.maxLength) {
         return this._i18n.t('error.login.passwordMinLength')
+      }
+      return ''
+    },
+
+    registerPasswordErrors() {
+      if(!this.$v.registerForm.password.$dirty) return ''
+      if(!this.$v.registerForm.password.required) {
+        return this._i18n.t('error.login.passwordRequire')
+      }
+      if(!this.$v.registerForm.password.maxLength) {
+        return this._i18n.t('error.login.passwordMinLength')
+      }
+      return ''
+    },
+
+    phoneNumErrors() {
+      if(!this.$v.registerForm.phoneNum.$dirty) return ''
+      if(!this.$v.registerForm.phoneNum.required) {
+        return this._i18n.t('error.login.phoneNumRequire')
+      }
+      if(!this.$v.registerForm.phoneNum.minLength) {
+        return this._i18n.t('error.login.phoneNumMinLength')
       }
       return ''
     }
@@ -157,6 +311,15 @@ export default {
     },
     handleFinish(e) {
       this.isLottieF = e
+    },
+    handleSwitchRegister() {
+      this.isRegister = true
+    },
+    handleRegister() {
+      console.log(1)
+    },
+    handleCancelRegister() {
+      this.isRegister = false
     }
   }
 }
@@ -167,6 +330,11 @@ export default {
     width: 70%;
     text-align: left;
   }
+
+  .register-btn {
+    width: 42%;
+  }
+
   .logon-btn {
     font-size: large;
     margin-top: 0;
