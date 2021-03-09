@@ -54,11 +54,6 @@ export default {
       require: false,
       type: String,
       default: 'name'
-    },
-    isAutoFillCategory: {
-      require: false,
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -92,7 +87,7 @@ export default {
   },
 
   created() {
-    if(this.isAutoFillCategory) {
+    if(this.categoryId) {
       this.handleGetCategoryModel()
     }
   },
