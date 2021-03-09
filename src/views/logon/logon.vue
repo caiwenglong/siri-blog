@@ -73,7 +73,6 @@
               <q-btn flat label="忘记密码" />
               <q-btn outline label="我要注册" />
             </div>
-            <p class="text-grey" align="left">账号2 ：test &nbsp;&nbsp;&nbsp;&nbsp;密码均为空</p>
           </q-card-section>
         </q-card>
       </div>
