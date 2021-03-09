@@ -164,21 +164,5 @@ export default {
 </script>
 
 <style scoped>
-  .logon-btn {
-    font-size: large;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
 
-  .bg-logon-card-input {
-    background: linear-gradient(to right, #36d1dc 1%, #5b86e5 99%);
-    transition: all 0.3s ease-in-out;
-    background-size: 200% auto;
-  }
-
-  .bg-logon-card-input:hover {
-    background-position: right center;
-    box-shadow: 0 12px 20px -11px #5b86e5;
-  }
 </style>
