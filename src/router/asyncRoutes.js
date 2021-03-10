@@ -123,7 +123,7 @@ export function generateAsyncRouters(menus) {
       generateRouters.push(route)
     }
   })
-  generateRouters.push(aboutMe)
+  // generateRouters.push(aboutMe)
   generateRouters.push(notFound)
   return generateRouters
 }
