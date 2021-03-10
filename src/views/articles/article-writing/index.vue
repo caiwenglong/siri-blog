@@ -84,7 +84,7 @@ export default {
       },
       tags: [],
       articleFormValid: false,
-      articleTitleMaxLength: 12,
+      articleTitleMaxLength: 32,
       modelCategory: null,
       categories: [],
       category: {
