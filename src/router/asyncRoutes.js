@@ -84,6 +84,7 @@ const notFound = {
   }
 }
 
+/*
 const aboutMe = {
   path: '/about',
   name: 'about',
@@ -97,6 +98,7 @@ const aboutMe = {
   },
   component: () => import('@/views/about/index.vue')
 }
+*/
 
 export function generateAsyncRouters(menus) {
   const generateRouters = []
