@@ -27,6 +27,14 @@ module.exports = {
         pathRewrite: {
           '^/article-api': ''
         }
+      },
+      '/user-code': {
+        target: process.env.VUE_APP_SEND_CODE_URL,
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/user-code': ''
+        }
       }
     },
     overlay: {

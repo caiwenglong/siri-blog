@@ -77,23 +77,37 @@
                   </template>
                 </q-input>
 
-                <!-- 手机验证码 -->
-                <q-input
-                  v-model="registerForm.registerCode"
-                  class="logon-input"
-                  clearable
-                  standout="bg-cyan text-white"
-                  bottom-slots
-                  :label="$t('login.registerCode')"
-                  :error="$v.registerForm.registerCode.$dirty && $v.registerForm.registerCode.$invalid"
-                  :error-message="$t('error.login.registerCodeRequire')"
-                  @input="$v.registerForm.registerCode.$touch()"
-                  @blur="$v.registerForm.registerCode.$touch()"
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="account_circle" />
-                  </template>
-                </q-input>
+                <div class="row q-col-gutter-x-md">
+                  <div class="col-8">
+                    <!-- 手机验证码 -->
+                    <q-input
+                      v-model="registerForm.registerCode"
+                      class="logon-input"
+                      clearable
+                      standout="bg-cyan text-white"
+                      bottom-slots
+                      :label="$t('login.registerCode')"
+                      :error="$v.registerForm.registerCode.$dirty && $v.registerForm.registerCode.$invalid"
+                      :error-message="$t('error.login.registerCodeRequire')"
+                      @input="$v.registerForm.registerCode.$touch()"
+                      @blur="$v.registerForm.registerCode.$touch()"
+                    >
+                      <template v-slot:prepend>
+                        <q-icon name="account_circle" />
+                      </template>
+                    </q-input>
+                  </div>
+                  <div class="col-4">
+                    <q-btn
+                      class="bg-logon-card-input"
+                      text-color="white"
+                      unelevated
+                      :loading="sendCodeLoading"
+                      @click="handleGetRegisterCode"
+                    >发送
+                    </q-btn>
+                  </div>
+                </div>
                 <!-- 注册按钮 -->
                 <div class="q-gutter-md">
                   <q-btn
@@ -215,6 +229,7 @@ export default {
         loop: true
       },
       loading: false,
+      sendCodeLoading: false,
       percentage: 0,
       isLottieF: false
     }
@@ -315,8 +330,59 @@ export default {
     handleSwitchRegister() {
       this.isRegister = true
     },
+    handleGetRegisterCode() {
+      if(!this.registerForm.phoneNum) {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: '请输入电话号码！'
+        })
+        return
+      }
+      this.sendCodeLoading = true
+      this.$store.dispatch('user/getRegisterCode', this.registerForm.phoneNum).then(res => {
+        if(res.code === this._constant.srCode.SUCCESS) {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.POSITIVE,
+            message: this._i18n.t('register.sendSuccess')
+          })
+        }
+        this.sendCodeLoading = false
+      }).catch(err => {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: this._i18n.t('error.register.sendFailed')
+        })
+        this.sendCodeLoading = false
+        console.error(err)
+      })
+    },
     handleRegister() {
-      console.log(1)
+      this._commonHandle.handleShowLoading()
+      this.$v.$touch()
+      if(!this.$v.registerForm.$invalid) {
+        this.$store.dispatch('user/registerUser', this.registerForm).then(res => {
+          if(res.code === this._constant.srCode.SUCCESS) {
+            this._commonHandle.handleNotify({
+              type: this._constant.notify.notifyType.POSITIVE,
+              message: this._i18n.t('register.success')
+            })
+          }
+        }).catch(err => {
+          this._commonHandle.handleNotify({
+            type: this._constant.notify.notifyType.NEGATIVE,
+            message: this._i18n.t('error.register.failed')
+          })
+          this.sendCodeLoading = false
+          console.error(err)
+        })
+      } else {
+        this._commonHandle.handleNotify({
+          type: this._constant.notify.notifyType.NEGATIVE,
+          message: this._i18n.t('error.register.formError')
+        })
+        this.sendCodeLoading = false
+        console.error('failed')
+      }
     },
     handleCancelRegister() {
       this.isRegister = false
