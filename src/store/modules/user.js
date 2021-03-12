@@ -93,7 +93,7 @@ const actions = {
       mobile: data.phoneNum,
       nickname: data.username,
       password: data.password,
-      phoneCode: data.getRegisterCode()
+      phoneCode: data.registerCode
     }
     return new Promise((resolve, reject) => {
       apiRegister(registerInfo).then(response => {
