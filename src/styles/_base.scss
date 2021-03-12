@@ -1,3 +1,36 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+    color: #2c3e50;
+}
+body,
+#app{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+    font-family: 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app-main{
+    width: 100%;
+    position: relative;
+}
+.echarts{
+    width: 100% !important;
+    height: 100% !important;
+}
+.main-content{
+    height: 100%;
+    background-color: #fcfcff;
+}
+
 .cimo-shadow {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px !important;
     transition: All 0.2s ease-in-out;

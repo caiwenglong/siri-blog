@@ -1,4 +1,4 @@
-import { apiLogin, apiGetUserInfo } from '../../api/user'
+import { apiLogin, apiGetUserInfo, apiGetRegisterCode, apiRegister } from '../../api/user'
 import { setToken, setRole, setUserId } from '../../utils/auth'
 
 const getDefaultState = () => {
@@ -69,6 +69,34 @@ const actions = {
         commit('SET_ROLE', data.result.role)
         setUserId(data.result.id)
         setRole(data.result.role)
+        resolve(response)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+  /**
+   * 获取注册码
+   */
+  getRegisterCode({ commit }, phoneNum) {
+    return new Promise((resolve, reject) => {
+      apiGetRegisterCode(phoneNum).then(response => {
+        resolve(response)
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  },
+
+  registerUser({ commit }, data) {
+    const registerInfo = {
+      mobile: data.phoneNum,
+      nickname: data.username,
+      password: data.password,
+      phoneCode: data.registerCode
+    }
+    return new Promise((resolve, reject) => {
+      apiRegister(registerInfo).then(response => {
         resolve(response)
       }).catch(err => {
         reject(err)
