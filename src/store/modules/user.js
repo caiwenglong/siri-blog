@@ -88,6 +88,12 @@ const actions = {
     })
   },
 
+  /**
+   * 用户注册
+   * @param commit
+   * @param data：注册信息对象
+   * @returns {Promise<unknown>}
+   */
   registerUser({ commit }, data) {
     const registerInfo = {
       mobile: data.phoneNum,
@@ -97,6 +103,9 @@ const actions = {
     }
     return new Promise((resolve, reject) => {
       apiRegister(registerInfo).then(response => {
+        const { data } = response
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
         resolve(response)
       }).catch(err => {
         reject(err)

@@ -14,7 +14,7 @@ const constantRoutes = [
     path: '/NoFound404',
     name: 'NoFound404',
     meta: {
-      roles: ['admin', 'editor'],
+      roles: ['admin', 'users'],
       title: '404',
       icon: 'sentiment_dissatisfied',
       isHidden: true

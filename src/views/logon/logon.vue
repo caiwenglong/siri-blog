@@ -183,7 +183,7 @@
                   unelevated
                   label=""
                   style="font-size: large;"
-                  @click="logon"
+                  @click="handleLogon"
                 >登 录 系 统
                 </q-btn>
               </q-form>
@@ -300,7 +300,10 @@ export default {
   },
 
   methods: {
-    logon() {
+    /**
+     * 登陆功能
+     */
+    handleLogon() {
       this._commonHandle.handleShowLoading()
       this.$v.$touch()
       if(!this.$v.logonForm.$invalid) {
@@ -324,12 +327,20 @@ export default {
         console.error('failed')
       }
     },
+    // json动画加载完成
     handleFinish(e) {
       this.isLottieF = e
     },
+    /**
+     * 切换到注册页面
+     */
     handleSwitchRegister() {
       this.isRegister = true
     },
+
+    /**
+     * 获取注册码
+     */
     handleGetRegisterCode() {
       if(!this.registerForm.phoneNum) {
         this._commonHandle.handleNotify({
@@ -356,6 +367,10 @@ export default {
         console.error(err)
       })
     },
+
+    /**
+     * 注册功能
+     */
     handleRegister() {
       this._commonHandle.handleShowLoading()
       this.$v.$touch()
@@ -367,6 +382,8 @@ export default {
               message: this._i18n.t('register.success')
             })
           }
+          //  注册成功后跳转到首页
+          this.$router.push('/')
         }).catch(err => {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.NEGATIVE,
@@ -384,6 +401,10 @@ export default {
         console.error('failed')
       }
     },
+
+    /**
+     * 取消注册，返回登陆
+     */
     handleCancelRegister() {
       this.isRegister = false
     }

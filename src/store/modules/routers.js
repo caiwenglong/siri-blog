@@ -39,9 +39,7 @@ const actions = {
       let routes = []
       apiGetArticleCategories(userId).then(res => {
         const menus = res.data.categories
-        if(menus.length) {
-          routes = generateAsyncRouters(menus)
-        }
+        routes = generateAsyncRouters(menus)
         commit('SET_CATEGORIES', menus) // 设置分类列表
         commit('SET_ROUTERS', routes) // 设置动态路由
         commit('SET_ROLES_AND_ROUTES', routes) // 完整路由
