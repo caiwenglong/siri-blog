@@ -1,6 +1,9 @@
 <template>
 
   <div class="unit unit-home">
+    <div>
+      <h5 class="tip-menu">创建菜单说明：右击主页菜单添加一级菜单，右击创建的一级菜单来添加子菜单</h5>
+    </div>
     <div class="home-lottie">
       <q-skeleton v-if="!isLottieF" type="text" height="150px" />
       <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleLottieFinish" />
@@ -35,4 +38,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .tip-menu {
+    margin: 20px;
+    color: lightslategray;
+  }
 </style>
