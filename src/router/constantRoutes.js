@@ -11,6 +11,14 @@ const constantRoutes = [
     component: () => import('../views/logon/logon.vue')
   },
   {
+    path: '/register',
+    name: 'register',
+    meta: {
+      title: '注册'
+    },
+    component: () => import('../views/register/index.vue')
+  },
+  {
     path: '/NoFound404',
     name: 'NoFound404',
     meta: {
