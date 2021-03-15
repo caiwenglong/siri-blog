@@ -1,4 +1,4 @@
-import { apiLogin, apiGetUserInfo, apiGetRegisterCode, apiRegister } from '../../api/user'
+import { apiLogin, apiGetUserInfo, apiGetRegisterCode, apiRegister, apiModifyPassword } from '../../api/user'
 import { setToken, setRole, setUserId } from '../../utils/auth'
 
 const getDefaultState = () => {
@@ -111,7 +111,26 @@ const actions = {
         reject(err)
       })
     })
+  },
+
+  /**
+   * 验证手机号是否已注册
+   */
+  modifyPassword({ commit }, data) {
+    const newData = {
+      mobile: data.phoneNum,
+      password: data.password,
+      phoneCode: data.registerCode
+    }
+    return new Promise((resolve, reject) => {
+      apiModifyPassword(newData).then(response => {
+        resolve(response)
+      }).catch(err => {
+        reject(err)
+      })
+    })
   }
+
 }
 
 export default {

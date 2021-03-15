@@ -37,6 +37,18 @@ export function apiRegister(data) {
 }
 
 /**
+ * 修改密码
+ * @param data
+ */
+export function apiModifyPassword(data) {
+  return request({
+    url: `/user-api/user-center/user/modify-password`,
+    method: 'post',
+    data
+  })
+}
+
+/**
  * 发送注册
  * @param phoneNum
  */
