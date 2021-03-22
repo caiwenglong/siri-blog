@@ -1,6 +1,6 @@
 {
   "login": {
-    "username": "用户名",
+    "username": "电话号码",
     "password": "密码",
     "phoneNum": "电话号码",
     "registerCode": "注册码",
@@ -9,6 +9,10 @@
   "register": {
     "success": "注册成功！",
     "sendSuccess": "验证码已发送，请注意查收！"
+  },
+  "forget": {
+    "newPassword": "新的密码",
+    "newPasswordConfirm": "确认新密码"
   },
   "modify": {
     "success": "修改成功"
@@ -87,7 +91,7 @@
   },
   "error": {
     "login": {
-      "usernameRequire": "请输入用户名！",
+      "usernameRequire": "请输入电话号码！",
       "passwordRequire": "请输入密码！",
       "passwordMinLength": "密码长度至少6位，最长不得超过18位",
       "phoneNumRequire": "请输入电话号码！",

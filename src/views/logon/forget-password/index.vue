@@ -13,7 +13,7 @@
             counter
             :maxlength="passwordMaxLength"
             :type="isPwd ? 'password' : 'text'"
-            :label="$t('login.password')"
+            :label="$t('forget.newPassword')"
             :error="$v.forgetPasswordForm.password.$dirty && $v.forgetPasswordForm.password.$invalid"
             :error-message="passwordErrors"
             @blur="$v.forgetPasswordForm.password.$touch()"
@@ -38,7 +38,7 @@
             counter
             :maxlength="passwordMaxLength"
             :type="isPwd ? 'password' : 'text'"
-            :label="$t('login.password')"
+            :label="$t('forget.newPasswordConfirm')"
             :error="$v.forgetPasswordForm.repeatPassword.$dirty && $v.forgetPasswordForm.repeatPassword.$invalid"
             :error-message="repeatPasswordErrors"
             @blur="$v.forgetPasswordForm.repeatPassword.$touch()"
