@@ -14,7 +14,6 @@ export function addTagView(to) {
     keepAlive: to.meta.keepAlive || false
   }
   if(getFirst(to.params) !== undefined) {
-    debugger
     t.title = _this._i18n.t(t.title) + '：' + to.params.title
   }
   if(t.title !== null && t.title !== undefined && t.fullPath !== '/' && t.fullPath.indexOf('#') === -1) {
