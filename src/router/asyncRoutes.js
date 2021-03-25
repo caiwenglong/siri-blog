@@ -1,6 +1,7 @@
 import * as _ from 'lodash'
 import pool from '@/share/constant/files/pool'
 import gather from '@/share/constant/files/gather'
+import i18n from '@/i18n'
 /**
  * 需要授权访问的路由
  */
@@ -65,7 +66,7 @@ const asyncRoutesChildren = [
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.articleDetails',
-      title: 'route.article',
+      title: i18n.t('route.article'),
       icon: 'description',
       isShowMenuContext: false,
       isHidden: true,
