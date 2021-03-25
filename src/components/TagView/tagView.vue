@@ -35,7 +35,11 @@
             class="tagView relative-position"
             @remove="$store.commit('REMOVE_TAG_VIEW',i)"
           >
-            <div class="line-limit-length">{{ v.title }}</div>
+            <div class="line-limit-length">{{ v.title }}
+              <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+                {{ v.title }}
+              </q-tooltip>
+            </div>
             <q-menu
               touch-position
               context-menu

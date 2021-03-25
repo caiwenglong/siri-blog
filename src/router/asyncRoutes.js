@@ -65,7 +65,7 @@ const asyncRoutesChildren = [
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.articleDetails',
-      title: 'article',
+      title: 'route.article',
       icon: 'description',
       isShowMenuContext: false,
       isHidden: true,
@@ -91,7 +91,7 @@ export function generateAsyncRouters(menus) {
       if(menu.idParent === gather.TOP_LEVEL_MENU_ID) {
         const route = {
           path: `/${menu.path}`,
-          name: menu.id,
+          name: menu.name,
           url: menu.id,
           meta: {
             title: menu.name,

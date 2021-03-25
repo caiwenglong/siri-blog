@@ -83,7 +83,7 @@
   },
   "route": {
     "home": "主页",
-    "article": "文章文集",
+    "article": "文章",
     "articleWriting": "文章写作",
     "articleList": "文章列表",
     "articleDetails": "文章详情",
