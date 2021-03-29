@@ -89,7 +89,7 @@ const aboutMe = {
   path: '/about',
   name: 'about',
   meta: {
-    roles: ['admin', 'editor'],
+    roles: ['admin'],
     t_title: 'route.aboutMe',
     title: '个人简介',
     icon: 'history_edu',
@@ -137,7 +137,7 @@ function getChildrenRouters(menus, idParent) {
     if(item.idParent === idParent) {
       const route = {
         path: `${item.path}`,
-        name: item.id,
+        name: item.name,
         url: item.id,
         component: () => import('@/views/articles/article-list/index.vue'),
         meta: {

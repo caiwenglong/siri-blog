@@ -94,7 +94,7 @@ export default {
 
   methods: {
     /**
-     * 如果是编辑状态，那么就通过穿进来的分类ID给categoryModel赋值
+     * 如果是编辑状态，那么就通过传进来的分类ID给categoryModel赋值
      */
     handleGetCategoryModel() {
       const selectCategory = this._lodash.filter(this.getCategories, category => {

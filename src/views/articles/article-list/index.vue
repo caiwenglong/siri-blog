@@ -83,7 +83,7 @@
               </div>
             </div>
             <div v-else>
-              <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
+              <div v-show="$q.screen.gt.xs" class="col-6 flex justify-center items-center ">
                 <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
               </div>
             </div>

@@ -302,7 +302,7 @@ export default {
               type: this._constant.notify.notifyType.POSITIVE,
               message: this._i18n.t('menu.successAddMenu')
             })
-            this.handleRegenerateMenu(res.data.category.id)
+            this.handleRegenerateMenu(res.data.category.name)
           }
         }).catch(error => {
           this._commonHandle.handleNotify({
@@ -361,7 +361,7 @@ export default {
             type: this._constant.notify.notifyType.POSITIVE,
             message: this._i18n.t('menu.successModifyMenu')
           })
-          this.handleRegenerateMenu(res.data.category.id)
+          this.handleRegenerateMenu(res.data.category.name)
         } else {
           this._commonHandle.handleNotify({
             type: this._constant.notify.notifyType.NEGATIVE,
@@ -427,9 +427,9 @@ export default {
     /**
      * 增删改分类之后，重新生成菜单
      */
-    handleRegenerateMenu(menuId) {
+    handleRegenerateMenu(menuName) {
       this.$store.dispatch('routers/generateRoutes', this.userId).then(() => {
-        menuId ? this.$router.push({ name: menuId }) : this.$router.push('/')
+        menuName ? this.$router.push({ name: menuName }) : this.$router.push('/')
       })
     },
 
