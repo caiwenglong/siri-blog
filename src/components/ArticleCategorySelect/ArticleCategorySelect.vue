@@ -68,7 +68,13 @@ export default {
     ]),
 
     getCategories() {
-      return this.categories || this.storeCategories
+      const topLevelCategory = {
+        id: '0',
+        name: '一级菜单'
+      }
+      const targetCategories = this.categories || this.storeCategories
+      targetCategories.unshift(topLevelCategory)
+      return targetCategories
     },
 
     getCategoryLabel() {
@@ -94,9 +100,10 @@ export default {
 
   methods: {
     /**
-     * 如果是编辑状态，那么就通过穿进来的分类ID给categoryModel赋值
+     * 如果是编辑状态，那么就通过传进来的分类ID给categoryModel赋值
      */
     handleGetCategoryModel() {
+      debugger
       const selectCategory = this._lodash.filter(this.getCategories, category => {
         return category.id === this.categoryId
       })
@@ -108,6 +115,7 @@ export default {
      * @param value
      */
     handleCategorySelect(value) {
+      debugger
       this.$emit('emitSelectedCategory', value)
     }
   }

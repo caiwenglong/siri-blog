@@ -52,7 +52,7 @@
         </div>
       </q-form>
     </div>
-    <v-md-editor v-model="articleForm.content" height="400px" />
+    <v-md-editor v-model="articleForm.content" height="400px" @copy-code-success="handleCopyCodeSuccess" />
     <dialog-confirm
       :show="isShowDialog"
       :confirm-message="$t('article.confirmReset')"
@@ -289,6 +289,10 @@ export default {
      */
     handleCancelBtnClick() {
       this.isShowDialog = false
+    },
+
+    handleCopyCodeSuccess(code) {
+      console.log(code)
     },
 
     /**

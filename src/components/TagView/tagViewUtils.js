@@ -1,7 +1,6 @@
 import store from '../../store/index'
 import router from '../../router'
 import _this from '../../main'
-import { getFirst } from '../../utils/common'
 
 // 构造 tag-view 的元信息，如果符合条件( 不是公共路由 )就提交到 store，生成 tagView 元素
 export function addTagView(to) {
@@ -13,8 +12,8 @@ export function addTagView(to) {
     icon: to.meta.icon,
     keepAlive: to.meta.keepAlive || false
   }
-  if(getFirst(to.params) !== undefined) {
-    t.title = t.title + '：' + getFirst(to.params)
+  if(to.params.title !== undefined) {
+    t.title = t.title + '：' + to.params.title
   }
   if(t.title !== null && t.title !== undefined && t.fullPath !== '/' && t.fullPath.indexOf('#') === -1) {
     store.commit('ADD_TAG_VIEW', t)

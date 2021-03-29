@@ -10,7 +10,7 @@
             :label="v.title"
             :icon="v.icon"
           >
-            <div v-if="breadcrumbs.length !== i+1" style="margin:0px 8px 0px 8px">
+            <div v-if="breadcrumbs.length !== i+1" style="margin:0 8px">
               /
             </div>
           </q-breadcrumbs-el>

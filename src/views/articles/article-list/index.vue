@@ -17,7 +17,7 @@
                   transition-hide="jump-up"
                   @mouseenter.native="handleMouseEnter"
                   @mouseleave.native="handleMouseLeave"
-                  @click.native="handleClickItem(article.id)"
+                  @click.native="handleClickItem(article)"
                 >
                   <q-item-section>
                     <q-item-label class="item__title">
@@ -83,7 +83,7 @@
               </div>
             </div>
             <div v-else>
-              <div v-show="$q.screen.gt.sm" class="col-6 flex justify-center items-center ">
+              <div v-show="$q.screen.gt.xs" class="col-6 flex justify-center items-center ">
                 <lottie-web-cimo class="lottie-lg" :animation-data="defaultOptions.animationData" @isLottieFinish="handleFinish" />
               </div>
             </div>
@@ -204,10 +204,10 @@ export default {
 
     /**
      * 点击文章列表项跳转到对应的文章详情页
-     * @param artId
+     * @param article
      */
-    handleClickItem(artId) {
-      this.$router.push({ name: 'articleDetails', params: { artId: artId }})
+    handleClickItem(article) {
+      this.$router.push({ name: 'articleDetails', params: { artId: article.id, title: article.title }})
     },
 
     /**
