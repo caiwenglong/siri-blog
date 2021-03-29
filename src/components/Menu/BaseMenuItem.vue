@@ -289,7 +289,8 @@ export default {
       this.categoryForm.idUser = this.userId
       if(this.menuItem.path === '/') {
         this.categoryForm.idParent = this._constant.gather.TOP_LEVEL_MENU_ID
-      } else {
+      }
+      if(this.categoryForm.idParent !== this._constant.gather.TOP_LEVEL_MENU_ID) {
         this.categoryForm.idParent = this.menuItem.meta.id
       }
       this.categoryForm.path = uuId(8, 16)
