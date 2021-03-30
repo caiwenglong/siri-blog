@@ -19,124 +19,128 @@
       <div class="b-related-skill q-pa-md">
         <h3 class="section-title">相关技能</h3>
         <q-list dense>
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section side>
-              <q-icon color="light-green" name="fab fa-html5" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideHTML5"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideHTML5 + '%'"
-                color="light-green"
-              />
-            </q-item-section>
-          </q-item>
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section side>
-              <q-icon color="amber" name="fab fa-css3-alt" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideCSS3"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideCSS3 + '%'"
-                color="amber"
-              />
-            </q-item-section>
-          </q-item>
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section avatar>
-              <q-icon color="primary" name="fab fa-js" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideJs"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideJs + '%'"
-                color="primary"
-              />
-            </q-item-section>
-          </q-item>
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section avatar>
-              <q-icon color="teal" name="fab fa-vuejs" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideVue"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideVue + '%'"
-                color="teal"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section avatar>
-              <q-icon color="deep-orange" name="fab fa-angular" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideAngular"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideAngular + '%'"
-                color="deep-orange"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section side>
-              <q-icon color="indigo" name="fab fa-node" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideNode"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideNode + '%'"
-                color="indigo"
-              />
-            </q-item-section>
-          </q-item>
-
-          <q-item v-scroll-fire="SlideAnimate">
-            <q-item-section side>
-              <q-icon color="blue-grey" name="fab fa-java" />
-            </q-item-section>
-            <q-item-section>
-              <q-slider
-                v-model="slideJava"
-                :min="0"
-                :max="100"
-                label
-                :label-value="slideJava + '%'"
-                color="blue-grey"
-              />
-            </q-item-section>
-          </q-item>
+          <div class="row">
+            <div class="col">
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section side>
+                  <q-icon color="light-green" name="fab fa-html5" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideHTML5"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideHTML5 + '%'"
+                    color="light-green"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section side>
+                  <q-icon color="amber" name="fab fa-css3-alt" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideCSS3"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideCSS3 + '%'"
+                    color="amber"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section avatar>
+                  <q-icon color="primary" name="fab fa-js" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideJs"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideJs + '%'"
+                    color="primary"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section side>
+                  <q-icon color="blue-grey" name="fab fa-java" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideJava"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideJava + '%'"
+                    color="blue-grey"
+                  />
+                </q-item-section>
+              </q-item>
+            </div>
+            <div class="col">
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section avatar>
+                  <q-icon color="teal" name="fab fa-vuejs" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideVue"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideVue + '%'"
+                    color="teal"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section avatar>
+                  <q-icon color="deep-orange" name="fab fa-angular" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideAngular"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideAngular + '%'"
+                    color="deep-orange"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item v-scroll-fire="SlideAnimate" class="animated">
+                <q-item-section side>
+                  <q-icon color="indigo" name="fab fa-node" />
+                </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="slideNode"
+                    :min="0"
+                    :max="100"
+                    label
+                    :label-value="slideNode + '%'"
+                    color="indigo"
+                  />
+                </q-item-section>
+              </q-item>
+            </div>
+          </div>
         </q-list>
       </div>
       <div class="q-px-lg q-pb-md">
         <h3 class="section-title">工作经历</h3>
-        <q-timeline color="secondary">
+        <q-timeline color="secondary" :layout="layoutTimeLine" side="right">
 
           <q-timeline-entry
             v-scroll-fire="timeLineAnimate"
             title="天用唯勤科技有限公司&软通动力有限公司"
             subtitle="2019.6 - 至今"
+            side="left"
           >
             <div>
               该项目是建设银行的人力资源管理系统，
@@ -153,6 +157,7 @@
             v-scroll-fire="timeLineAnimate"
             title="文思海辉技术有限公司"
             subtitle="2017.10 - 2019.6"
+            side="right"
           >
             <div>
               该项目是新加坡DBS银行新系统界面，
@@ -168,6 +173,7 @@
             v-scroll-fire="timeLineAnimate"
             title="优芽网络科技有限公司"
             subtitle="2015.6 - 2016.6"
+            side="left"
           >
             <div>
               该项目要实现打造全方位、一站式的创意性的课件制作和科学有效的教学管理工具，
@@ -182,6 +188,7 @@
             v-scroll-fire="timeLineAnimate"
             title="厦门翼迅科技有限公司"
             subtitle="2014.7 - 2015.6"
+            side="right"
           >
             <div>
               该项目要实现打造全方位、一站式的创意性的课件制作和科学有效的教学管理工具，
@@ -213,20 +220,22 @@ export default {
       slideHTML5: 80,
       slideCSS3: 80,
       aboutImg: aboutImg,
-      aboutImgHeight: 680
+      aboutImgHeight: 680,
+      layoutTimeLine: 'loose'
     }
   },
 
   methods: {
     SlideAnimate(el) {
       el.classList.add('animate__animated')
-      el.classList.add('animate__lightSpeedInLeft')
+      el.classList.add('animate__rotateInDownLeft')
       el.style.opacity = 1
     },
 
     timeLineAnimate(el) {
       el.classList.add('animate__animated')
-      el.classList.add('animate__fadeInUp')
+      el.classList.add('animate__zoomInLeft')
+      el.style.opacity = 1
     }
   }
 }

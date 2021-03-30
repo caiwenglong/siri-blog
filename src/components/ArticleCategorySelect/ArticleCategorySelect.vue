@@ -73,7 +73,13 @@ export default {
         name: '一级菜单'
       }
       const targetCategories = this.categories || this.storeCategories
-      targetCategories.unshift(topLevelCategory)
+      const isExitTopLevelCate = this._lodash.find(targetCategories, category => {
+        return category.name === '一级菜单'
+      })
+
+      if(!isExitTopLevelCate) {
+        targetCategories.unshift(topLevelCategory)
+      }
       return targetCategories
     },
 
@@ -103,7 +109,6 @@ export default {
      * 如果是编辑状态，那么就通过传进来的分类ID给categoryModel赋值
      */
     handleGetCategoryModel() {
-      debugger
       const selectCategory = this._lodash.filter(this.getCategories, category => {
         return category.id === this.categoryId
       })
@@ -115,7 +120,6 @@ export default {
      * @param value
      */
     handleCategorySelect(value) {
-      debugger
       this.$emit('emitSelectedCategory', value)
     }
   }

@@ -1,6 +1,7 @@
 import * as _ from 'lodash'
 import pool from '@/share/constant/files/pool'
 import gather from '@/share/constant/files/gather'
+import i18n from '@/i18n'
 /**
  * 需要授权访问的路由
  */
@@ -23,7 +24,7 @@ const asyncRoutesChildren = [
     name: 'component',
     component: () => import('@/components/Layout/layout.vue'),
     meta: {
-      roles: ['admin', 'test'],
+      roles: pool.accessible.ROLE_ADMIN,
       title: '组件说明',
       icon: 'apps',
       isOpen: false,
@@ -35,7 +36,7 @@ const asyncRoutesChildren = [
         path: 'icon',
         name: 'icon',
         meta: {
-          roles: ['admin', 'editor'],
+          roles: pool.accessible.ROLE_ADMIN,
           title: 'icon 集合',
           icon: 'api',
           isShowMenuContext: false,
@@ -49,7 +50,7 @@ const asyncRoutesChildren = [
     path: '/article-writing',
     name: 'articleWriting',
     meta: {
-      roles: ['admin', 'editor'],
+      roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.articleWriting',
       title: '文章写作',
       icon: 'history_edu',
@@ -63,9 +64,9 @@ const asyncRoutesChildren = [
     path: '/article-details/:artId',
     name: 'articleDetails',
     meta: {
-      roles: ['admin', 'editor', 'test'],
+      roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.articleDetails',
-      title: 'article',
+      title: i18n.t('route.article'),
       icon: 'description',
       isShowMenuContext: false,
       isHidden: true,
@@ -79,17 +80,16 @@ const notFound = {
   path: '*', // 此处需置于最底部
   redirect: '/NoFound404',
   meta: {
-    roles: ['admin', 'test'],
+    roles: pool.accessible.ROLE_ADMIN,
     isHidden: true
   }
 }
 
-/*
 const aboutMe = {
   path: '/about',
   name: 'about',
   meta: {
-    roles: ['admin', 'editor'],
+    roles: ['admin'],
     t_title: 'route.aboutMe',
     title: '个人简介',
     icon: 'history_edu',
@@ -98,34 +98,35 @@ const aboutMe = {
   },
   component: () => import('@/views/about/index.vue')
 }
-*/
 
 export function generateAsyncRouters(menus) {
   const generateRouters = []
-  _.forEach(menus, menu => {
-    if(menu.idParent === gather.TOP_LEVEL_MENU_ID) {
-      const route = {
-        path: `/${menu.path}`,
-        name: menu.id,
-        url: menu.id,
-        meta: {
-          title: menu.name,
-          icon: menu.icon,
-          id: menu.id,
-          isOpen: false,
-          isShowMenuContext: true,
-          idParent: gather.TOP_LEVEL_MENU_ID,
-          isParent: menu.isParent,
-          roles: pool.accessible.ROLE_ADMIN,
-          isHidden: false
-        },
-        component: () => import('@/views/articles/article-list/index.vue'),
-        children: getChildrenRouters(menus, menu.id)
+  if(menus.length) {
+    _.forEach(menus, menu => {
+      if(menu.idParent === gather.TOP_LEVEL_MENU_ID) {
+        const route = {
+          path: `/${menu.path}`,
+          name: menu.name,
+          url: menu.id,
+          meta: {
+            title: menu.name,
+            icon: menu.icon,
+            id: menu.id,
+            isOpen: false,
+            isShowMenuContext: true,
+            idParent: gather.TOP_LEVEL_MENU_ID,
+            isParent: menu.isParent,
+            roles: pool.accessible.ROLE_ADMIN,
+            isHidden: false
+          },
+          component: () => import('@/views/articles/article-list/index.vue'),
+          children: getChildrenRouters(menus, menu.id)
+        }
+        generateRouters.push(route)
       }
-      generateRouters.push(route)
-    }
-  })
-  // generateRouters.push(aboutMe)
+    })
+  }
+  generateRouters.push(aboutMe)
   generateRouters.push(notFound)
   return generateRouters
 }
@@ -136,7 +137,7 @@ function getChildrenRouters(menus, idParent) {
     if(item.idParent === idParent) {
       const route = {
         path: `${item.path}`,
-        name: item.id,
+        name: item.name,
         url: item.id,
         component: () => import('@/views/articles/article-list/index.vue'),
         meta: {

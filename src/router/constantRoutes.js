@@ -8,13 +8,13 @@ const constantRoutes = [
     meta: {
       title: '登录'
     },
-    component: () => import('../views/logon/logon.vue')
+    component: () => import('../views/logon/index.vue')
   },
   {
     path: '/NoFound404',
     name: 'NoFound404',
     meta: {
-      roles: ['admin', 'editor'],
+      roles: ['admin', 'users'],
       title: '404',
       icon: 'sentiment_dissatisfied',
       isHidden: true

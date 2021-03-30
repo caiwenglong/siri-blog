@@ -10,6 +10,13 @@
     "success": "注册成功！",
     "sendSuccess": "验证码已发送，请注意查收！"
   },
+  "forget": {
+    "newPassword": "新的密码",
+    "newPasswordConfirm": "确认新密码"
+  },
+  "modify": {
+    "success": "修改成功"
+  },
   "language": "简体中文",
   "app_drawer": {
     "title": "Application",
@@ -76,7 +83,7 @@
   },
   "route": {
     "home": "主页",
-    "article": "文章文集",
+    "article": "文章",
     "articleWriting": "文章写作",
     "articleList": "文章列表",
     "articleDetails": "文章详情",
@@ -96,6 +103,9 @@
       "failed": "注册失败",
       "sendFailed": "发送失败！",
       "formError": "表单填写有误，请重新检查填写！"
+    },
+    "modify": {
+      "passwordRequire": "密码不一致，请重新输入！"
     },
     "article": {
       "title": "标题不能为空，且最多只能输入12个字符"

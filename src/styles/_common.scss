@@ -19,3 +19,46 @@
 .text-link {
   cursor: pointer;
 }
+
+// 登录注册
+.unit-logon,
+.unit-register {
+  height: 100vh;
+
+  .base-card-shadow {
+    width: 60vw;
+    min-width: 300px
+  }
+
+  .logon-lottie {
+    width: 70%;
+    text-align: left;
+  }
+
+  .bg-logon-card-input {
+    background: linear-gradient(to right, #36d1dc 1%, #5b86e5 99%);
+    transition: all 0.3s ease-in-out;
+    background-size: 200% auto;
+  }
+
+  .bg-logon-card-input:hover {
+    background-position: right center;
+    box-shadow: 0 12px 20px -11px #5b86e5;
+  }
+
+  .logon-skeleton {
+    height: 70%;
+    width: 50%
+  }
+
+  .no-shadow {
+    min-width: 290px;
+    height: 100%;
+    width: 60%;
+  }
+
+  .btn-wrapper {
+    margin-bottom: 20px;
+  }
+
+}
