@@ -1,5 +1,6 @@
 const timeStamp = new Date().getTime()
 const path = require('path')
+const webpack = require('webpack')
 const name = 'siri blog'
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -60,7 +61,6 @@ module.exports = {
   },
   transpileDependencies: [
     'quasar',
-    'vue-echarts',
     'resize-detector'
   ],
 
@@ -93,6 +93,9 @@ module.exports = {
           deleteOriginalAssets: false, // 不删除源文件
           minRatio: 0.8 // 压缩比
         })
+      )
+      config.plugins.push(
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
       )
 
       // 将 js 文件夹添加时间戳，这样浏览器不会加载上个版本缓存的代码

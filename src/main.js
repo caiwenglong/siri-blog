@@ -21,9 +21,6 @@ import Contextmenu from 'vue-contextmenujs'
 // markdown
 import './components/Markdown/Markdown'
 
-// ECharts
-import './components/ECharts/EChartsConfig'
-
 // 样式
 import './styles/index.scss'
 
