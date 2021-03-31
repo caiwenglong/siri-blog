@@ -25,7 +25,7 @@ const asyncRoutesChildren = [
     component: () => import('@/components/Layout/layout.vue'),
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
-      title: '组件说明',
+      title: '图标集合',
       icon: 'apps',
       isOpen: false,
       isShowMenuContext: false,

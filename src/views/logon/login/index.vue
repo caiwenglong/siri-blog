@@ -53,7 +53,7 @@
             text-color="white"
             unelevated
             label=""
-            style="font-size: large;"
+            style="font-size: large;margin-top: 20px;margin-bottom: 20px;width: 100%;"
             @click="handleLogon"
           >登 录 系 统
           </q-btn>
@@ -62,6 +62,11 @@
       <div class="btn-wrapper row justify-between">
         <q-btn flat label="忘记密码" @click="handleSwitchPanel(3)" />
         <q-btn outline label="我要注册" @click="handleSwitchPanel(2)" />
+      </div>
+      <div class="site-tip">
+        <div class="text-grey" align="left">
+          <p>账号：13328312801 密码：123456</p>
+        </div>
       </div>
     </q-card-section>
   </div>
@@ -151,12 +156,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .logon-btn {
-    font-size: large;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-</style>

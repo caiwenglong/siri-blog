@@ -83,6 +83,7 @@
               <div class="col-12">
                 <article-category-select
                   :is-edit="true"
+                  :is-add-top-level-menu="true"
                   :label="$t('category.parentCategory')"
                   :category-id="categoryForm.idParent"
                   @emitSelectedCategory="handleGetEmitCategory"

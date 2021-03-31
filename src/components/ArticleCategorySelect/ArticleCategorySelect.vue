@@ -54,6 +54,11 @@ export default {
       require: false,
       type: String,
       default: 'name'
+    },
+    isAddTopLevelMenu: {
+      require: false,
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -77,7 +82,7 @@ export default {
         return category.name === '一级菜单'
       })
 
-      if(!isExitTopLevelCate) {
+      if(!isExitTopLevelCate && this.isAddTopLevelMenu) {
         targetCategories.unshift(topLevelCategory)
       }
       return targetCategories
