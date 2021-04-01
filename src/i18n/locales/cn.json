@@ -57,7 +57,8 @@
     "goBack": "返回",
     "createTime": "创建时间：",
     "modifiedTime": "修改时间：",
-    "modifyArticle": "修改文章"
+    "modifyArticle": "修改文章",
+    "copySuccess": "代码复制成功"
   },
   "category": {
     "name": "分类名称",

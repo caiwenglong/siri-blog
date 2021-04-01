@@ -12,7 +12,7 @@
         </q-tooltip>
       </q-btn>
     </div>
-    <v-md-editor :value="article.content" mode="preview" />
+    <v-md-editor :value="article.content" mode="preview" @copy-code-success="handleCopyCodeSuccess" />
     <dialog-confirm
       :show="showDialog"
       :confirm-message="$t('article.confirmDeleteArticle')"
@@ -113,6 +113,16 @@ export default {
         })
         this.reload()
       }
+    },
+
+    /**
+     * 复制代码成功
+     */
+    handleCopyCodeSuccess() {
+      this._commonHandle.handleNotify({
+        type: this._constant.notify.notifyType.POSITIVE,
+        message: this._i18n.t('article.copySuccess')
+      })
     }
   }
 }
