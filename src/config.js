@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 // 浏览器 title
-Vue.prototype.$title = ' | Vue Quasar'
+Vue.prototype.$title = ' | SIRI Blog'
 
 // 侧边栏风格
 Vue.prototype.$SildeBar = 'hHh lpR fFf' // 风格二：lHh lpR fFf
