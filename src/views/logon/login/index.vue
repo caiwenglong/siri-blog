@@ -17,6 +17,7 @@
             :error-message="$t('error.login.usernameRequire')"
             @input="$v.logonForm.username.$touch()"
             @blur="$v.logonForm.username.$touch()"
+            @keyup.enter="handleLogon"
           >
             <template v-slot:prepend>
               <q-icon name="account_circle" />
@@ -35,6 +36,7 @@
             :error="$v.logonForm.password.$dirty && $v.logonForm.password.$invalid"
             :error-message="logonPasswordErrors"
             @blur="$v.logonForm.password.$touch()"
+            @keyup.enter="handleLogon"
           >
             <template v-slot:prepend>
               <q-icon name="vpn_key" />
