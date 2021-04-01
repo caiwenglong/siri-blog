@@ -80,7 +80,8 @@ export default {
         title: '',
         category: '',
         content: '',
-        tags: ''
+        tags: '',
+        idAuthor: ''
       },
       tags: [],
       articleFormValid: false,
@@ -93,6 +94,7 @@ export default {
         icon: '',
         idAuthor: ''
       },
+      categoryPath: '',
       optionsTags: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ],
@@ -133,6 +135,7 @@ export default {
     // 从菜单跳转过来创建文章的
     if(this.$route.query.categoryId) {
       this.articleForm.category = this.$route.query.categoryId
+      this.handleGetCategoryPathById(this.$route.query.categoryId)
     }
 
     // 从文章列表页跳转过来，进行文章编辑
@@ -161,6 +164,7 @@ export default {
             this.articleForm.content = articleEntity.content
             this.articleForm.category = articleEntity.category
             this.tags = articleEntity.tags.split(',')
+            this.handleGetCategoryPathById(articleEntity.category)
           }
         }
       })
@@ -175,6 +179,24 @@ export default {
           this.categories.push(item)
         }
       })
+    },
+
+    /**
+     * 通过分类ID获取分类
+     * @param categoryId：标签值
+     */
+    handleGetCategoryById(categoryId) {
+      return this._lodash.find(this.storeCategories, item => {
+        return item.id === categoryId
+      })
+    },
+
+    /**
+     * 通过分类ID获取分
+     */
+    handleGetCategoryPathById(categoryId) {
+      const targetCategory = this.handleGetCategoryById(categoryId)
+      this.categoryPath = targetCategory.path
     },
 
     /**
@@ -209,10 +231,11 @@ export default {
 
     /**
      * 得到分类选择框的选项值
-     * @param value
+     * @param categoryInfo
      */
-    handleGetEmitCategory(value) {
-      this.articleForm.category = value
+    handleGetEmitCategory(categoryInfo) {
+      this.articleForm.category = categoryInfo.value
+      this.categoryPath = categoryInfo.path
     },
 
     /**
@@ -233,7 +256,7 @@ export default {
               message: this.isEdit ? this._i18n.t('article.editSuccess') : this._i18n.t('article.publicSuccess')
             })
             // 跳转到所添加分类的列表页
-            this.$router.push({ name: this.articleForm.category, params: { categoryId: this.articleForm.category }})
+            this.$router.push({ path: this.categoryPath, query: { categoryId: this.articleForm.category }})
           } else {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.NEGATIVE,

@@ -255,7 +255,7 @@ export default {
           }
           this._commonHandle.handleHideLoading()
         }).catch(err => {
-          console.log(err)
+          console.error(err)
           this._commonHandle.handleHideLoading()
         })
       } else {

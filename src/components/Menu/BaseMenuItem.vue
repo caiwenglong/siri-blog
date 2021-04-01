@@ -437,10 +437,10 @@ export default {
 
     /**
      * 得到分类选择框的选项值
-     * @param value
+     * @param categoryInfo
      */
-    handleGetEmitCategory(value) {
-      this.categoryForm.idParent = value
+    handleGetEmitCategory(categoryInfo) {
+      this.categoryForm.idParent = categoryInfo.value
     },
 
     /**

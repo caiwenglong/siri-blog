@@ -129,7 +129,7 @@ export default {
       tagColors: ['primary', 'teal', 'orange', 'info', 'warning'],
       totalPage: 1,
       pageNum: 1,
-      pageSize: 20
+      pageSize: 10
     }
   },
 

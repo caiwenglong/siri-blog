@@ -63,7 +63,8 @@ export default {
   },
   data() {
     return {
-      categoryModel: ''
+      categoryModel: '',
+      categoryPath: ''
     }
   },
 
@@ -118,6 +119,7 @@ export default {
         return category.id === this.categoryId
       })
       this.categoryModel = selectCategory[0]
+      this.categoryPath = selectCategory[0].path
     },
 
     /**
@@ -125,7 +127,7 @@ export default {
      * @param value
      */
     handleCategorySelect(value) {
-      this.$emit('emitSelectedCategory', value)
+      this.$emit('emitSelectedCategory', { value: value, path: this.categoryPath })
     }
   }
 }
