@@ -159,11 +159,13 @@ export default {
         if(res.code === this._constant.srCode.SUCCESS) {
           const articleEntity = res.data.article
           if(articleEntity) {
-            this.articleForm.id = idArticle
-            this.articleForm.title = articleEntity.title
-            this.articleForm.content = articleEntity.content
-            this.articleForm.category = articleEntity.category
-            this.tags = articleEntity.tags.split(',')
+            this.articleForm.id = idArticle || ''
+            this.articleForm.title = articleEntity.title || ''
+            this.articleForm.content = articleEntity.content || ''
+            this.articleForm.category = articleEntity.category || ''
+            if(articleEntity.tags.length) {
+              this.tags = articleEntity.tags.split(',')
+            }
             this.handleGetCategoryPathById(articleEntity.category)
           }
         }
