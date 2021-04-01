@@ -30,7 +30,7 @@
               <img :src="this.$PUBLIC_PATH + 'data/avatar.jpg'">
             </q-avatar>
 
-            <div class="text-subtitle1 q-mt-md q-mb-xs">Hi！ CIMO</div>
+            <div class="text-subtitle1 q-mt-md q-mb-xs">Hi！{{ userName }}</div>
 
             <q-btn
               v-close-popup
@@ -45,19 +45,22 @@
       <q-avatar size="26px">
         <img :src="this.$PUBLIC_PATH + 'data/avatar.jpg'">
       </q-avatar>
-      <q-tooltip>账号</q-tooltip>
+      <q-tooltip>{{ userName }}</q-tooltip>
     </q-btn>
   </div>
 </template>
 
 <script>
+import { getUserName } from '../../utils/auth'
+
 export default {
   name: 'ToolbarItemRight',
   data() {
     return {
       search: '',
       mobileData: false,
-      bluetooth: true
+      bluetooth: true,
+      userName: getUserName()
     }
   },
   computed: {

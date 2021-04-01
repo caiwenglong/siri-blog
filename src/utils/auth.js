@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 const TokenKey = 'sr_blog_token'
 const roleKey = 'sr_blog_role'
 const userIdKey = 'sr_blog_user_id'
+const userNameKey = 'sr_blog_user_name'
 
 export function getToken() {
   return Cookies.get(TokenKey)
@@ -30,5 +31,13 @@ export function setUserId(id) {
 
 export function getUserId() {
   return Cookies.get(userIdKey)
+}
+
+export function setUserName(name) {
+  return Cookies.set(userNameKey, name)
+}
+
+export function getUserName() {
+  return Cookies.get(userNameKey)
 }
 

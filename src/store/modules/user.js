@@ -1,5 +1,5 @@
 import { apiLogin, apiGetUserInfo, apiGetRegisterCode, apiRegister, apiModifyPassword } from '../../api/user'
-import { setToken, setRole, setUserId } from '../../utils/auth'
+import { setToken, setRole, setUserId, setUserName } from '../../utils/auth'
 
 const getDefaultState = () => {
   return {
@@ -67,7 +67,9 @@ const actions = {
         const { data } = response
         commit('SET_ID', data.result.id)
         commit('SET_ROLE', data.result.role)
+        commit('SET_NAME', data.result.nickname)
         setUserId(data.result.id)
+        setUserName(data.result.nickname)
         setRole(data.result.role)
         resolve(response)
       }).catch(err => {
