@@ -47,7 +47,7 @@
         <div class="row q-gutter-md justify-end">
           <q-btn v-if="isEdit" outline type="submit" color="secondary" icon="send" :label="$t('article.edit')" />
           <q-btn v-else outline type="submit" color="secondary" icon="send" :label="$t('article.public')" />
-          <q-btn outline color="amber" icon="refresh" :label="$t('article.reset')" @click="handleReset" />
+          <q-btn outline color="amber" icon="refresh" :label="$t('reset')" @click="handleReset" />
           <q-btn outline color="white" text-color="black" :label="isEdit ? $t('article.goBack') : $t('article.cancel')" @click="handleCancel" />
         </div>
       </q-form>

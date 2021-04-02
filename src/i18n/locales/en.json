@@ -1,34 +1,123 @@
 {
+  "login": {
+    "username": "username",
+    "password": "password",
+    "phoneNum": "telephone number",
+    "registerCode": "register code",
+    "logonSuccess": "login successful！"
+  },
+  "register": {
+    "success": "registered successful！",
+    "sendSuccess": "verification code has been sent, please check！"
+  },
+  "forget": {
+    "newPassword": "new password",
+    "newPasswordConfirm": "confirm password"
+  },
+  "modify": {
+    "success": "modified successfully"
+  },
   "language": "English",
   "app_drawer": {
     "title": "Application",
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "about": "About",
-    "articleWriting": "article writing"
+    "home": "home",
+    "dashboard": "dashboard",
+    "about": "about"
   },
   "app_toolbar": {
-    "logout": "Logout"
+    "logout": "logout"
   },
   "app_settings": {
-    "settings": "Settings",
-    "language": "Language",
-    "theme": "Theme",
-    "light": "Light",
-    "dark": "Dark"
+    "settings": "setting",
+    "language": "language",
+    "theme": "theme",
+    "light": "light",
+    "dark": "dark"
   },
   "app_footer": {
-    "title": "Footer"
+    "title": "title"
   },
   "article": {
-    "title": "Please enter the title of the article",
-    "tagsTip": "Pick your tags",
-    "tags": "article tags",
+    "article": "articles",
+    "title": "title",
+    "titleTip": "Please enter the title of the article",
+    "categoryTip": "Please input article category",
+    "publicSuccess": "Article published successfully",
+    "publicFailed": "Article publishing failed！",
+    "deleteArticle": "delete article",
+    "confirmDeleteArticle": "Do you want to delete the article？",
+    "successDeleteArticle": "The article was deleted successfully",
+    "failedDeleteArticle": "Article deletion failed",
     "public": "public",
-    "cancel": "cancel"
+    "edit": "edit",
+    "editSuccess": "The article was modified successfully",
+    "reset": "reset",
+    "confirmReset": "Do you want to reset the content？",
+    "cancel": "cancel",
+    "goBack": "back",
+    "createTime": "create time：",
+    "modifiedTime": "modified time：",
+    "modifyArticle": "modify the article",
+    "copySuccess": "Code copied successfully"
+  },
+  "category": {
+    "name": "category name",
+    "icon": "category icon",
+    "category": "article category",
+    "parentCategory": "parent category",
+    "error": {
+      "name": "category is require！"
+    }
+  },
+  "menu": {
+    "menuAdd": "add menu",
+    "successAddMenu": "Menu added successfully",
+    "failedAddMenu": "Failed to add menu",
+    "menuDelete": "delete menu",
+    "menuDeleteTip": "删除{categoryName}分类后，{categoryName}分类底下的所有文章也将被删除，是否继续删除？",
+    "successDeleteMenu": "Menu deleted successfully",
+    "failedDeleteMenu": "Menu deletion failed",
+    "menuModify": "modify menu",
+    "successModifyMenu": "Menu modified successfully",
+    "failedModifyMenu": "Menu modification failed",
+    "addArticle": "add article"
+  },
+  "route": {
+    "home": "home",
+    "article": "article",
+    "articleWriting": "article writing",
+    "articleList": "article list",
+    "articleDetails": "article details",
+    "websiteResources": "resources",
+    "aboutMe": "about"
   },
   "error": {
-    "articleTitleRequire": "Please enter the title of the article!",
-    "articleTitleMaxLength": "title must be at most 10 characters long!"
-  }
+    "login": {
+      "usernameRequire": "Please input a name！",
+      "passwordRequire": "Please input a password！",
+      "passwordMinLength": "The length of the password shall be at least 6 digits and the maximum shall be 18 digits",
+      "phoneNumRequire": "Please enter the phone number！",
+      "phoneNumMinLength": "The length of mobile phone number is 11 digits！",
+      "registerCodeRequire": "Please input mobile phone verification code！",
+      "logonFailed": "User name or password error, please re-enter！"
+    },
+    "register": {
+      "failed": "register failed",
+      "sendFailed": "Verification code sending failed！",
+      "formError": "The form is filled in wrong, please check it again！"
+    },
+    "modify": {
+      "passwordRequire": "The password is inconsistent, please re-enter！"
+    },
+    "article": {
+      "title": "The title cannot be empty and can only enter 12 characters at most"
+    },
+    "form": "Form filling error, please check and modify before submitting again",
+    "code500": "Request failed with status code 500"
+  },
+  "close": "close",
+  "submit": "submit",
+  "reset": "reset",
+  "cancel": "cancel",
+  "confirm": "confirm"
 }

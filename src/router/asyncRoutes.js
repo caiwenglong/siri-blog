@@ -12,7 +12,7 @@ const asyncRoutesChildren = [
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.home',
-      title: '主页',
+      title: i18n.t('route.home'),
       icon: 'home',
       isShowMenuContext: true,
       keepAlive: true
@@ -25,7 +25,8 @@ const asyncRoutesChildren = [
     component: () => import('@/components/Layout/layout.vue'),
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
-      title: '图标集合',
+      t_title: 'route.websiteResources',
+      title: i18n.t('route.websiteResources'),
       icon: 'apps',
       isOpen: false,
       isShowMenuContext: false,
@@ -37,7 +38,7 @@ const asyncRoutesChildren = [
         name: 'icon',
         meta: {
           roles: pool.accessible.ROLE_ADMIN,
-          title: 'icon 集合',
+          title: 'icons',
           icon: 'api',
           isShowMenuContext: false,
           keepAlive: false
@@ -52,7 +53,7 @@ const asyncRoutesChildren = [
     meta: {
       roles: pool.accessible.ROLE_ADMIN,
       t_title: 'route.articleWriting',
-      title: '文章写作',
+      title: i18n.t('route.articleWriting'),
       icon: 'history_edu',
       isShowMenuContext: false,
       keepAlive: true,

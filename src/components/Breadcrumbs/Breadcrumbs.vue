@@ -7,7 +7,7 @@
             v-if="v.title"
             :key="i+v.title"
             style="margin-top: 4px"
-            :label="v.title"
+            :label="$t(v.t_title) ? $t(v.t_title) : v.title"
             :icon="v.icon"
           >
             <div v-if="breadcrumbs.length !== i+1" style="margin:0 8px">

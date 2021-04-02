@@ -9,6 +9,7 @@ export function addTagView(to) {
     fullPath: to.fullPath,
     name: to.name,
     title: to.meta.title,
+    t_title: to.meta.t_title,
     icon: to.meta.icon,
     keepAlive: to.meta.keepAlive || false
   }

@@ -36,7 +36,7 @@
           <q-item-section avatar>
             <q-icon :name="item.meta.icon" />
           </q-item-section>
-          <q-item-section>{{ item.meta.title }}</q-item-section>
+          <q-item-section>{{ $t(item.meta.t_title) ? $t(item.meta.t_title) : item.meta.title }}</q-item-section>
         </q-item>
 
         <!-- 有孩子 -->
@@ -50,7 +50,7 @@
           :default-opened="item.meta.isOpen"
           :header-inset-level="initLevel"
           :icon="item.meta.icon"
-          :label="item.meta.title"
+          :label="$t(item.meta.t_title) ? $t(item.meta.t_title) : item.meta.title"
           @contextmenu.prevent="onContextmenu(item)"
         >
 

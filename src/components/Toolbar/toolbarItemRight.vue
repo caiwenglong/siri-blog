@@ -106,8 +106,9 @@ export default {
     },
 
     // 切换语言
-    handleLanguageChange(a) {
-      this._i18n.locale = a
+    handleLanguageChange(lang) {
+      this._i18n.locale = lang
+      localStorage.setItem('locale', lang)
     }
   }
 }

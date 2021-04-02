@@ -18,7 +18,7 @@
           square
           class="tagView relative-position"
         >
-          主页
+          {{ $t('route.home') }}
         </q-chip>
       </router-link>
 
@@ -35,9 +35,9 @@
             class="tagView relative-position"
             @remove="$store.commit('REMOVE_TAG_VIEW',i)"
           >
-            <div class="line-limit-length">{{ v.title }}
+            <div class="line-limit-length">{{ $t(v.t_title) ? $t(v.t_title) : v.title }}
               <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-                {{ v.title }}
+                {{ $t(v.t_title) ? $t(v.t_title) : v.title }}
               </q-tooltip>
             </div>
             <q-menu
@@ -79,7 +79,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'TagView',
   data() {
