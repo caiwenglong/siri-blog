@@ -59,7 +59,13 @@
 }
 .q-timeline--loose .q-timeline__entry--left .q-timeline__subtitle {
     margin-right: -14px;
-  }
+}
 .q-timeline--loose .q-timeline__entry--right .q-timeline__subtitle {
     margin-left: -14px;
-  }
+}
+.text-subtitle1 {
+  width: 110px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

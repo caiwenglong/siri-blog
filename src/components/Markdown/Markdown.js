@@ -18,6 +18,9 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css'
 import createMermaidPlugin from '@kangc/v-md-editor/lib/plugins/mermaid/cdn'
 import '@kangc/v-md-editor/lib/plugins/mermaid/mermaid.css'
 
+import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
+import '@kangc/v-md-editor/lib/plugins/emoji/emoji.css'
+
 import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn'
 
 VueMarkdownEditor.use(createTipPlugin())
@@ -26,6 +29,7 @@ VueMarkdownEditor.use(createLineNumbertPlugin())
 VueMarkdownEditor.use(createCopyCodePlugin())
 VueMarkdownEditor.use(createMermaidPlugin())
 VueMarkdownEditor.use(createKatexPlugin())
+VueMarkdownEditor.use(createEmojiPlugin())
 
 VueMarkdownEditor.use(vuepressTheme, {
   codeHighlightExtensionMap: {
