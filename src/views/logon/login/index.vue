@@ -67,7 +67,8 @@
       </div>
       <div class="site-tip">
         <div class="text-grey" align="left">
-          <p>账号：13328312801 密码：123456</p>
+          <p>因阿里云短信申请不下来，故暂时不开放测试功能</p>
+          <p>测试账号：13328312801 密码：123456</p>
         </div>
       </div>
     </q-card-section>
