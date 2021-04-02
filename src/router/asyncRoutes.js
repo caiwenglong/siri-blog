@@ -42,7 +42,7 @@ const asyncRoutesChildren = [
           isShowMenuContext: false,
           keepAlive: false
         },
-        component: () => import('@/views/components/icon')
+        component: () => import(/* webpackChunkName: "group-icon" */ '@/views/components/icon')
       }
     ]
   },
