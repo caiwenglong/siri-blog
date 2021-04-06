@@ -9,15 +9,15 @@
             :height="aboutImgHeight"
           >
             <div class="parallax-content">
-              <div class="about__name">蔡文龙：</div>
-              <div class="about__post">web前端工程师</div>
+              <div class="about__name animated slideInLeft">蔡文龙：</div>
+              <div class="about__post animated lightSpeedIn">web前端工程师</div>
             </div>
           </q-parallax>
 
         </div>
       </div>
       <div class="b-related-skill q-pa-md">
-        <h3 class="section-title">相关技能</h3>
+        <div class="section-title"><span>相关技能</span></div>
         <q-list dense>
           <div class="row">
             <div class="col">
@@ -132,12 +132,12 @@
           </div>
         </q-list>
       </div>
-      <div class="q-px-lg q-pb-md">
-        <h3 class="section-title">工作经历</h3>
+      <div class="b-work-experience q-px-lg q-pa-md">
+        <div class="section-title"><span>工作经历</span></div>
         <q-timeline color="secondary" :layout="layoutTimeLine" side="right">
 
           <q-timeline-entry
-            v-scroll-fire="timeLineAnimate"
+            v-scroll-fire="fadeInLeftAnimate"
             title="天用唯勤科技有限公司&软通动力有限公司"
             subtitle="2019.6 - 至今"
             side="left"
@@ -154,7 +154,7 @@
           </q-timeline-entry>
 
           <q-timeline-entry
-            v-scroll-fire="timeLineAnimate"
+            v-scroll-fire="fadeInRightAnimate"
             title="文思海辉技术有限公司"
             subtitle="2017.10 - 2019.6"
             side="right"
@@ -170,7 +170,7 @@
             </div>
           </q-timeline-entry>
           <q-timeline-entry
-            v-scroll-fire="timeLineAnimate"
+            v-scroll-fire="fadeInLeftAnimate"
             title="优芽网络科技有限公司"
             subtitle="2015.6 - 2016.6"
             side="left"
@@ -185,7 +185,7 @@
             </div>
           </q-timeline-entry>
           <q-timeline-entry
-            v-scroll-fire="timeLineAnimate"
+            v-scroll-fire="fadeInRightAnimate"
             title="厦门翼迅科技有限公司"
             subtitle="2014.7 - 2015.6"
             side="right"
@@ -227,14 +227,20 @@ export default {
 
   methods: {
     SlideAnimate(el) {
-      el.classList.add('animate__animated')
-      el.classList.add('animate__rotateInDownLeft')
+      el.classList.add('animated')
+      el.classList.add('fadeInUp')
       el.style.opacity = 1
     },
 
-    timeLineAnimate(el) {
-      el.classList.add('animate__animated')
-      el.classList.add('animate__zoomInLeft')
+    fadeInLeftAnimate(el) {
+      el.classList.add('animated')
+      el.classList.add('fadeInLeft')
+      el.style.opacity = 1
+    },
+
+    fadeInRightAnimate(el) {
+      el.classList.add('animated')
+      el.classList.add('fadeInRight')
       el.style.opacity = 1
     }
   }
@@ -246,6 +252,12 @@ export default {
     font-family: 'Playfair Display', serif;
     font-size: 32px;
     line-height: 32px;
+    margin-bottom: 32px;
+    text-align: center;
+    > span  {
+      padding-bottom: 8px;
+      border-bottom: 2px solid green;
+    }
   }
   /* 视差 */
   .parallax-content {

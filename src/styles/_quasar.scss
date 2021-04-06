@@ -26,10 +26,9 @@
 .q-timeline__entry {
   opacity: 0;
   .q-timeline__subtitle {
-    color: white;
+    color: #a59a9a;
     font-size: 12px;
     font-weight: bold;
-    background-color: black;
     display: inline-block;
     margin-bottom: 1.2em;
     padding: 0.25em 1em 0.2em 1em;
@@ -44,8 +43,7 @@
     transition: background-color 0.5s ease-in 0.1s;
   }
   &:hover {
-    .q-timeline__dot:before,
-    .q-timeline__subtitle {
+    .q-timeline__dot:before {
       background-color: #425BB5;
     }
   }

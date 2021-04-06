@@ -94,7 +94,7 @@ export default {
         icon: '',
         idAuthor: ''
       },
-      categoryPath: '',
+      categoryName: '',
       optionsTags: [
         'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
       ],
@@ -198,7 +198,7 @@ export default {
      */
     handleGetCategoryPathById(categoryId) {
       const targetCategory = this.handleGetCategoryById(categoryId)
-      this.categoryPath = targetCategory.path
+      this.categoryName = targetCategory.name
     },
 
     /**
@@ -237,7 +237,7 @@ export default {
      */
     handleGetEmitCategory(categoryInfo) {
       this.articleForm.category = categoryInfo.value
-      this.categoryPath = categoryInfo.path
+      this.categoryName = categoryInfo.name
     },
 
     /**
@@ -258,7 +258,7 @@ export default {
               message: this.isEdit ? this._i18n.t('article.editSuccess') : this._i18n.t('article.publicSuccess')
             })
             // 跳转到所添加分类的列表页
-            this.$router.push({ path: this.categoryPath, query: { categoryId: this.articleForm.category }})
+            this.$router.push({ name: this.categoryName, params: { categoryId: this.articleForm.category }})
           } else {
             this._commonHandle.handleNotify({
               type: this._constant.notify.notifyType.NEGATIVE,
