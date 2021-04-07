@@ -1,16 +1,18 @@
 <template>
   <div class="unit-article-details">
     <div class="article-operation">
-      <q-btn color="accent" icon="create" @click.stop="handleEditArticle">
-        <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-          {{ $t('article.modifyArticle') }}
-        </q-tooltip>
-      </q-btn>
-      <q-btn color="accent" icon="close" @click.stop="handleShowDialog">
-        <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
-          {{ $t('article.deleteArticle') }}
-        </q-tooltip>
-      </q-btn>
+      <q-btn-group>
+        <q-btn color="accent" icon="create" @click.stop="handleEditArticle">
+          <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+            {{ $t('article.modifyArticle') }}
+          </q-tooltip>
+        </q-btn>
+        <q-btn color="accent" icon="close" @click.stop="handleShowDialog">
+          <q-tooltip anchor="bottom middle" self="top middle" :offset="[10, 10]">
+            {{ $t('article.deleteArticle') }}
+          </q-tooltip>
+        </q-btn>
+      </q-btn-group>
     </div>
     <v-md-editor :value="article.content" mode="preview" @copy-code-success="handleCopyCodeSuccess" />
     <dialog-confirm
