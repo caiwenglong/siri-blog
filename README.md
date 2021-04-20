@@ -9,15 +9,15 @@
 
 1、克隆项目
 ```sh
-git clone https://github.com/972784674t/vue-quasar-manage-template.git
+git clone https://github.com/caiwenglong/siri-blog.git
 ```
 2、在项目文件夹 cmd 下，下载项目所需依赖
 ```npm
-npm install 或 cnpm i （如果您正在使用 cnpm，但是 cnpm 下载依赖不太稳定 ）
+npm install 或 yarn 或 cnpm i （如果您正在使用 cnpm，但是 cnpm 下载依赖不太稳定 ）
 ```
 3、在项目文件夹 cmd 下，启动开发服务器
 ```npm
-npm run serve
+npm run serve:prod
 ```
 ### 如何打包
 ```npm
