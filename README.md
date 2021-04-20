@@ -2,7 +2,7 @@
 
 该博客前端是居于 模板项目 [vue-quasar-manage-template](https://github.com/972784674t/vue-quasar-manage-template)  进行开发的。
 
-后端是通过Spring boot进行开发的：[后端代码](https://github.com/caiwenglong/sr-blog-back-end.git)
+后端是通过Spring boot进行开发的：[后端代码地址](https://github.com/caiwenglong/sr-blog-back-end.git)
 
 ### DEMO地址
 
